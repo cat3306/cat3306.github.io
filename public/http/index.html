@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>http 协议 - cat3306</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="http 协议" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/http/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-28T22:17:22+08:00" />
+<meta property="article:modified_time" content="2024-01-29T15:42:47+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="http 协议"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="cat3306">
+<meta name="apple-mobile-web-app-title" content="cat3306"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/http/" /><link rel="prev" href="http://example.org/mysql_transaction/" /><link rel="next" href="http://example.org/tcp/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "http 协议",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/http\/"
+        },"genre": "posts","keywords": "网络协议","wordcount":  178 ,
+        "url": "http:\/\/example.org\/http\/","datePublished": "2021-12-28T22:17:22+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat3306"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat3306">❤️🔞❤️</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat3306">❤️🔞❤️</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">http 协议</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat3306</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-12-28">2021-12-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;178 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#http-状态码">HTTP 状态码</a>
+      <ul>
+        <li><a href="#100---199">100 - 199</a></li>
+        <li><a href="#200--299">200<code>–</code>299</a></li>
+        <li><a href="#300--399">300<code>–</code>399</a></li>
+        <li><a href="#400--499">400<code>–</code>499</a></li>
+        <li><a href="#500--599">500<code>–</code>599</a></li>
+      </ul>
+    </li>
+    <li><a href="#http-请求方法">HTTP 请求方法</a>
+      <ul>
+        <li><a href="#get">GET</a></li>
+        <li><a href="#post">POST</a></li>
+        <li><a href="#head">HEAD</a></li>
+        <li><a href="#put">PUT</a></li>
+        <li><a href="#delete">DELETE</a></li>
+        <li><a href="#connect">CONNECT</a></li>
+        <li><a href="#options">OPTIONS</a></li>
+        <li><a href="#trace">TRACE</a></li>
+        <li><a href="#patch">PATCH</a></li>
+      </ul>
+    </li>
+    <li><a href="#http-数据报文">HTTP 数据报文</a></li>
+    <li><a href="#http-请求过程">HTTP 请求过程</a></li>
+    <li><a href="#https">HTTPS</a>
+      <ul>
+        <li><a href="#加密方式">加密方式</a></li>
+        <li><a href="#数字证书认证">数字证书认证</a></li>
+        <li><a href="#握手过程">握手过程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="http">HTTP</h1>
+<p><code>HTTP</code> 全称<code>HyperText Transfer Protocol</code>，是一种基于<code>TCP</code>的超文本传输协议。所谓的协议通俗的讲就是制定一系列规则，要想沟通就必须遵守这些规则。稍微熟悉网络协议栈的朋友都知道<code>HTTP</code>协议位于应用层</p>
+<figure class="center"><img src="/img/net/49.png"
+         alt="img"/>
+</figure>
+<p>一个完整的<code>HTTP</code>报文长这个样子，请求的数据格式和响应的数据格式都是这样。</p>
+<figure class="center"><img src="/img/net/34.png"
+         alt="img"/>
+</figure>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><code>TCP</code> 协议并没有数据包的概念，传输的二进制流（binary stream），所以基于<code>TCP</code>的应用层协议都需要自己处理数据边界。HTTP数据格式的那些分隔符就是为了确定信息边界的。例如一个简易的游戏服务，数据包是基于<code>TCP</code>设计的，那么它的消息体有可能长这个样子</p>
+<figure class="center"><img src="/img/net/50.png"
+         alt="img"/>
+</figure>
+</div>
+        </div>
+    </div>
+<h2 id="http-状态码">HTTP 状态码</h2>
+<p>状态码比较多，如果忘记可随时<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#information_responses" target="_blank" rel="noopener noreffer ">查阅</a></p>
+<h3 id="100---199">100 - 199</h3>
+<h3 id="200--299">200<code>–</code>299</h3>
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+<h3 id="300--399">300<code>–</code>399</h3>
+<h3 id="400--499">400<code>–</code>499</h3>
+<ul>
+<li>
+<p><code>401 Unauthorized</code></p>
+</li>
+<li>
+<p><code>403 Forbidden</code></p>
+</li>
+<li>
+<p><code>404 Not Found</code></p>
+</li>
+<li>
+<p><code>405 Method Not Allowed</code></p>
+</li>
+</ul>
+<h3 id="500--599">500<code>–</code>599</h3>
+<ul>
+<li><code>500 Internal Server Error</code></li>
+<li><code>502 Bad Gateway</code></li>
+</ul>
+<h2 id="http-请求方法">HTTP 请求方法</h2>
+<h3 id="get">GET</h3>
+<p>get 请求并不建议带有<code>body</code></p>
+<ul>
+<li>幂等</li>
+</ul>
+<h3 id="post">POST</h3>
+<h3 id="head">HEAD</h3>
+<h3 id="put">PUT</h3>
+<h3 id="delete">DELETE</h3>
+<h3 id="connect">CONNECT</h3>
+<h3 id="options">OPTIONS</h3>
+<h3 id="trace">TRACE</h3>
+<h3 id="patch">PATCH</h3>
+<h2 id="http-数据报文">HTTP 数据报文</h2>
+<p>http协议主要分为三个部分</p>
+<ol>
+<li>起始行(start line)</li>
+<li>头部字段(header) key-value 结构</li>
+<li>消息主体(entity) 实际传输的的数据，也称为body。可能是纯文本，图片，二进制流，视频等</li>
+</ol>
+<h2 id="http-请求过程">HTTP 请求过程</h2>
+<h2 id="https">HTTPS</h2>
+<p>由于http协议都是明文传输，并不安全，容易遭到劫持和修改。所以为数据安全用 http+SSL(安全套接层)和TLS(安全传输协议) 就变成https。协议层次图</p>
+<p><figure><a class="lightgallery" href="/img/net/5.png" title="/img/net/5.png" data-thumbnail="/img/net/5.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/net/5.png"
+            data-srcset="/img/net/5.png, /img/net/5.png 1.5x, /img/net/5.png 2x"
+            data-sizes="auto"
+            alt="/img/net/5.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>}</p>
+<h3 id="加密方式">加密方式</h3>
+<ul>
+<li>对称加密</li>
+</ul>
+<p>加密端和解密端持有同一份秘钥
+<figure><a class="lightgallery" href="/img/net/6.png" title="/img/net/6.png" data-thumbnail="/img/net/6.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/net/6.png"
+            data-srcset="/img/net/6.png, /img/net/6.png 1.5x, /img/net/6.png 2x"
+            data-sizes="auto"
+            alt="/img/net/6.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>}</p>
+<ul>
+<li>非对称加密</li>
+</ul>
+<p>非对称算法需要两个秘钥，公钥(public key)，私钥(private key)。公钥和私钥是成对的。用公钥加密的密文只有对应的私钥能解开，私钥加密对应的公钥才能解开。非对称加密解决了对称加密的一个问题就是，秘钥传输本身不是安全的。
+<figure><a class="lightgallery" href="/img/net/7.png" title="/img/net/7.png" data-thumbnail="/img/net/7.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/net/7.png"
+            data-srcset="/img/net/7.png, /img/net/7.png 1.5x, /img/net/7.png 2x"
+            data-sizes="auto"
+            alt="/img/net/7.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>}</p>
+<p>在https 这两种加密方式都采用了，为什么呢，http的报文可能很大，如果用非对称加密，性能就很差。所以http报文采用对称加密来加密的。
+<figure><a class="lightgallery" href="/img/net/8.png" title="/img/net/8.png" data-thumbnail="/img/net/8.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/net/8.png"
+            data-srcset="/img/net/8.png, /img/net/8.png 1.5x, /img/net/8.png 2x"
+            data-sizes="auto"
+            alt="/img/net/8.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>}</p>
+<h3 id="数字证书认证">数字证书认证</h3>
+<p>由于公钥的下发是不安全的，可能会被劫持篡改，所以需要三方介入，这个三方就是CA。CA是一个数字证书认证机构，一个客户端和服务器都信任的机构。该机构负责数字签名服务器的上报的公钥。
+数字签名：一种认证机制。
+HTTPS 数字认证的流程如图
+<figure><a class="lightgallery" href="/img/net/9.png" title="/img/net/9.png" data-thumbnail="/img/net/9.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/net/9.png"
+            data-srcset="/img/net/9.png, /img/net/9.png 1.5x, /img/net/9.png 2x"
+            data-sizes="auto"
+            alt="/img/net/9.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>}</p>
+<h3 id="握手过程">握手过程</h3>
+<p><figure><a class="lightgallery" href="/img/net/10.png" title="/img/net/10.png" data-thumbnail="/img/net/10.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/net/10.png"
+            data-srcset="/img/net/10.png, /img/net/10.png 1.5x, /img/net/10.png 2x"
+            data-sizes="auto"
+            alt="/img/net/10.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>}</p>
+<ul>
+<li>Client Hello:握手第一步是客户端向服务端发送 Client Hello 消息，这个消息里包含了一个客户端生成的随机数 Random1、客户端支持的加密套件（Support Ciphers）和 SSL Version 等信息</li>
+<li>Server Hello:第二步是服务端向客户端发送 Server Hello 消息，这个消息会从 Client Hello 传过来的 Support Ciphers 里确定一份加密套件，这个套件决定了后续加密和生成摘要时具体使用哪些算法，另外还会生成一份随机数 Random2。注意，至此客户端和服务端都拥有了两个随机数（Random1+ Random2），这两个随机数会在后续生成对称秘钥时用到。</li>
+<li>Certificate:这一步是服务端将自己的证书下发给客户端，让客户端验证自己的身份，客户端验证通过后取出证书中的公钥</li>
+<li>Server Hello Done:通知客户端 Server Hello 过程结束。</li>
+<li>Certificate Verify:客户端收到服务端传来的证书后，先从 CA 验证该证书的合法性，验证通过后取出证书中的服务端公钥，再生成一个随机数 Random3，再用服务端公钥非对称加密 Random3生成 PreMaster Key</li>
+<li>Client Key Exchange:上面客户端根据服务器传来的公钥生成了 PreMaster Key，Client Key Exchange 就是将这个 key 传给服务端，服务端再用自己的私钥解出这个 PreMaster Key 得到客户端生成的 Random3。至此，客户端和服务端都拥有 Random1 + Random2 + Random3，两边再根据同样的算法就可以生成一份秘钥，握手结束后的应用层数据都是使用这个秘钥进行对称加密。为什么要使用三个随机数呢？这是因为 SSL/TLS 握手过程的数据都是明文传输的，并且多个随机数种子来生成秘钥不容易被暴力破解出来。</li>
+<li>Change Cipher Spec(Client):这一步是客户端通知服务端后面再发送的消息都会使用前面协商出来的秘钥加密了，是一条事件消息</li>
+<li>Encrypted Handshake Message(Client):这一步对应的是 Client Finish 消息，客户端将前面的握手消息生成摘要再用协商好的秘钥加密，这是客户端发出的第一条加密消息。服务端接收后会用秘钥解密，能解出来说明前面协商出来的秘钥是一致的</li>
+<li>Change Cipher Spec(Server):这一步是服务端通知客户端后面再发送的消息都会使用加密，也是一条事件消息</li>
+<li>Encrypted Handshake Message(Server):这一步对应的是 Server Finish 消息，服务端也会将握手过程的消息生成摘要再用秘钥加密，这是服务端发出的第一条加密消息。客户端接收后会用秘钥解密，能解出来说明协商的秘钥是一致的。</li>
+<li>Application Data:到这里，双方已安全地协商出了同一份秘钥，所有的应用层数据都会用这个秘钥加密后再通过 TCP 进行可靠传输</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/http/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/http/" data-title="http 协议" data-hashtags="网络协议"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/http/" data-hashtag="网络协议"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/http/" data-title="http 协议"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/http/" data-title="http 协议"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/http/" data-title="http 协议"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql_transaction/" class="prev" rel="prev" title="mysql 事务"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>mysql 事务</a>
+            <a href="/tcp/" class="next" rel="next" title="tcp 协议">tcp 协议<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat3306</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.76e39bd605d45b2d1944123c66608b0c8bb9baeb70720b212571531c7cf9bc2a.css" integrity="sha256-duOb1gXUWy0ZRBI8ZmCLDIu5uutwcgshJXFTHHz5vCo="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.cd0d0b6e50ff01ff2f3a9a70d7cfb66a7c6cb9acf7a566325568be6d3bd31fc4.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.ae2da1bd62c6469ee27770ad1cddf2e8296d8a7f6d85b091463e5200c5e320af.js" integrity="sha256-ri2hvWLGRp7id3CtHN3y6Cltin9thbCRRj5SAMXjIK8="></script><script type="text/javascript" src="/lib/lunr/lunr.min.08a93c0120364b01159db3c287f39b2180bb740334472bda0675bd3f18981676.js" integrity="sha256-CKk8ASA2SwEVnbPCh/ObIYC7dAM0RyvaBnW9PxiYFnY="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js" integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck="></script><script type="text/javascript" src="/lib/sharer/sharer.min.cc31d902aa4f3fcc8bb8c81aa534a4e2103e9b11f65b9fbd5b7156e089889ceb.js" integrity="sha256-zDHZAqpPP8yLuMgapTSk4hA+mxH2W5+9W3FW4ImInOs="></script><script type="text/javascript" src="/lib/katex/katex.min.eb18207487161674e717087c317db14ac1a62dadaecccb802499ce173bfeb739.js" integrity="sha256-6xggdIcWFnTnFwh8MX2xSsGmLa2uzMuAJJnOFzv+tzk="></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.cb7f4ca60ed5dc3e258415f8c7a3b46d4a93578a52adf83011f18a7f190e7602.js" integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.52ce78fab4860d24ef22128a52ce24ca01368a9034457a565a1d3fccbab0ddbb.js" integrity="sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.5c0a121a8b490afc85860a522347aeb34fb508c6b23044e5d29f6b2194227b51.js" integrity="sha256-XAoSGotJCvyFhgpSI0eus0+1CMayMETl0p9rIZQie1E="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.e55842a856a6d829feca3c3ad736c136b6c7549e9247274f78aa296259e06e24.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.e8d2be21e46b332dc48b46049b0c07b11a65970524ed512fac5d352f19eea7a5.js" integrity="sha256-6NK+IeRrMy3Ei0YEmwwHsRpllwUk7VEvrF01Lxnup6U="></script></body>
+</html>

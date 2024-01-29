@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>mac - Tag - cat3306</title>
+        <link>http://example.org/tags/mac/</link>
+        <description>mac - Tag - cat3306</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 02 May 2022 15:44:26 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/mac/" rel="self" type="application/rss+xml" /><item>
+    <title>mac command</title>
+    <link>http://example.org/mac-cli/</link>
+    <pubDate>Mon, 02 May 2022 15:44:26 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mac-cli/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>iterm2和zsh</title>
+    <link>http://example.org/iterm2%E5%92%8Czsh/</link>
+    <pubDate>Sun, 10 Oct 2021 15:06:13 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/iterm2%E5%92%8Czsh/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

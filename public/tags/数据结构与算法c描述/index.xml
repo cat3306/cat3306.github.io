@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>数据结构与算法c描述 - Tag - cat3306</title>
+        <link>http://example.org/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95c%E6%8F%8F%E8%BF%B0/</link>
+        <description>数据结构与算法c描述 - Tag - cat3306</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 27 Mar 2022 21:48:58 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95c%E6%8F%8F%E8%BF%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>第四章 树</title>
+    <link>http://example.org/chapter4-tree/</link>
+    <pubDate>Sun, 27 Mar 2022 21:48:58 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/chapter4-tree/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>第二章算法分析</title>
+    <link>http://example.org/chapter2/</link>
+    <pubDate>Fri, 25 Mar 2022 09:35:06 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/chapter2/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

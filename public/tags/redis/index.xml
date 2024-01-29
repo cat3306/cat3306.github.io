@@ -1,0 +1,31 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>redis - Tag - cat3306</title>
+        <link>http://example.org/tags/redis/</link>
+        <description>redis - Tag - cat3306</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 28 Jul 2022 14:15:42 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/redis/" rel="self" type="application/rss+xml" /><item>
+    <title>redis 应用场景</title>
+    <link>http://example.org/redis-application-scene/</link>
+    <pubDate>Thu, 28 Jul 2022 14:15:42 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/redis-application-scene/</guid>
+    <description><![CDATA[分布式锁 1 set joker 1 nx ex 10 1 2 3 4 5 6 var delScript = ` if redis.call(&#34;get&#34;, KEYS[1]) == ARGV[1] then return redis.call(&#34;del&#34;, KEYS[1]) else return 0 end` ]]></description>
+</item>
+<item>
+    <title>redis cli</title>
+    <link>http://example.org/redis-cli/</link>
+    <pubDate>Mon, 27 Jun 2022 23:04:53 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/redis-cli/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>redis</title>
+    <link>http://example.org/redis/</link>
+    <pubDate>Fri, 08 Oct 2021 20:54:15 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/redis/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

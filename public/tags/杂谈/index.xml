@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>杂谈 - Tag - cat3306</title>
+        <link>http://example.org/tags/%E6%9D%82%E8%B0%88/</link>
+        <description>杂谈 - Tag - cat3306</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 24 Jan 2024 13:42:38 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/%E6%9D%82%E8%B0%88/" rel="self" type="application/rss+xml" /><item>
+    <title>1</title>
+    <link>http://example.org/1/</link>
+    <pubDate>Wed, 24 Jan 2024 13:42:38 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/1/</guid>
+    <description><![CDATA[2024年似乎要做一些改变。 改变对人的态度，不能太热情，如果没有必要请冷淡处理 改变作息时间，十二点钟之前必须上床睡觉，就是天王老子来了也不行 深入学习java，golang。c# 虽说优雅，但精力有限 做一款网络游戏 谈一场恋爱，但不要认真 忘掉过去，禁止看已经看过的电影，禁止重复性做某件事情，要让自己明白过去的事情已经过去 ]]></description>
+</item>
+</channel>
+</rss>

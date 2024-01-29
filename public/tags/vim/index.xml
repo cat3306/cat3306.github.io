@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>vim - Tag - cat3306</title>
+        <link>http://example.org/tags/vim/</link>
+        <description>vim - Tag - cat3306</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 22 Jan 2024 15:44:13 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/vim/" rel="self" type="application/rss+xml" /><item>
+    <title>Vim</title>
+    <link>http://example.org/vim/</link>
+    <pubDate>Mon, 22 Jan 2024 15:44:13 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/vim/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

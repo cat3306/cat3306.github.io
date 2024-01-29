@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>epoll - cat3306</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="epoll" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/epoll/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-27T17:29:42+08:00" />
+<meta property="article:modified_time" content="2024-01-29T15:42:47+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="epoll"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="cat3306">
+<meta name="apple-mobile-web-app-title" content="cat3306"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/epoll/" /><link rel="prev" href="http://example.org/go-slice/" /><link rel="next" href="http://example.org/all/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "epoll",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/epoll\/"
+        },"genre": "posts","keywords": "linux","wordcount":  1946 ,
+        "url": "http:\/\/example.org\/epoll\/","datePublished": "2022-03-27T17:29:42+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat3306"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat3306">❤️🔞❤️</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat3306">❤️🔞❤️</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">epoll</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat3306</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-27">2022-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1946 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;10 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#创建-socket">创建 Socket</a></li>
+    <li><a href="#创建file对象">创建file对象</a></li>
+    <li><a href="#接收连接">接收连接</a></li>
+    <li><a href="#加入当前进程的打开文件列表中">加入当前进程的打开文件列表中</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#epoll_ctl-添加socket">epoll_ctl 添加socket</a></li>
+    <li><a href="#epitem-初始化">epitem 初始化</a></li>
+    <li><a href="#设置socket等待队列">设置socket等待队列</a></li>
+    <li><a href="#插入红黑树">插入红黑树</a></li>
+    <li><a href="#epoll_wait等待接收">epoll_wait等待接收</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#接收数据到任务队列">接收数据到任务队列</a></li>
+    <li><a href="#查找就绪回调函数">查找就绪回调函数</a></li>
+    <li><a href="#执行ep_poll_callback">执行ep_poll_callback</a></li>
+    <li><a href="#执行epoll就绪通知">执行epoll就绪通知</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="概述">概述</h1>
+<p>服务器上的进程可能有上千条连接，如何快速的知道哪条连接来了网络数据，正是<code>epoll</code>要解决的问题。在早期，linux内核采用的<code>select</code> 和 <code>poll</code>。结论是在连接数很多，活跃的连接少的情况下<code>epoll</code>有高效的性能优势，原因之一是<code>epoll</code>唤醒进程后，只需要查看就绪（有数据）的<code>socket</code>，而不是遍历整个socket集合。多路复用指的是进程的复用，本文重点描述<code>epoll</code>原理<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h1 id="socket-数据结构">Socket 数据结构</h1>
+<p>当服务器执行<code>accept</code>后会阻塞，等待客户端的连接请求。如果客户端发起连接，三次握手后，服务器会创建一个新的<code>socket</code>，用于客户端和服务器的通信。本着linux一切皆为文件的原则，<code>socket</code> 也是一种文件描述符。并且把它加入当前进程的打开文件列表中</p>
+<figure class="center"><img src="/img/linux/socket.png"
+         alt="img"/><figcaption>
+            <h4>socket</h4>
+        </figcaption>
+</figure>
+<p><code>socket</code> 内核对象具体的细节如图所示</p>
+<figure class="center"><img src="/img/linux/socket_detail.png"
+         alt="img"/><figcaption>
+            <h4>socket_detail</h4>
+        </figcaption>
+</figure>
+<h2 id="创建-socket">创建 Socket</h2>
+<p>用户（用户程序）调用<code>accept</code>系统调用后，当接收到连接时会创建<code>socket</code>对象。其源码位于<a href="https://github.com/torvalds/linux/blob/787af64d05cd528aac9ad16752d11bb1c6061bb9/net/socket.c#L1859" target="_blank" rel="noopener noreffer ">net/socket.c</a>截取部分代码所示:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">accept4</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="n">__user</span> <span class="o">*</span><span class="p">,</span> <span class="n">upeer_sockaddr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">__user</span> <span class="o">*</span><span class="p">,</span> <span class="n">upeer_addrlen</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">socket</span> <span class="o">*</span><span class="n">sock</span><span class="p">,</span> <span class="o">*</span><span class="n">newsock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//根据 fd 查找到监听的 socket
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">sock</span> <span class="o">=</span> <span class="nf">sockfd_lookup_light</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">fput_needed</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 申请并初始化新的 socket
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">newsock</span> <span class="o">=</span> <span class="nf">sock_alloc</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">newsock</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">newsock</span><span class="o">-&gt;</span><span class="n">ops</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">ops</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//申请新的 file 对象，并设置到新 socket 上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">newfile</span> <span class="o">=</span> <span class="nf">sock_alloc_file</span><span class="p">(</span><span class="n">newsock</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">sk</span><span class="o">-&gt;</span><span class="n">sk_prot_creator</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//接收连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">err</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">ops</span><span class="o">-&gt;</span><span class="nf">accept</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">newsock</span><span class="p">,</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">file</span><span class="o">-&gt;</span><span class="n">f_flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//添加新文件到当前进程的打开文件列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">fd_install</span><span class="p">(</span><span class="n">newfd</span><span class="p">,</span> <span class="n">newfile</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述代码中可以看出，先找出一个listen状态的<code>socket</code>，随即<code>malloc</code> 出一个新的socket对象，拷贝<code>type</code>，<code>ops</code>（指针拷贝）。由前面的<code>socket</code>数据结构可知<code>ops</code>是<code>struct proto_ops inet_stream_ops</code>。如图所示：</p>
+<figure class="center"><img src="/img/linux/socket_ops.png"
+         alt="img"/><figcaption>
+            <h4>socket_ops</h4>
+        </figcaption>
+</figure>
+<p>其中 <code>inet_stream_ops</code> 起源码位于<a href="https://github.com/torvalds/linux/blob/787af64d05cd528aac9ad16752d11bb1c6061bb9/net/ipv4/af_inet.c#L1020" target="_blank" rel="noopener noreffer ">net/ipv4/af_inet.c</a>，截取部分代码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">const</span> <span class="n">struct</span> <span class="n">proto_ops</span> <span class="n">inet_stream_ops</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">family</span>		   <span class="o">=</span> <span class="n">PF_INET</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">owner</span>		   <span class="o">=</span> <span class="n">THIS_MODULE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">release</span>	   <span class="o">=</span> <span class="n">inet_release</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">bind</span>		   <span class="o">=</span> <span class="n">inet_bind</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">connect</span>	   <span class="o">=</span> <span class="n">inet_stream_connect</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">socketpair</span>	   <span class="o">=</span> <span class="n">sock_no_socketpair</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">accept</span>		   <span class="o">=</span> <span class="n">inet_accept</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">getname</span>	   <span class="o">=</span> <span class="n">inet_getname</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="n">poll</span>		   <span class="o">=</span> <span class="n">tcp_poll</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="o">......</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="创建file对象">创建file对象</h2>
+<p>前面提到的<code>socket</code>数据结构中，有个重要字段<code>file</code>。在<code>accept</code>方法里面会调用<code>sock_alloc_file</code>来初始化，然后赋值给新的socket对象，如图所示：</p>
+<figure class="center"><img src="/img/linux/socket_file.png"
+         alt="img"/><figcaption>
+            <h4>socket_file</h4>
+        </figcaption>
+</figure>
+<p><code>sock_alloc_file</code> 源码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="nf">sock_alloc_file</span><span class="p">(</span><span class="k">struct</span> <span class="n">socket</span> <span class="o">*</span><span class="n">sock</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">dname</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file</span> <span class="o">=</span> <span class="nf">alloc_file</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">,</span> <span class="n">FMODE_READ</span> <span class="o">|</span> <span class="n">FMODE_WRITE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;</span><span class="n">socket_file_ops</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sock</span><span class="o">-&gt;</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>sock_alloc_file</code> 里面回调用<code> alloc_file</code>。注意在 alloc_file 方法中，把 socket_file_ops 函数集合一并赋到了新 file-&gt;f_op 里了。其源码位于<a href="https://github.com/torvalds/linux/blob/787af64d05cd528aac9ad16752d11bb1c6061bb9/fs/file_table.c#L224" target="_blank" rel="noopener noreffer ">fs/file_table.c</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="nf">alloc_file</span><span class="p">(</span><span class="k">struct</span> <span class="n">path</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="kt">fmode_t</span> <span class="n">mode</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">const</span> <span class="k">struct</span> <span class="n">file_operations</span> <span class="o">*</span><span class="n">fop</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="o">-&gt;</span><span class="n">f_op</span> <span class="o">=</span> <span class="n">fop</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看出，在<code>accept</code>里创建的新<code>socket</code> 的<code>file-&gt;f_op-&gt;poll</code> 函数指向的是 <code>sock_poll</code>。另外file对象内部有个socket指针，指向socket对象。</p>
+<h2 id="接收连接">接收连接</h2>
+<p><code>socket</code>结构中除了<code>file</code>，还有一个核心的成员<code>sock</code>。其源码位于<a href="https://github.com/torvalds/linux/blob/787af64d05cd528aac9ad16752d11bb1c6061bb9/include/linux/net.h#L114" target="_blank" rel="noopener noreffer ">include/linux/net.h</a>。部分源码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">socket</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">socket_state</span>		<span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">short</span>			<span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">long</span>		<span class="n">flags</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="n">file</span>		<span class="o">*</span><span class="n">file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="n">sock</span>		<span class="o">*</span><span class="n">sk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="k">struct</span> <span class="n">proto_ops</span>	<span class="o">*</span><span class="n">ops</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="n">socket_wq</span>	<span class="n">wq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>sock</code> 是<code>socket</code>的核心对象。发送队列、接收队列、等待队列等核心数据结构都位于此
+在<code>accept</code> 函数中，其源码位于<a href="https://github.com/torvalds/linux/blob/787af64d05cd528aac9ad16752d11bb1c6061bb9/net/socket.c#L1859" target="_blank" rel="noopener noreffer ">net/socket.c</a>，部分源码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">accept4</span><span class="p">,</span> <span class="p">...)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//1.3 接收连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">err</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">ops</span><span class="o">-&gt;</span><span class="nf">accept</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">newsock</span><span class="p">,</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">file</span><span class="o">-&gt;</span><span class="n">f_flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>sock-&gt;ops-&gt;accept</code> 对应的方法是 <code>inet_accept</code>。它执行的时候会从握手队列里直接获取创建好的 sock。 sock 对象的完整创建过程涉及到三次握手。 struct sock 初始化过程中用到的一个函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">sock_init_data</span><span class="p">(</span><span class="k">struct</span> <span class="n">socket</span> <span class="o">*</span><span class="n">sock</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sock</span> <span class="o">*</span><span class="n">sk</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sk</span><span class="o">-&gt;</span><span class="n">sk_wq</span>   <span class="o">=</span>   <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sk</span><span class="o">-&gt;</span><span class="n">sk_data_ready</span>   <span class="o">=</span>   <span class="n">sock_def_readable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>在这里把 sock 对象的 sk_data_ready 函数指针设置为 sock_def_readable</strong>。后面还会提到这个sock_def_readable</p>
+<h2 id="加入当前进程的打开文件列表中">加入当前进程的打开文件列表中</h2>
+<p>当<code>file</code>,<code>socket</code>,<code>sock</code>等对象初始化完毕后，还需要将其挂到当前进程的打开文件列表中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">fd_install</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__fd_install</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">files</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="n">file</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">__fd_install</span><span class="p">(</span><span class="k">struct</span> <span class="n">files_struct</span> <span class="o">*</span><span class="n">files</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fdt</span> <span class="o">=</span> <span class="nf">files_fdtable</span><span class="p">(</span><span class="n">files</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">BUG_ON</span><span class="p">(</span><span class="n">fdt</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">[</span><span class="n">fd</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">rcu_assign_pointer</span><span class="p">(</span><span class="n">fdt</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">[</span><span class="n">fd</span><span class="p">],</span> <span class="n">file</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="epoll数据结构">epoll数据结构</h1>
+<p><code>epoll</code> 暴露出来的API非常简单，<code>epoll_create</code>,<code>epoll_ctl</code>,<code>epoll_wait</code></p>
+<ul>
+<li>epoll_create：创建一个epoll对象</li>
+<li>epoll_ctl：管理epoll_item，epoll_item与socket关联</li>
+<li>epoll_wait：等待管理的socket IO事件</li>
+</ul>
+<p>和<code>socket</code>一样，调用<code>epoll_create</code>创建出来的<code>event_poll</code>会和当前进程打开的文件列表关联。</p>
+<figure class="center"><img src="/img/linux/eventpoll.png"
+         alt="img"/><figcaption>
+            <h4>eventpoll</h4>
+        </figcaption>
+</figure>
+<p><code>epoll_create</code> 其源代码位于<a href="https://github.com/torvalds/linux/blob/787af64d05cd528aac9ad16752d11bb1c6061bb9/fs/eventpoll.c#L2008" target="_blank" rel="noopener noreffer ">fs/eventpoll.c</a>，其中<code>struct eventpoll </code>的定义也在这个源文件中。部分代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">SYSCALL_DEFINE1</span><span class="p">(</span><span class="n">epoll_create1</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//创建eventpoll 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">error</span> <span class="o">=</span> <span class="nf">ep_alloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ep</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">eventpoll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//sys_epoll_wait用到的等待队列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">wait_queue_head_t</span> <span class="n">wq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//接收就绪的描述符都会放到这里
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">list_head</span> <span class="n">rdllist</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//每个epoll对象中都有一颗红黑树
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">rb_root</span> <span class="n">rbr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>wq</strong>：等待进程队列双向链表。软中断数据就绪的时候会通过 <code>wq</code> 来找到阻塞在 <code>epoll</code> 对象上的用户进程</li>
+<li><strong>rbr</strong>：红黑树。通过这棵树来管理用户进程下添加的<code>socket</code>连接</li>
+<li><strong>rdllist</strong>: 就绪<code>socket</code>描述符双向链表。当有的连接就绪的时候，内核会把就绪的连接放到 <code>rdllist</code> 链表里。这样进程只需要判断链表就能找出就绪进程，而不用去遍历整棵树</li>
+</ul>
+<p><code>eventpoll</code>被创建出来，还需要初始化， 其源代码位于<a href="https://github.com/torvalds/linux/blob/787af64d05cd528aac9ad16752d11bb1c6061bb9/fs/eventpoll.c#L936" target="_blank" rel="noopener noreffer ">fs/eventpoll.c</a> ，部分代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">ep_alloc</span><span class="p">(</span><span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">**</span><span class="n">pep</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//申请 epollevent 内存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ep</span> <span class="o">=</span> <span class="nf">kzalloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ep</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//初始化等待队列头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">init_waitqueue_head</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ep</span><span class="o">-&gt;</span><span class="n">wq</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//初始化就绪列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">INIT_LIST_HEAD</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ep</span><span class="o">-&gt;</span><span class="n">rdllist</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//初始化红黑树指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ep</span><span class="o">-&gt;</span><span class="n">rbr</span> <span class="o">=</span> <span class="n">RB_ROOT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="epoll_ctl-添加socket">epoll_ctl 添加socket</h2>
+<p>当<code>epoll_ctl</code>注册每个<code>socket</code>的时候，会做三件事情</p>
+<ol>
+<li>分配一个红黑树节点对象<code>epitem</code></li>
+<li>添加等待事件到<code>socket</code>的等待队列中，其回调函数是<code>ep_poll_callback</code></li>
+<li>将<code>epitem</code>插入 <code>rdllist</code>红黑树中</li>
+</ol>
+<p>通过<code>epoll_ctl</code> 添加两个<code>socket</code>后，结构如下图</p>
+<figure class="center"><img src="/img/linux/epoll_ctl.png"
+         alt="img"/><figcaption>
+            <h4>epoll_ctl</h4>
+        </figcaption>
+</figure>
+<p><code>epoll_ctl</code> 添加<code>socket </code>的源码位于<a href="https://github.com/torvalds/linux/blob/e8b767f5e04097aaedcd6e06e2270f9fe5282696/fs/eventpoll.c#L2183" target="_blank" rel="noopener noreffer ">fs/eventpoll.c</a>，部分代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">epoll_ctl</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">epfd</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="n">epoll_event</span> <span class="n">__user</span> <span class="o">*</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">tfile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//根据 epfd 找到 eventpoll 内核对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">file</span> <span class="o">=</span> <span class="nf">fget</span><span class="p">(</span><span class="n">epfd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ep</span> <span class="o">=</span> <span class="n">file</span><span class="o">-&gt;</span><span class="n">private_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//根据 socket 句柄号， 找到其 file 内核对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">tfile</span> <span class="o">=</span> <span class="nf">fget</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="n">op</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nl">EPOLL_CTL_ADD</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">epi</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">epds</span><span class="p">.</span><span class="n">events</span> <span class="o">|=</span> <span class="n">POLLERR</span> <span class="o">|</span> <span class="n">POLLHUP</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">error</span> <span class="o">=</span> <span class="nf">ep_insert</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">epds</span><span class="p">,</span> <span class="n">tfile</span><span class="p">,</span> <span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="n">error</span> <span class="o">=</span> <span class="o">-</span><span class="n">EEXIST</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">clear_tfile_check_list</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>epoll_ctl</code> 添加操作，会走到这个<code>EPOLL_CTL_ADD</code> case，重点看下<code>ep_insert</code>函数，其源码位于<a href="https://github.com/torvalds/linux/blob/e8b767f5e04097aaedcd6e06e2270f9fe5282696/fs/eventpoll.c#L1444" target="_blank" rel="noopener noreffer ">fs/eventpoll.c</a>，部分代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">ep_insert</span><span class="p">(</span><span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="k">struct</span> <span class="n">epoll_event</span> <span class="o">*</span><span class="n">event</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">tfile</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//3.1 分配并初始化 epitem
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//分配一个epi对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">epitem</span> <span class="o">*</span><span class="n">epi</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">epi</span> <span class="o">=</span> <span class="nf">kmem_cache_alloc</span><span class="p">(</span><span class="n">epi_cache</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//对分配的epi进行初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//epi-&gt;ffd中存了句柄号和struct file对象地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">INIT_LIST_HEAD</span><span class="p">(</span><span class="o">&amp;</span><span class="n">epi</span><span class="o">-&gt;</span><span class="n">pwqlist</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">epi</span><span class="o">-&gt;</span><span class="n">ep</span> <span class="o">=</span> <span class="n">ep</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ep_set_ffd</span><span class="p">(</span><span class="o">&amp;</span><span class="n">epi</span><span class="o">-&gt;</span><span class="n">ffd</span><span class="p">,</span> <span class="n">tfile</span><span class="p">,</span> <span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//3.2 设置 socket 等待队列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//定义并初始化 ep_pqueue 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">ep_pqueue</span> <span class="n">epq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">epq</span><span class="p">.</span><span class="n">epi</span> <span class="o">=</span> <span class="n">epi</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">init_poll_funcptr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">epq</span><span class="p">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">ep_ptable_queue_proc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//调用 ep_ptable_queue_proc 注册回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//实际注入的函数为 ep_poll_callback
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">revents</span> <span class="o">=</span> <span class="nf">ep_item_poll</span><span class="p">(</span><span class="n">epi</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">epq</span><span class="p">.</span><span class="n">pt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//3.3 将epi插入到 eventpoll 对象中的红黑树中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">ep_rbtree_insert</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">epi</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="epitem-初始化">epitem 初始化</h2>
+<p><code>epitem</code> 数据结构 位于<a href="https://github.com/torvalds/linux/blob/e8b767f5e04097aaedcd6e06e2270f9fe5282696/fs/eventpoll.c#L136" target="_blank" rel="noopener noreffer ">struct epitem </a>，部分代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">epitem</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//红黑树节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">rb_node</span> <span class="n">rbn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//socket文件描述符信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">epoll_filefd</span> <span class="n">ffd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//所归属的 eventpoll 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//等待队列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">list_head</span> <span class="n">pwqlist</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对<code>epitem</code>部分初始化，包括关联一个<code>eventpoll</code>对象，关联<code>socket</code> 的<code>file</code>字段</p>
+<figure class="center"><img src="/img/linux/epitem.png"
+         alt="img"/><figcaption>
+            <h4>epitem</h4>
+        </figcaption>
+</figure>
+<p>关联<code>file</code>字段代码位于<a href="https://github.com/torvalds/linux/blob/e8b767f5e04097aaedcd6e06e2270f9fe5282696/fs/eventpoll.c#L339" target="_blank" rel="noopener noreffer ">ep_set_ffd</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* Setup the structure that is used as key for the RB tree */</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">ep_set_ffd</span><span class="p">(</span><span class="k">struct</span> <span class="n">epoll_filefd</span> <span class="o">*</span><span class="n">ffd</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			      <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ffd</span><span class="o">-&gt;</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ffd</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">=</span> <span class="n">fd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="设置socket等待队列">设置socket等待队列</h2>
+<figure class="center"><img src="/img/linux/ep_poll_callback.png"
+         alt="img"/><figcaption>
+            <h4>ep_poll_callback</h4>
+        </figcaption>
+</figure>
+<p><code>epitem</code>初始化后，接下来就设置<code>socket等待队列</code>。并把<code>ep_poll_callback</code>设置成回调函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">ep_item_poll</span><span class="p">(</span><span class="k">struct</span> <span class="n">epitem</span> <span class="o">*</span><span class="n">epi</span><span class="p">,</span> <span class="n">poll_table</span> <span class="o">*</span><span class="n">pt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pt</span><span class="o">-&gt;</span><span class="n">_key</span> <span class="o">=</span> <span class="n">epi</span><span class="o">-&gt;</span><span class="n">event</span><span class="p">.</span><span class="n">events</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">epi</span><span class="o">-&gt;</span><span class="n">ffd</span><span class="p">.</span><span class="n">file</span><span class="o">-&gt;</span><span class="n">f_op</span><span class="o">-&gt;</span><span class="nf">poll</span><span class="p">(</span><span class="n">epi</span><span class="o">-&gt;</span><span class="n">ffd</span><span class="p">.</span><span class="n">file</span><span class="p">,</span> <span class="n">pt</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">epi</span><span class="o">-&gt;</span><span class="n">event</span><span class="p">.</span><span class="n">events</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结合<code>socket</code>的结构图中可以看出，<code>sock-&gt;ops-&gt;poll </code>其实指向的是 <code>tcp_poll</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">tcp_poll</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="k">struct</span> <span class="n">socket</span> <span class="o">*</span><span class="n">sock</span><span class="p">,</span> <span class="n">poll_table</span> <span class="o">*</span><span class="n">wait</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sock</span> <span class="o">*</span><span class="n">sk</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">sk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">sock_poll_wait</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nf">sk_sleep</span><span class="p">(</span><span class="n">sk</span><span class="p">),</span> <span class="n">wait</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>sock_poll_wait</code> 第二个参数是调用<code>sk_sleep</code>获得的，其实就是<code>socket</code>的等待队列</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">wait_queue_head_t</span> <span class="o">*</span><span class="nf">sk_sleep</span><span class="p">(</span><span class="k">struct</span> <span class="n">sock</span> <span class="o">*</span><span class="n">sk</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">BUILD_BUG_ON</span><span class="p">(</span><span class="nf">offsetof</span><span class="p">(</span><span class="k">struct</span> <span class="n">socket_wq</span><span class="p">,</span> <span class="n">wait</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&amp;</span><span class="nf">rcu_dereference_raw</span><span class="p">(</span><span class="n">sk</span><span class="o">-&gt;</span><span class="n">sk_wq</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">wait</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进入<code>sock_poll_wait</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">sock_poll_wait</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">wait_queue_head_t</span> <span class="o">*</span><span class="n">wait_address</span><span class="p">,</span> <span class="n">poll_table</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">poll_wait</span><span class="p">(</span><span class="n">filp</span><span class="p">,</span> <span class="n">wait_address</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">poll_wait</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span> <span class="n">filp</span><span class="p">,</span> <span class="kt">wait_queue_head_t</span> <span class="o">*</span> <span class="n">wait_address</span><span class="p">,</span> <span class="n">poll_table</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">&amp;&amp;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">_qproc</span> <span class="o">&amp;&amp;</span> <span class="n">wait_address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="o">-&gt;</span><span class="nf">_qproc</span><span class="p">(</span><span class="n">filp</span><span class="p">,</span> <span class="n">wait_address</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的 <code>qproc</code> 是个函数指针，它在前面的 <code>init_poll_funcptr</code> 调用时被设置成了 <code>ep_ptable_queue_proc</code> 函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">ep_insert</span><span class="p">(...)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">init_poll_funcptr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">epq</span><span class="p">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">ep_ptable_queue_proc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//file: include/linux/poll.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init_poll_funcptr</span><span class="p">(</span><span class="n">poll_table</span> <span class="o">*</span><span class="n">pt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">poll_queue_proc</span> <span class="n">qproc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pt</span><span class="o">-&gt;</span><span class="n">_qproc</span> <span class="o">=</span> <span class="n">qproc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pt</span><span class="o">-&gt;</span><span class="n">_key</span>   <span class="o">=</span> <span class="o">~</span><span class="mi">0UL</span><span class="p">;</span> <span class="cm">/* all events enabled */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>在 ep_ptable_queue_proc 函数中，新建了一个等待队列项，并注册其回调函数为<code>ep_poll_callback</code>函数。然后再将这个等待项添加到 <code>socket</code> 的等待队列中</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">ep_ptable_queue_proc</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">wait_queue_head_t</span> <span class="o">*</span><span class="n">whead</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">poll_table</span> <span class="o">*</span><span class="n">pt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">eppoll_entry</span> <span class="o">*</span><span class="n">pwq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">f</span> <span class="p">(</span><span class="n">epi</span><span class="o">-&gt;</span><span class="n">nwait</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">pwq</span> <span class="o">=</span> <span class="nf">kmem_cache_alloc</span><span class="p">(</span><span class="n">pwq_cache</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//初始化回调方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nf">init_waitqueue_func_entry</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pwq</span><span class="o">-&gt;</span><span class="n">wait</span><span class="p">,</span> <span class="n">ep_poll_callback</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1">//将ep_poll_callback放入socket的等待队列whead（注意不是epoll的等待队列）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nf">add_wait_queue</span><span class="p">(</span><span class="n">whead</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pwq</span><span class="o">-&gt;</span><span class="n">wait</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>epoll</code>之前，由于需要在数据就绪的时候唤醒用户进程，所以等待对象项的 <code>private</code>  会设置成当前用户进程描述符 <code>current</code>。 而我们今天的 <code>socket</code> 是交给 epoll 来管理的，不需要在一个 socket 就绪的时候就唤醒进程，所以这里的 <code>q-&gt;private</code> 没有用就设置成了 <code>NULL</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init_waitqueue_func_entry</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">wait_queue_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">wait_queue_func_t</span> <span class="n">func</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="o">-&gt;</span><span class="n">private</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//ep_poll_callback 注册到 wait_queue_t对象上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//有数据到达的时候调用 q-&gt;func
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">q</span><span class="o">-&gt;</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看出，软中断将数据拷贝到<code>socket</code> 的接收队列后，会通过<code>ep_poll_callback</code>回调函数通知<code>epoll</code>对象</p>
+<h2 id="插入红黑树">插入红黑树</h2>
+<p>分配完<code>epitem</code> 对象后，会把它插入到红黑树中</p>
+<figure class="center"><img src="/img/linux/rbr.png"
+         alt="img"/><figcaption>
+            <h4>rbr</h4>
+        </figcaption>
+</figure>
+<p>为什么要红黑树呢 ？</p>
+<h2 id="epoll_wait等待接收">epoll_wait等待接收</h2>
+<p>当<code>epoll_wait</code>被调用的时候，会判断<code>eventpoll-&gt;rdllist</code> 链表里有没有数据，如果有数据就返回，没有数据就创建一个等待队列的元素，然后添加到<code>eventpoll</code>等待队列上。其过程大致如下</p>
+<figure class="center"><img src="/img/linux/epoll_wait.png"
+         alt="img"/><figcaption>
+            <h4>epoll_wait</h4>
+        </figcaption>
+</figure>
+<p><strong>值得注意的是<code>epoll_ctl</code> 添加 <code>socket</code> 时也创建了等待队列项。不同的是这里的等待队列项是挂在 <code>epoll</code> 对象上的，而前者是挂在 socket 对象上的。</strong></p>
+<p>其源代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file: fs/eventpoll.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">epoll_wait</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">epfd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">epoll_event</span> <span class="n">__user</span> <span class="o">*</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span><span class="p">,</span> <span class="n">maxevents</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="n">error</span> <span class="o">=</span> <span class="nf">ep_poll</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">maxevents</span><span class="p">,</span> <span class="n">timeout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">ep_poll</span><span class="p">(</span><span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span><span class="p">,</span> <span class="k">struct</span> <span class="n">epoll_event</span> <span class="n">__user</span> <span class="o">*</span><span class="n">events</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="kt">int</span> <span class="n">maxevents</span><span class="p">,</span> <span class="kt">long</span> <span class="n">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">wait_queue_t</span> <span class="n">wait</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">fetch_events</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//4.1 判断就绪队列上有没有事件就绪
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">ep_events_available</span><span class="p">(</span><span class="n">ep</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//4.2 定义等待事件并关联当前进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">init_waitqueue_entry</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wait</span><span class="p">,</span> <span class="n">current</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//4.3 把新 waitqueue 添加到 epoll-&gt;wq 链表里
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">__add_wait_queue_exclusive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ep</span><span class="o">-&gt;</span><span class="n">wq</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">wait</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="p">...</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//4.4 让出CPU 主动进入睡眠状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">schedule_hrtimeout_range</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">slack</span><span class="p">,</span> <span class="n">HRTIMER_MODE_ABS</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="n">timed_out</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>判断就绪队列有没有就绪的<code>socket</code>，代码如下所示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">ep_events_available</span><span class="p">(</span><span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">!</span><span class="nf">list_empty</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ep</span><span class="o">-&gt;</span><span class="n">rdllist</span><span class="p">)</span> <span class="o">||</span> <span class="n">ep</span><span class="o">-&gt;</span><span class="n">ovflist</span> <span class="o">!=</span> <span class="n">EP_UNACTIVE_PTR</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>阻塞当前进程，将创建出来的待队列对象与当前进程关联，设置唤醒回调函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init_waitqueue_entry</span><span class="p">(</span><span class="kt">wait_queue_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="o">-&gt;</span><span class="n">private</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="o">-&gt;</span><span class="n">func</span> <span class="o">=</span> <span class="n">default_wake_function</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加到等待队列</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">__add_wait_queue_exclusive</span><span class="p">(</span><span class="kt">wait_queue_head_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="kt">wait_queue_t</span> <span class="o">*</span><span class="n">wait</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">wait</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">|=</span> <span class="n">WQ_FLAG_EXCLUSIVE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__add_wait_queue</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">wait</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过 <code>set_current_state</code> 把当前进程设置为可打断。 调用 <code>schedule_hrtimeout_range</code> 让出 CPU，主动进入睡眠状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">__sched</span> <span class="nf">schedule_hrtimeout_range</span><span class="p">(</span><span class="kt">ktime_t</span> <span class="o">*</span><span class="n">expires</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">delta</span><span class="p">,</span> <span class="k">const</span> <span class="k">enum</span> <span class="n">hrtimer_mode</span> <span class="n">mode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">schedule_hrtimeout_range_clock</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">expires</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">CLOCK_MONOTONIC</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">__sched</span> <span class="nf">schedule_hrtimeout_range_clock</span><span class="p">(...)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">schedule</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 schedule 中选择下一个进程调度</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="n">__sched</span> <span class="nf">__schedule</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">next</span> <span class="o">=</span> <span class="nf">pick_next_task</span><span class="p">(</span><span class="n">rq</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">context_switch</span><span class="p">(</span><span class="n">rq</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="数据从网卡到进程">数据从网卡到进程</h1>
+<p>在前面 epoll_ctl 执行的时候，会给每一个 <code>socket </code>添加回调函数（等待队列对象）。 在 <code>epoll_wait</code> 运行完的时候，会给<code>event_poll</code>添加等待队列对象。数据开始接收之前，先把这些队列项的内容再稍微总结一下。</p>
+<figure class="center"><img src="/img/linux/epoll.png"
+         alt="img"/><figcaption>
+            <h4>epoll</h4>
+        </figcaption>
+</figure>
+<ul>
+<li><code>socket-&gt;sock-&gt;sk_data_ready </code>设置的就绪处理函数是 <code>sock_def_readable</code></li>
+<li>在<code>socket</code>等待队列中，回调函数是<code>ep_poll_callback</code>,<code>private</code>字段没有作用，置为<code>NULL</code></li>
+<li>在 <code>eventpoll </code>的等待队列项中，回调函数是 <code>default_wake_function</code>。其 private 指向的是等待该事件的用户进程。</li>
+</ul>
+<h2 id="接收数据到任务队列">接收数据到任务队列</h2>
+<p>软中断来的时候会一步一步往协议上层分解。网络帧-&gt;tcp数据包，这里重点分析<code>tcp</code>协议栈的处理入口函数 <code>tcp_v4_rcv </code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// file: net/ipv4/tcp_ipv4.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">tcp_v4_rcv</span><span class="p">(</span><span class="k">struct</span> <span class="n">sk_buff</span> <span class="o">*</span><span class="n">skb</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl">    <span class="n">th</span> <span class="o">=</span> <span class="nf">tcp_hdr</span><span class="p">(</span><span class="n">skb</span><span class="p">);</span> <span class="c1">//获取tcp header
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">iph</span> <span class="o">=</span> <span class="nf">ip_hdr</span><span class="p">(</span><span class="n">skb</span><span class="p">);</span> <span class="c1">//获取ip header
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//根据数据包 header 中的 ip、端口信息查找到对应的socket
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">sk</span> <span class="o">=</span> <span class="nf">__inet_lookup_skb</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tcp_hashinfo</span><span class="p">,</span> <span class="n">skb</span><span class="p">,</span> <span class="n">th</span><span class="o">-&gt;</span><span class="n">source</span><span class="p">,</span> <span class="n">th</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//socket 未被用户锁定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">sock_owned_by_user</span><span class="p">(</span><span class="n">sk</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">tcp_prequeue</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="n">skb</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="nf">tcp_v4_do_rcv</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="n">skb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 <code>tcp_v4_rcv</code> 中首先根据收到的网络包的 <code>header</code> 里的 <code>source</code> 和 <code>dest </code>信息来在本机上查询对应的 <code>socket</code>。找到以后，就进入接收的主体函数 <code>tcp_v4_do_rcv </code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file: net/ipv4/tcp_ipv4.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">tcp_v4_do_rcv</span><span class="p">(</span><span class="k">struct</span> <span class="n">sock</span> <span class="o">*</span><span class="n">sk</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sk_buff</span> <span class="o">*</span><span class="n">skb</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">sk</span><span class="o">-&gt;</span><span class="n">sk_state</span> <span class="o">==</span> <span class="n">TCP_ESTABLISHED</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//执行连接状态下的数据处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nf">tcp_rcv_established</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="n">skb</span><span class="p">,</span> <span class="nf">tcp_hdr</span><span class="p">(</span><span class="n">skb</span><span class="p">),</span> <span class="n">skb</span><span class="o">-&gt;</span><span class="n">len</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">rsk</span> <span class="o">=</span> <span class="n">sk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">goto</span> <span class="n">reset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//其它非 ESTABLISH 状态的数据包处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">......</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果处理的是 <code>ESTABLISH</code> 状态下的包，这样就又进入 <code>tcp_rcv_established </code>函数中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file: net/ipv4/tcp_input.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">tcp_rcv_established</span><span class="p">(</span><span class="k">struct</span> <span class="n">sock</span> <span class="o">*</span><span class="n">sk</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sk_buff</span> <span class="o">*</span><span class="n">skb</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="k">const</span> <span class="k">struct</span> <span class="n">tcphdr</span> <span class="o">*</span><span class="n">th</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">len</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//接收数据到队列中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">eaten</span> <span class="o">=</span> <span class="nf">tcp_queue_rcv</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="n">skb</span><span class="p">,</span> <span class="n">tcp_header_len</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">fragstolen</span><span class="p">);</span>                         
+</span></span><span class="line"><span class="cl">    <span class="c1">//数据 ready，唤醒 socket 上阻塞掉的进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">sk</span><span class="o">-&gt;</span><span class="nf">sk_data_ready</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 <code>tcp_rcv_established</code> 中通过调用 <code>tcp_queue_rcv </code>函数中完成了将接收数据放到 socket 的接收队列上。</p>
+<figure class="center"><img src="/img/linux/tcp_queue_rcv.png"
+         alt="img"/><figcaption>
+            <h4>tcp_queue_rcv</h4>
+        </figcaption>
+</figure>
+<p>如下源码所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file: net/ipv4/tcp_input.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">int</span> <span class="n">__must_check</span> <span class="nf">tcp_queue_rcv</span><span class="p">(</span><span class="k">struct</span> <span class="n">sock</span> <span class="o">*</span><span class="n">sk</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sk_buff</span> <span class="o">*</span><span class="n">skb</span><span class="p">,</span> <span class="kt">int</span> <span class="n">hdrlen</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">bool</span> <span class="o">*</span><span class="n">fragstolen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//把接收到的数据放到 socket 的接收队列的尾部
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">eaten</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">__skb_queue_tail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sk</span><span class="o">-&gt;</span><span class="n">sk_receive_queue</span><span class="p">,</span> <span class="n">skb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">skb_set_owner_r</span><span class="p">(</span><span class="n">skb</span><span class="p">,</span> <span class="n">sk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">eaten</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="查找就绪回调函数">查找就绪回调函数</h2>
+<p>调用 <code>tcp_queue_rcv </code>接收完成之后，接着再调用 <code>sk_data_ready</code> 。 在 <code>accept</code> 函数创建 socket 流程里提到的 <code>sock_init_data</code> 函数，在这个函数里已经把 sk_data_ready 设置成 sock_def_readable 函数了。它是默认的数据就绪处理函数。当 <code>socket</code> 上数据就绪时候，内核将以<code> sock_def_readable</code> 这个函数为入口，找到 <code>epoll_ctl </code>添加 <code>socket</code> 时在其上设置的回调函数<code>ep_poll_callback</code>。</p>
+<figure class="center"><img src="/img/linux/poll_callback.png"
+         alt="img"/><figcaption>
+            <h4>poll_callback</h4>
+        </figcaption>
+</figure>
+<p>具体代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file: net/core/sock.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">sock_def_readable</span><span class="p">(</span><span class="k">struct</span> <span class="n">sock</span> <span class="o">*</span><span class="n">sk</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">socket_wq</span> <span class="o">*</span><span class="n">wq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">rcu_read_lock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">wq</span> <span class="o">=</span> <span class="nf">rcu_dereference</span><span class="p">(</span><span class="n">sk</span><span class="o">-&gt;</span><span class="n">sk_wq</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//这个名字起的不好，并不是有阻塞的进程，
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//而是判断等待队列不为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nf">wq_has_sleeper</span><span class="p">(</span><span class="n">wq</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//执行等待队列项上的回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">wake_up_interruptible_sync_poll</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wq</span><span class="o">-&gt;</span><span class="n">wait</span><span class="p">,</span> <span class="n">POLLIN</span> <span class="o">|</span> <span class="n">POLLPRI</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">POLLRDNORM</span> <span class="o">|</span> <span class="n">POLLRDBAND</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">sk_wake_async</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="n">SOCK_WAKE_WAITD</span><span class="p">,</span> <span class="n">POLL_IN</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">rcu_read_unlock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重点看下<code>wake_up_interruptible_sync_poll</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file: include/linux/wait.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define wake_up_interruptible_sync_poll(x, m)       \
+</span></span></span><span class="line"><span class="cl"><span class="cp">    __wake_up_sync_key((x), TASK_INTERRUPTIBLE, 1, (void *) (m))
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//file: kernel/sched/core.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">__wake_up_sync_key</span><span class="p">(</span><span class="kt">wait_queue_head_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">mode</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">nr_exclusive</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__wake_up_common</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">nr_exclusive</span><span class="p">,</span> <span class="n">wake_flags</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接着进入 <code>__wake_up_common</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">__wake_up_common</span><span class="p">(</span><span class="kt">wait_queue_head_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">mode</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">nr_exclusive</span><span class="p">,</span> <span class="kt">int</span> <span class="n">wake_flags</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">wait_queue_t</span> <span class="o">*</span><span class="n">curr</span><span class="p">,</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">list_for_each_entry_safe</span><span class="p">(</span><span class="n">curr</span><span class="p">,</span> <span class="n">next</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">task_list</span><span class="p">,</span> <span class="n">task_list</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">unsigned</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">flags</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">curr</span><span class="o">-&gt;</span><span class="nf">func</span><span class="p">(</span><span class="n">curr</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">wake_flags</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">WQ_FLAG_EXCLUSIVE</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!--</span><span class="n">nr_exclusive</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 <code>__wake_up_common </code>中，选出等待队列里注册某个元素 <code>curr</code>， 回调其<code> curr-&gt;func</code>。 在 <code>ep_insert </code>调用的时候，把这个 <code>func </code>设置成 <code>ep_poll_callback</code> 了。</p>
+<h2 id="执行ep_poll_callback">执行ep_poll_callback</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file: fs/eventpoll.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">ep_poll_callback</span><span class="p">(</span><span class="kt">wait_queue_t</span> <span class="o">*</span><span class="n">wait</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sync</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//获取 wait 对应的 epitem
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">epitem</span> <span class="o">*</span><span class="n">epi</span> <span class="o">=</span> <span class="nf">ep_item_from_wait</span><span class="p">(</span><span class="n">wait</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//获取 epitem 对应的 eventpoll 结构体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span> <span class="o">=</span> <span class="n">epi</span><span class="o">-&gt;</span><span class="n">ep</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//1. 将当前epitem 添加到 eventpoll 的就绪队列中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">list_add_tail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">epi</span><span class="o">-&gt;</span><span class="n">rdllink</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ep</span><span class="o">-&gt;</span><span class="n">rdllist</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//2. 查看 eventpoll 的等待队列上是否有在等待
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nf">waitqueue_active</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ep</span><span class="o">-&gt;</span><span class="n">wq</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">wake_up_locked</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ep</span><span class="o">-&gt;</span><span class="n">wq</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 <code>ep_poll_callback</code>根据等待任务队列项上的额外的 <code>base</code> 指针可以找到<code> epitem</code>， 进而也可以找到 <code>eventpoll</code> 对象。首先它做的第一件事就是<strong>把自己的 epitem 添加到 epoll 的就绪队列中</strong>。接着它又会查看 <code>eventpoll </code>对象上的等待队列里是否有等待项（<code>epoll_wait </code>执行的时候会设置）如果没执行软中断的事情就做完了。如果有等待项，那就查找到等待项里设置的回调函数<code>default_wake_function</code>。</p>
+<h2 id="执行epoll就绪通知">执行epoll就绪通知</h2>
+<p>在 <code>default_wake_function</code> 中找到等待队列项里的进程描述符，然后唤醒之</p>
+<p>代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file:kernel/sched/core.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">default_wake_function</span><span class="p">(</span><span class="kt">wait_queue_t</span> <span class="o">*</span><span class="n">curr</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">int</span> <span class="n">wake_flags</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">try_to_wake_up</span><span class="p">(</span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">private</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">wake_flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>等待队列项<code> curr-&gt;private</code> 指针是在 epoll 对象上等待而被阻塞掉的进程。将 <code>epoll_wait </code>进程推入可运行队列，等待内核重新调度进程。然后 <code>epoll_wait </code>对应的这个进程重新运行后，就从<code> schedule</code> 恢复当进程醒来后，继续从 <code>epoll_wait</code> 时暂停的代码继续执行。把<code> rdlist</code> 中就绪的事件返回给用户进程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//file: fs/eventpoll.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">ep_poll</span><span class="p">(</span><span class="k">struct</span> <span class="n">eventpoll</span> <span class="o">*</span><span class="n">ep</span><span class="p">,</span> <span class="k">struct</span> <span class="n">epoll_event</span> <span class="n">__user</span> <span class="o">*</span><span class="n">events</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="kt">int</span> <span class="n">maxevents</span><span class="p">,</span> <span class="kt">long</span> <span class="n">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">......</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__remove_wait_queue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ep</span><span class="o">-&gt;</span><span class="n">wq</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">wait</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">set_current_state</span><span class="p">(</span><span class="n">TASK_RUNNING</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nl">check_events</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//返回就绪事件给用户进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">ep_send_events</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">maxevents</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="总结">总结</h1>
+<figure class="center"><img src="/img/linux/event_poll_all.png"
+         alt="img"/><figcaption>
+            <h4>event_poll_all</h4>
+        </figcaption>
+</figure>
+<p>所有的回调：</p>
+<ul>
+<li><code>sock_def_readable</code>： <code>sock </code>对象初始化时设置的</li>
+<li><code>ep_poll_callback</code> : <code>epoll_ctl</code> 时添加到 <code>socket</code> 上</li>
+<li><code>default_wake_function</code>: <code>epoll_wait</code> 是设置到 <code>epoll</code> 上的</li>
+</ul>
+<p>为什么<code>epoll</code> 会如此高效呢，我想大概是因为，<code>socket</code>接收到软中断后不用马上唤醒进程，由<code>epoll</code>接管。当<code>epoll</code>唤醒进程后，只需要查看<code>rdllist</code> 就绪队列就知道哪些<code>socket</code>有数据，多路复用，复用的是进程。因为频繁的进程切换是效率低下的重要原因之一。</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://zhuanlan.zhihu.com/p/487497556" target="_blank" rel="noopener noreffer ">https://zhuanlan.zhihu.com/p/487497556</a> 本文借鉴了这篇文章，由于处于学习阶段有很多相似的地方&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/epoll/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/epoll/" data-title="epoll" data-hashtags="linux"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/epoll/" data-hashtag="linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/epoll/" data-title="epoll"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/epoll/" data-title="epoll"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/epoll/" data-title="epoll"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/go-slice/" class="prev" rel="prev" title="go slice"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>go slice</a>
+            <a href="/all/" class="next" rel="next" title="收藏网站">收藏网站<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat3306</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.cb289e50cc9ac33906b9be77654f1340844150a9150a1b4be88cab7b044c4e95.css" integrity="sha256-yyieUMyawzkGub53ZU8TQIRBUKkVChtL6IyrewRMTpU="><link rel="stylesheet" href="/lib/katex/katex.min.76e39bd605d45b2d1944123c66608b0c8bb9baeb70720b212571531c7cf9bc2a.css" integrity="sha256-duOb1gXUWy0ZRBI8ZmCLDIu5uutwcgshJXFTHHz5vCo="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.cd0d0b6e50ff01ff2f3a9a70d7cfb66a7c6cb9acf7a566325568be6d3bd31fc4.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.ae2da1bd62c6469ee27770ad1cddf2e8296d8a7f6d85b091463e5200c5e320af.js" integrity="sha256-ri2hvWLGRp7id3CtHN3y6Cltin9thbCRRj5SAMXjIK8="></script><script type="text/javascript" src="/lib/lunr/lunr.min.08a93c0120364b01159db3c287f39b2180bb740334472bda0675bd3f18981676.js" integrity="sha256-CKk8ASA2SwEVnbPCh/ObIYC7dAM0RyvaBnW9PxiYFnY="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js" integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.e5bbc2bd6af379f5364d70b9056559385d8bb68526742b48db807bfb684863c7.js" integrity="sha256-5bvCvWrzefU2TXC5BWVZOF2LtoUmdCtI24B7+2hIY8c="></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.4c2c08058d5f9aae4340d57c7ea9ab541c03f941689335bc411d9c3c7f0d6bcd.js" integrity="sha256-TCwIBY1fmq5DQNV8fqmrVBwD+UFokzW8QR2cPH8Na80="></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.d746e47387fb55e63bcbc5742a62978949f74e1c5e814e75397cdee131b97cc1.js" integrity="sha256-10bkc4f7VeY7y8V0KmKXiUn3ThxegU51OXze4TG5fME="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck="></script><script type="text/javascript" src="/lib/sharer/sharer.min.cc31d902aa4f3fcc8bb8c81aa534a4e2103e9b11f65b9fbd5b7156e089889ceb.js" integrity="sha256-zDHZAqpPP8yLuMgapTSk4hA+mxH2W5+9W3FW4ImInOs="></script><script type="text/javascript" src="/lib/katex/katex.min.eb18207487161674e717087c317db14ac1a62dadaecccb802499ce173bfeb739.js" integrity="sha256-6xggdIcWFnTnFwh8MX2xSsGmLa2uzMuAJJnOFzv+tzk="></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.cb7f4ca60ed5dc3e258415f8c7a3b46d4a93578a52adf83011f18a7f190e7602.js" integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.52ce78fab4860d24ef22128a52ce24ca01368a9034457a565a1d3fccbab0ddbb.js" integrity="sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.5c0a121a8b490afc85860a522347aeb34fb508c6b23044e5d29f6b2194227b51.js" integrity="sha256-XAoSGotJCvyFhgpSI0eus0+1CMayMETl0p9rIZQie1E="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.e55842a856a6d829feca3c3ad736c136b6c7549e9247274f78aa296259e06e24.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.e8d2be21e46b332dc48b46049b0c07b11a65970524ed512fac5d352f19eea7a5.js" integrity="sha256-6NK+IeRrMy3Ei0YEmwwHsRpllwUk7VEvrF01Lxnup6U="></script></body>
+</html>

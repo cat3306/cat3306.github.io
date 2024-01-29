@@ -1,0 +1,95 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>mysql - Tag - cat3306</title>
+        <link>http://example.org/tags/mysql/</link>
+        <description>mysql - Tag - cat3306</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 22 Oct 2022 16:04:37 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/mysql/" rel="self" type="application/rss+xml" /><item>
+    <title>docker mysql 数据恢复</title>
+    <link>http://example.org/mysql-fix-problem/</link>
+    <pubDate>Sat, 22 Oct 2022 16:04:37 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql-fix-problem/</guid>
+    <description><![CDATA[缘由 本地的docker的 k8s 经常启动失败，谷歌检索问题后，stack overflow 上的帖子说到一种解决方案docker-desktop-kubernetes-failed-to-start，没错，这个解决方案，要把本地的所有镜像容器给干掉包括docker volume，我想着本地的容器也没啥，唯独mysql的数据是挂载外部的 /Users/joker/docker/mysql/lib，于是我初始化了docker 的所有镜像和容器。但是当我重新启动mysql容器，绑定这个路径发现容器根本起不起来，内部错误 Unknown redo log format。完了，里面的数据读不出来。不过文件还在.ibd文件还在，应该可以恢复
+恢复过程 启动一个纯净mysql容器 docker-compose.yml
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 version: &#39;3.9&#39; services: mysql: image: mysql ports: - 3307:3306 restart: always volumes: - mysqldata:/var/lib/mysql - /Users/joker/docker/mysql/lib/pwd/my_pwd.ibd:/my_pwd.ibd environment: - MYSQL_ROOT_PASSWORD=12345678 - TZ=Asia/Shanghai volumes: mysqldata: 把/Users/joker/docker/mysql/lib/pwd/my_pwd.ibd映射到容器里面
+把表结构同步到新的mysql中，并执行
+1 ALTER TABLE my_pwd DISCARD TABLESPACE; /my_pwd.ibd 将拷贝到/var/lib/mysql/pwd中，并且修改权限
+1 2 root@03dd4294e1cb:/var/lib/mysql/pwd# cp /my_pwd.ibd .]]></description>
+</item>
+<item>
+    <title>mysql docker</title>
+    <link>http://example.org/mysql-docker/</link>
+    <pubDate>Thu, 18 Aug 2022 21:17:07 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql-docker/</guid>
+    <description><![CDATA[run 1 $ docker run --name mysql -v ~/docker/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=12345678 -d -p 3307:3306 --restart=always mysql ]]></description>
+</item>
+<item>
+    <title>mysql application scene</title>
+    <link>http://example.org/mysql-application-scene/</link>
+    <pubDate>Wed, 03 Aug 2022 16:10:20 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql-application-scene/</guid>
+    <description><![CDATA[统计重复字段的重复次数 1 SELECT game_id,count(1)as c FROM android_game_detail GROUP BY game_id HAVING c&gt;1 ]]></description>
+</item>
+<item>
+    <title>mysql joins</title>
+    <link>http://example.org/mysql-joins/</link>
+    <pubDate>Tue, 02 Aug 2022 15:54:01 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql-joins/</guid>
+    <description><![CDATA[LEFT JOIN LEFT JOIN 可将两张或两张以上的表以某种条件连接起来，最左边的表作为主表，故叫LEFT JOIN
+基本语法
+1 2 3 4 5 6 SELECT select_list FROM t1 LEFT JOIN t2 ON join_condition; 在上面的语法中，t1是左表(主表)，t2是右表
+LEFT JOIN 从左表开始(t1)筛选数据，并且t1的每一条与t2的每一条基于join_condition做判断，如此一来会有两种情况
+如果join_condition的值为true,则LEFT JOIN两个表中行合并成一个新的数据行 如果join_condition的值为false，即t1的数据与t2的任何一条都不匹配，依然生成新的一条数据，但是t2的所有列都是NULL 也就是说LEFT JOIN返回的是t1所有的数据条数，而不管是否与t2的数据匹配，能匹配则带上t2的数据，不能匹配用NULL占位
+例子 Download MySQL Sample Database
+两张表 这是顾客表和订单表
+1 2 3 4 5 6 7 8 9 SELECT c.`customerNumber`, c.`customerName`, o.`orderNumber`, o.`status` FROM customers as c LEFT JOIN orders as o ON c.customerNumber = o.customerNumber; 可以看见有些数据的右表字段是NULL
+利用这个特性，很容知道哪些顾客没有订单
+1 2 3 4 5 6 7 8 9 10 SELECT c.]]></description>
+</item>
+<item>
+    <title>mysql order by</title>
+    <link>http://example.org/mysql-orderby/</link>
+    <pubDate>Fri, 08 Apr 2022 10:50:42 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql-orderby/</guid>
+    <description><![CDATA[应用场景 在开发当中，会经常遇到排序的需求，比如根据时间倒序排序；根据价格降序排序；等等。有时还会遇到几种维度的排序。一般的，这种排序规则都会在数据库层面处理好顺序再返回给应用服务，order by 语句就可以按照某个字段或者某几个字段倒序(desc)，正序(asc)排序
+例子 现在有张表，记录我高中时高二所有人的成绩
+1 2 3 4 5 6 7 8 9 10 11 12 CREATE TABLE `student_grade` ( `id` bigint NOT NULL AUTO_INCREMENT COMMENT &#39;主键id&#39;, `class` int NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;班级&#39;, `exam_code` varchar(16) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;考号&#39;, `name` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;姓名&#39;, `language_score` int NOT NULL COMMENT &#39;语文分数&#39;, `math_score` int NOT NULL COMMENT &#39;数学分数&#39;, `english_score` int NOT NULL COMMENT &#39;英语分数&#39;, `total_score` int NOT NULL COMMENT &#39;总分数&#39;, PRIMARY KEY (`id`), KEY `idx_class` (`class`) ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT=&#39;成绩表&#39;; 部分数据如下]]></description>
+</item>
+<item>
+    <title>mysql command</title>
+    <link>http://example.org/mysql-cli/</link>
+    <pubDate>Fri, 25 Mar 2022 11:13:05 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql-cli/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>MySQL8.0及以上 第三方客户端连接出现 Authentication plugin &#39;caching_sha2_password&#39; cannot be loaded</title>
+    <link>http://example.org/mysql_8.0_pwd/</link>
+    <pubDate>Sat, 15 Jan 2022 20:52:34 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql_8.0_pwd/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>mysql 事务</title>
+    <link>http://example.org/mysql_transaction/</link>
+    <pubDate>Thu, 09 Dec 2021 22:30:28 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql_transaction/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>为什么mysql要用索引</title>
+    <link>http://example.org/mysql_b_plus_tree/</link>
+    <pubDate>Tue, 19 Oct 2021 17:01:15 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>http://example.org/mysql_b_plus_tree/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>
