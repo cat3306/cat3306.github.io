@@ -9,12 +9,12 @@
 例子 现在有张表，记录我高中时高二所有人的成绩
 1 2 3 4 5 6 7 8 9 10 11 12 CREATE TABLE `student_grade` ( `id` bigint NOT NULL AUTO_INCREMENT COMMENT &#39;主键id&#39;, `class` int NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;班级&#39;, `exam_code` varchar(16) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;考号&#39;, `name` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;姓名&#39;, `language_score` int NOT NULL COMMENT &#39;语文分数&#39;, `math_score` int NOT NULL COMMENT &#39;数学分数&#39;, `english_score` int NOT NULL COMMENT &#39;英语分数&#39;, `total_score` int NOT NULL COMMENT &#39;总分数&#39;, PRIMARY KEY (`id`), KEY `idx_class` (`class`) ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT=&#39;成绩表&#39;; 部分数据如下" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/mysql-orderby/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://cat3306.github.io/mysql-orderby/" /><meta property="og:image" content="https://cat3306.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-04-08T10:50:42+08:00" />
 <meta property="article:modified_time" content="2024-01-29T15:42:47+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
+<meta name="twitter:image" content="https://cat3306.github.io/logo.png"/>
 
 <meta name="twitter:title" content="mysql order by"/>
 <meta name="twitter:description" content="应用场景 在开发当中，会经常遇到排序的需求，比如根据时间倒序排序；根据价格降序排序；等等。有时还会遇到几种维度的排序。一般的，这种排序规则都会在数据库层面处理好顺序再返回给应用服务，order by 语句就可以按照某个字段或者某几个字段倒序(desc)，正序(asc)排序
@@ -23,7 +23,7 @@
 <meta name="application-name" content="cat3306">
 <meta name="apple-mobile-web-app-title" content="cat3306"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-orderby/" /><link rel="prev" href="http://example.org/what-/" /><link rel="next" href="http://example.org/%E7%AE%97%E6%B3%95%E9%A2%98/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://cat3306.github.io/mysql-orderby/" /><link rel="prev" href="https://cat3306.github.io/what-/" /><link rel="next" href="https://cat3306.github.io/%E7%AE%97%E6%B3%95%E9%A2%98/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type="application/ld+json">
     {
@@ -33,9 +33,9 @@
         "inLanguage": "en",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/example.org\/mysql-orderby\/"
+            "@id": "https:\/\/cat3306.github.io\/mysql-orderby\/"
         },"genre": "posts","keywords": "mysql","wordcount":  363 ,
-        "url": "http:\/\/example.org\/mysql-orderby\/","datePublished": "2022-04-08T10:50:42+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
+        "url": "https:\/\/cat3306.github.io\/mysql-orderby\/","datePublished": "2022-04-08T10:50:42+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -443,7 +443,7 @@
                             <a class="link-to-markdown" href="/mysql-orderby/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/mysql-orderby/" data-title="mysql order by" data-hashtags="mysql"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/mysql-orderby/" data-hashtag="mysql"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/mysql-orderby/" data-title="mysql order by"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/mysql-orderby/" data-title="mysql order by"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/mysql-orderby/" data-title="mysql order by"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://cat3306.github.io/mysql-orderby/" data-title="mysql order by" data-hashtags="mysql"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://cat3306.github.io/mysql-orderby/" data-hashtag="mysql"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://cat3306.github.io/mysql-orderby/" data-title="mysql order by"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://cat3306.github.io/mysql-orderby/" data-title="mysql order by"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://cat3306.github.io/mysql-orderby/" data-title="mysql order by"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>

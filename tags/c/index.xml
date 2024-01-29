@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>C - Tag - cat3306</title>
-        <link>http://example.org/tags/c/</link>
+        <link>https://cat3306.github.io/tags/c/</link>
         <description>C - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 11 Oct 2021 22:23:41 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/c/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 11 Oct 2021 22:23:41 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/c/" rel="self" type="application/rss+xml" /><item>
     <title>clang</title>
-    <link>http://example.org/clang/</link>
+    <link>https://cat3306.github.io/clang/</link>
     <pubDate>Mon, 11 Oct 2021 22:23:41 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/clang/</guid>
+    <guid>https://cat3306.github.io/clang/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>nginx - Tag - cat3306</title>
-        <link>http://example.org/tags/nginx/</link>
+        <link>https://cat3306.github.io/tags/nginx/</link>
         <description>nginx - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 14 Oct 2022 10:01:48 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/nginx/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 14 Oct 2022 10:01:48 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/nginx/" rel="self" type="application/rss+xml" /><item>
     <title>Nginx</title>
-    <link>http://example.org/nginx/</link>
+    <link>https://cat3306.github.io/nginx/</link>
     <pubDate>Fri, 14 Oct 2022 10:01:48 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/nginx/</guid>
+    <guid>https://cat3306.github.io/nginx/</guid>
     <description><![CDATA[docker nginx 部署静态网页
 1 $ docker run -d --name=nginx -p 90:80 -v /Users/joker/blog/Joker_null/release:/usr/share/nginx/html nginx ]]></description>
 </item>

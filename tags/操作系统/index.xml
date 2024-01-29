@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>操作系统 - Tag - cat3306</title>
-        <link>http://example.org/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+        <link>https://cat3306.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
         <description>操作系统 - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 03 Jul 2022 09:11:54 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 03 Jul 2022 09:11:54 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="self" type="application/rss+xml" /><item>
     <title>内存对齐</title>
-    <link>http://example.org/memory-alignment/</link>
+    <link>https://cat3306.github.io/memory-alignment/</link>
     <pubDate>Sun, 03 Jul 2022 09:11:54 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/memory-alignment/</guid>
+    <guid>https://cat3306.github.io/memory-alignment/</guid>
     <description><![CDATA[32位与64位 地址总线
 CPU要想读取程序中数据，需要地址总线，通过MMU将虚拟地址转换成物理的内存地址。如果地址总线有8根，那么CPU的最大寻址空间是2^8 地址[0,255]，则表示最大可用的内存为256 byte;同理如果想要寻址4G的内存，则需要地址总线32根。
 数据总线
@@ -27,10 +27,10 @@ Arch Name PtrSize RegSize 386 4 4 amd64 8 8 arm 4 4 arm64 8 8 以上称为平台
 </item>
 <item>
     <title>IPC</title>
-    <link>http://example.org/ipc/</link>
+    <link>https://cat3306.github.io/ipc/</link>
     <pubDate>Thu, 30 Jun 2022 11:24:23 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/ipc/</guid>
+    <guid>https://cat3306.github.io/ipc/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

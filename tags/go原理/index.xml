@@ -1,22 +1,22 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>go原理 - Tag - cat3306</title>
-        <link>http://example.org/tags/go%E5%8E%9F%E7%90%86/</link>
+        <link>https://cat3306.github.io/tags/go%E5%8E%9F%E7%90%86/</link>
         <description>go原理 - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 24 Jun 2022 11:38:47 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/go%E5%8E%9F%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 24 Jun 2022 11:38:47 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/go%E5%8E%9F%E7%90%86/" rel="self" type="application/rss+xml" /><item>
     <title>go channel</title>
-    <link>http://example.org/go-channel/</link>
+    <link>https://cat3306.github.io/go-channel/</link>
     <pubDate>Fri, 24 Jun 2022 11:38:47 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/go-channel/</guid>
+    <guid>https://cat3306.github.io/go-channel/</guid>
     <description><![CDATA[<h1 id="channel">channel</h1>]]></description>
 </item>
 <item>
     <title>go defer</title>
-    <link>http://example.org/go-defer/</link>
+    <link>https://cat3306.github.io/go-defer/</link>
     <pubDate>Wed, 22 Jun 2022 20:59:10 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/go-defer/</guid>
+    <guid>https://cat3306.github.io/go-defer/</guid>
     <description><![CDATA[<h1 id="defer">defer</h1>]]></description>
 </item>
 </channel>

@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>prometheus - Tag - cat3306</title>
-        <link>http://example.org/tags/prometheus/</link>
+        <link>https://cat3306.github.io/tags/prometheus/</link>
         <description>prometheus - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 09 Jun 2022 16:15:49 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/prometheus/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 09 Jun 2022 16:15:49 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/prometheus/" rel="self" type="application/rss+xml" /><item>
     <title>prometheus guide</title>
-    <link>http://example.org/guide/</link>
+    <link>https://cat3306.github.io/guide/</link>
     <pubDate>Thu, 09 Jun 2022 16:15:49 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/guide/</guid>
+    <guid>https://cat3306.github.io/guide/</guid>
     <description><![CDATA[<p>一款开源的系统监控</p>]]></description>
 </item>
 </channel>

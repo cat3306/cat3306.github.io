@@ -1,86 +1,86 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - cat3306</title>
-        <link>http://example.org/tags/</link>
+        <link>https://cat3306.github.io/tags/</link>
         <description>Tags - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 24 Jan 2024 13:42:38 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 24 Jan 2024 13:42:38 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/" rel="self" type="application/rss+xml" /><item>
     <title>杂谈</title>
-    <link>http://example.org/tags/%E6%9D%82%E8%B0%88/</link>
+    <link>https://cat3306.github.io/tags/%E6%9D%82%E8%B0%88/</link>
     <pubDate>Wed, 24 Jan 2024 13:42:38 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/%E6%9D%82%E8%B0%88/</guid>
+    <guid>https://cat3306.github.io/tags/%E6%9D%82%E8%B0%88/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>vim</title>
-    <link>http://example.org/tags/vim/</link>
+    <link>https://cat3306.github.io/tags/vim/</link>
     <pubDate>Mon, 22 Jan 2024 15:44:13 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/vim/</guid>
+    <guid>https://cat3306.github.io/tags/vim/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>docker</title>
-    <link>http://example.org/tags/docker/</link>
+    <link>https://cat3306.github.io/tags/docker/</link>
     <pubDate>Fri, 18 Nov 2022 15:33:31 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/docker/</guid>
+    <guid>https://cat3306.github.io/tags/docker/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>golang</title>
-    <link>http://example.org/tags/golang/</link>
+    <link>https://cat3306.github.io/tags/golang/</link>
     <pubDate>Tue, 15 Nov 2022 14:58:38 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/golang/</guid>
+    <guid>https://cat3306.github.io/tags/golang/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>mysql</title>
-    <link>http://example.org/tags/mysql/</link>
+    <link>https://cat3306.github.io/tags/mysql/</link>
     <pubDate>Sat, 22 Oct 2022 16:04:37 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/mysql/</guid>
+    <guid>https://cat3306.github.io/tags/mysql/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>nginx</title>
-    <link>http://example.org/tags/nginx/</link>
+    <link>https://cat3306.github.io/tags/nginx/</link>
     <pubDate>Fri, 14 Oct 2022 10:01:48 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/nginx/</guid>
+    <guid>https://cat3306.github.io/tags/nginx/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>es</title>
-    <link>http://example.org/tags/es/</link>
+    <link>https://cat3306.github.io/tags/es/</link>
     <pubDate>Thu, 04 Aug 2022 15:38:22 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/es/</guid>
+    <guid>https://cat3306.github.io/tags/es/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>redis</title>
-    <link>http://example.org/tags/redis/</link>
+    <link>https://cat3306.github.io/tags/redis/</link>
     <pubDate>Thu, 28 Jul 2022 14:15:42 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/redis/</guid>
+    <guid>https://cat3306.github.io/tags/redis/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>操作系统</title>
-    <link>http://example.org/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+    <link>https://cat3306.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
     <pubDate>Sun, 03 Jul 2022 09:11:54 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+    <guid>https://cat3306.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>go原理</title>
-    <link>http://example.org/tags/go%E5%8E%9F%E7%90%86/</link>
+    <link>https://cat3306.github.io/tags/go%E5%8E%9F%E7%90%86/</link>
     <pubDate>Fri, 24 Jun 2022 11:38:47 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/tags/go%E5%8E%9F%E7%90%86/</guid>
+    <guid>https://cat3306.github.io/tags/go%E5%8E%9F%E7%90%86/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

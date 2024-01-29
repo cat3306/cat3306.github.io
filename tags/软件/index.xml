@@ -1,46 +1,46 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>软件 - Tag - cat3306</title>
-        <link>http://example.org/tags/%E8%BD%AF%E4%BB%B6/</link>
+        <link>https://cat3306.github.io/tags/%E8%BD%AF%E4%BB%B6/</link>
         <description>软件 - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 May 2022 11:25:25 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/%E8%BD%AF%E4%BB%B6/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 May 2022 11:25:25 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/%E8%BD%AF%E4%BB%B6/" rel="self" type="application/rss+xml" /><item>
     <title>vscode</title>
-    <link>http://example.org/vscode/</link>
+    <link>https://cat3306.github.io/vscode/</link>
     <pubDate>Sat, 14 May 2022 11:25:25 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/vscode/</guid>
+    <guid>https://cat3306.github.io/vscode/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>windows install</title>
-    <link>http://example.org/install_windows/</link>
+    <link>https://cat3306.github.io/install_windows/</link>
     <pubDate>Sun, 08 May 2022 15:52:01 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/install_windows/</guid>
+    <guid>https://cat3306.github.io/install_windows/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Goland</title>
-    <link>http://example.org/goland/</link>
+    <link>https://cat3306.github.io/goland/</link>
     <pubDate>Thu, 17 Feb 2022 14:31:07 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/goland/</guid>
+    <guid>https://cat3306.github.io/goland/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>navicat 破解版</title>
-    <link>http://example.org/navicat_premium/</link>
+    <link>https://cat3306.github.io/navicat_premium/</link>
     <pubDate>Thu, 13 Jan 2022 15:55:53 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/navicat_premium/</guid>
+    <guid>https://cat3306.github.io/navicat_premium/</guid>
     <description><![CDATA[https://macwk.com/soft/navicat-premium]]></description>
 </item>
 <item>
     <title>ubuntu install</title>
-    <link>http://example.org/ubuntu-install/</link>
+    <link>https://cat3306.github.io/ubuntu-install/</link>
     <pubDate>Thu, 30 Sep 2021 17:28:24 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>http://example.org/ubuntu-install/</guid>
+    <guid>https://cat3306.github.io/ubuntu-install/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>
