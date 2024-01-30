@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>go cli - cat3306</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="go cli" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cat3306.github.io/2022/03/golang/go-cli/" /><meta property="og:image" content="https://cat3306.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-25T08:13:36+08:00" />
+<meta property="article:modified_time" content="2024-01-29T15:42:47+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://cat3306.github.io/logo.png"/>
+
+<meta name="twitter:title" content="go cli"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="cat3306">
+<meta name="apple-mobile-web-app-title" content="cat3306"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://cat3306.github.io/2022/03/golang/go-cli/" /><link rel="prev" href="https://cat3306.github.io/2022/02/golang/go-scheduler/" /><link rel="next" href="https://cat3306.github.io/2022/03/c-d-s/chapter2/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "go cli",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/cat3306.github.io\/2022\/03\/golang\/go-cli\/"
+        },"genre": "posts","keywords": "golang","wordcount":  897 ,
+        "url": "https:\/\/cat3306.github.io\/2022\/03\/golang\/go-cli\/","datePublished": "2022-03-25T08:13:36+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat3306"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat3306">❤️🔞❤️</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat3306">❤️🔞❤️</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">go cli</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat3306</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-25">2022-03-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;897 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#go-install">Go install</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#go-build">go build</a>
+      <ul>
+        <li><a href="#交叉编译">交叉编译</a></li>
+        <li><a href="#编译传参">编译传参</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-run">go run</a></li>
+    <li><a href="#go-clean">go clean</a></li>
+    <li><a href="#go-install-1">go install</a></li>
+    <li><a href="#go-get">go get</a></li>
+    <li><a href="#go-test">go test</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#go-模块代理">go 模块代理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="官网">官网</h1>
+<p><a href="https://golang.google.cn/" target="_blank" rel="noopener noreffer ">https://golang.google.cn/</a></p>
+<h1 id="文档">文档</h1>
+<p><a href="https://golang.google.cn/cmd/go/" target="_blank" rel="noopener noreffer ">https://golang.google.cn/cmd/go/</a></p>
+<h1 id="常见问题">常见问题</h1>
+<p><a href="https://golang.google.cn/doc/faq" target="_blank" rel="noopener noreffer ">https://golang.google.cn/doc/faq</a></p>
+<h1 id="工具库">工具库</h1>
+<p><a href="https://github.com/golang/tools/" target="_blank" rel="noopener noreffer ">https://github.com/golang/tools/</a></p>
+<h2 id="go-install">Go install</h2>
+<p><a href="https://go.dev/dl/" target="_blank" rel="noopener noreffer ">https://go.dev/dl/</a></p>
+<ol>
+<li>
+<p><strong>Remove any previous Go installation</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ rm -rf /usr/local/go <span class="o">&amp;&amp;</span> tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Add /usr/local/go/bin to the <code>PATH</code> environment variable.</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim $HOME/.profile</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#or</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /etc/profile (for a system-wide installation)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Note: Changes made to a profile file may not apply until the next time you log into your computer. To apply the changes immediately, just run the shell commands directly or execute them from the profile using a command such as source $HOME/.profile.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/go/bin
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> <span class="nv">$HOME</span>/.profile
+</span></span><span class="line"><span class="cl"><span class="c1"># or</span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Verify that you&rsquo;ve installed Go by opening a command prompt and typing the following command:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go version
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h1 id="目录结构">目录结构</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ tree -L <span class="m">1</span>
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── bin
+</span></span><span class="line"><span class="cl">├── pkg
+</span></span><span class="line"><span class="cl">└── src
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>src</code> 编写代码的根目录
+<code>pkg</code>  <code>go module</code> 模式下 生成的依赖包根目录
+<code>bin</code> 放着 <code>go install</code> 生成的二进制文件 ，可用于制作命令工具。由于要在系统的任何地方执行这里面的二进制，需要将 <code>~/go/bin</code> 加入系统可执行目录中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bash_profile
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span>~/code/go
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOBIN</span><span class="o">=</span>~/code/go/bin
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOBIN</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当然也可以</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go env -w <span class="nv">GOPATH</span><span class="o">=</span>~/code/go
+</span></span><span class="line"><span class="cl">go env -w <span class="nv">GOBIN</span><span class="o">=</span>~/code/go/bin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="命令">命令</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">The commands are:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        bug         start a bug report
+</span></span><span class="line"><span class="cl">        build       compile packages and dependencies
+</span></span><span class="line"><span class="cl">        clean       remove object files and cached files
+</span></span><span class="line"><span class="cl">        doc         show documentation <span class="k">for</span> package or symbol
+</span></span><span class="line"><span class="cl">        env         print Go environment information
+</span></span><span class="line"><span class="cl">        fix         update packages to use new APIs
+</span></span><span class="line"><span class="cl">        fmt         gofmt <span class="o">(</span>reformat<span class="o">)</span> package sources
+</span></span><span class="line"><span class="cl">        generate    generate Go files by processing <span class="nb">source</span>
+</span></span><span class="line"><span class="cl">        get         add dependencies to current module and install them
+</span></span><span class="line"><span class="cl">        install     compile and install packages and dependencies
+</span></span><span class="line"><span class="cl">        list        list packages or modules
+</span></span><span class="line"><span class="cl">        mod         module maintenance
+</span></span><span class="line"><span class="cl">        run         compile and run Go program
+</span></span><span class="line"><span class="cl">        <span class="nb">test</span>        <span class="nb">test</span> packages
+</span></span><span class="line"><span class="cl">        tool        run specified go tool
+</span></span><span class="line"><span class="cl">        version     print Go version
+</span></span><span class="line"><span class="cl">        vet         report likely mistakes in packages
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Use <span class="s2">&#34;go help &lt;command&gt;&#34;</span> <span class="k">for</span> more information about a command.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可直接查阅，例如<code>go help build</code></p>
+<h1 id="常见命令">常见命令</h1>
+<h2 id="go-build">go build</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># force rebuilding of packages that are already up-to-date.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 强制重新构建二进制</span>
+</span></span><span class="line"><span class="cl">$ go build -a 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># print the commands but do not run them</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 打印编译细节，不执行</span>
+</span></span><span class="line"><span class="cl">$ go build -n
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># the number of programs, such as build commands or</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#	test binaries, that can be run in parallel.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#	The default is GOMAXPROCS, normally the number of CPUs available</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 编译时设置逻辑核数，以便并发编译。默认CPU逻辑核数 例如8</span>
+</span></span><span class="line"><span class="cl">$ go build -p n <span class="c1"># such as go build -p 1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># enable data race detection.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Supported only on linux/amd64, freebsd/amd64, darwin/amd64, darwin/arm64, windows/amd64,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># linux/ppc64le and linux/arm64 (only for 48-bit VMA).</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 并发竞争检测</span>
+</span></span><span class="line"><span class="cl">$ go build -race
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># print the commands.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 编译打印编译细节</span>
+</span></span><span class="line"><span class="cl">$ go build -x
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ go build <span class="c1">#无参数编译，到本目录</span>
+</span></span><span class="line"><span class="cl">$ go build src1.go src2.go ... <span class="c1">#指定源码文件编译</span>
+</span></span><span class="line"><span class="cl">$ go build -o ? src1.go src2.go ... <span class="c1">#指定二进制文件名</span>
+</span></span><span class="line"><span class="cl">$ go build -o ? <span class="c1">#指定二进制文件名</span>
+</span></span><span class="line"><span class="cl">$ go build + package <span class="c1"># 指定包名编译</span>
+</span></span><span class="line"><span class="cl">$ go build -v <span class="c1">#编译显示包名</span>
+</span></span><span class="line"><span class="cl">$ go build -n <span class="c1">#打印编译时所用到的所有命令，但不真正执行</span>
+</span></span><span class="line"><span class="cl">$ go build -x <span class="c1">#打印编译时所用到的所有命令</span>
+</span></span><span class="line"><span class="cl">$ go build -a <span class="c1">#强制重新构建</span>
+</span></span><span class="line"><span class="cl">$ go build -race <span class="c1">#检测go携程竞争</span>
+</span></span><span class="line"><span class="cl">$ go build -gcflags<span class="o">=</span><span class="s2">&#34;-N -l -S&#34;</span> <span class="c1">#输出汇编</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="交叉编译">交叉编译</h3>
+<ul>
+<li>
+<p>Mac -&gt; Linux</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span>  <span class="nv">GOOS</span><span class="o">=</span>linux  <span class="nv">GOARCH</span><span class="o">=</span>amd64  go build main.go
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Mac -&gt; Windows</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span> <span class="nv">GOOS</span><span class="o">=</span>windows  <span class="nv">GOARCH</span><span class="o">=</span>amd64  go  build  main.go
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Linux -&gt; Mac</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span> <span class="nv">GOOS</span><span class="o">=</span>darwin  <span class="nv">GOARCH</span><span class="o">=</span>amd64  go build main.go
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Linux -&gt; Windows</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span> <span class="nv">GOOS</span><span class="o">=</span>windows  <span class="nv">GOARCH</span><span class="o">=</span>amd64  go build main.go
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Windows -&gt; Mac</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">SET  <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">SET <span class="nv">GOOS</span><span class="o">=</span>darwin
+</span></span><span class="line"><span class="cl">SET <span class="nv">GOARCH</span><span class="o">=</span>amd64
+</span></span><span class="line"><span class="cl">go build main.go
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Windows -&gt; Linux</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">SET <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">SET <span class="nv">GOOS</span><span class="o">=</span>linux
+</span></span><span class="line"><span class="cl">SET <span class="nv">GOARCH</span><span class="o">=</span>amd64
+</span></span><span class="line"><span class="cl">go build main.go
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="编译传参">编译传参</h3>
+<p>有时候需要将一些版本信息代入二进制中，这个时候就需要go的编译传参，分为两种情况</p>
+<ul>
+<li>如果是<code>main</code>包的参数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="err">$</span> <span class="k">go</span> <span class="nx">build</span> <span class="o">-</span><span class="nx">ldflags</span> <span class="s">&#34;-X main.date=$(date -u +%Y%m%d.%H%M%S) -X main.version=1.0&#34;</span> <span class="nx">main</span><span class="p">.</span><span class="k">go</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//例子
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">date</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">version</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">date</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">version</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果是其它的包，就需要全路径了(相对于GOPATH路径)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -X <span class="s2">&#34;github.com/pingcap/tidb/parser/mysql.TiDBReleaseVersion=</span><span class="k">$(</span>shell git describe --tags --dirty --always<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -X <span class="s2">&#34;github.com/pingcap/tidb/util/versioninfo.TiDBBuildTS=</span><span class="k">$(</span>shell date -u <span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -X <span class="s2">&#34;github.com/pingcap/tidb/util/versioninfo.TiDBGitHash=</span><span class="k">$(</span>shell git rev-parse HEAD<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -X <span class="s2">&#34;github.com/pingcap/tidb/util/versioninfo.TiDBGitBranch=</span><span class="k">$(</span>shell git rev-parse --abbrev-ref HEAD<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -X <span class="s2">&#34;github.com/pingcap/tidb/util/versioninfo.TiDBEdition=</span><span class="k">$(</span>TIDB_EDITION<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">go</span> <span class="err">build</span> <span class="k">$(</span><span class="nv">LDFLAGS</span><span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="go-run">go run</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go run *.go <span class="c1">#编译，并执行,但是不留下二进制文件。适合单文件，类似脚本执行方式</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="go-clean">go clean</h2>
+<p>清除编译后的二进制文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go clean -n <span class="c1">#打印要执行的命令，但不执行</span>
+</span></span><span class="line"><span class="cl">$ go clean -x <span class="c1">#打印要执行的命令,执行</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="go-install-1">go install</h2>
+<p>编译后的二进制放到$GOPATH/bin/</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go install <span class="c1">#一般的，在项目的根目录执行</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="go-get">go get</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go get github.com/davyxu/cellnet
+</span></span><span class="line"><span class="cl">go get -v github.com/davyxu/cellnet <span class="c1">#显示操作流程的日志及信息</span>
+</span></span><span class="line"><span class="cl">go get -u github.com/davyxu/cellne <span class="c1">#下载丢失的包，但不会更新已经存在的包</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="go-test">go test</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#测试这个文件下的所有的测试用例</span>
+</span></span><span class="line"><span class="cl">go <span class="nb">test</span> helloworld_test.go 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#测试这个文件下的所有的测试用例，显示详细流程</span>
+</span></span><span class="line"><span class="cl">go <span class="nb">test</span> --count<span class="o">=</span><span class="m">1</span> -v helloworld_test.go 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#指定测试文件下的特定测试函数--常用</span>
+</span></span><span class="line"><span class="cl">go <span class="nb">test</span> --count<span class="o">=</span><span class="m">1</span> -v -run ^TestFunc$ helloworld_test.go 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#指定测试文件下的特定测试函数(正则匹配有可能多个)--常用</span>
+</span></span><span class="line"><span class="cl">go <span class="nb">test</span> --count<span class="o">=</span><span class="m">1</span> -v -run TestFunc helloworld_test.go 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#不使用缓存，指定测试文件下的特定测试函数(正则匹配有可能多个)--常用   </span>
+</span></span><span class="line"><span class="cl">go <span class="nb">test</span> --count<span class="o">=</span><span class="m">1</span> -v -run TestFunc helloworld_test.go 
+</span></span><span class="line"><span class="cl"><span class="c1"># 上面都是gopath方式，如果项目是go mod的，例如 go/src/github.com/golib </span>
+</span></span><span class="line"><span class="cl">go <span class="nb">test</span> --count<span class="o">=</span><span class="m">1</span> -v -run ^TestXxx$ github.com/cat3306/golib/ziputil
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="环境变量">环境变量</h1>
+<p><code>go env</code></p>
+<p>编译模式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GO111MODULE</span><span class="o">=</span>off <span class="c1">#用GOPATH编译</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GO111MODULE</span><span class="o">=</span>on <span class="c1">#用go mod编译</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="go-模块代理">go 模块代理</h3>
+<p><a href="https://goproxy.cn/" target="_blank" rel="noopener noreffer ">代理</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go env -w <span class="nv">GO111MODULE</span><span class="o">=</span>on
+</span></span><span class="line"><span class="cl">$ go env -w <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn,direct
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>有时需要访问私库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go env -w <span class="nv">GOPRIVATE</span><span class="o">=</span><span class="s2">&#34;github.com/cat3306/golib&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下载包用<code>ssh</code>方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ vim .gitconfig
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>url <span class="s2">&#34;ssh://git@github.com/&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">insteadOf</span> <span class="o">=</span> https://github.com/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>导入fork 的包</p>
+<p>go.mod</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">replace github.com/panjf2000/gnet/v2 =&gt; github.com/cat3306/gnet/v2 v2.1.2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="docker--golang-build">docker  golang build</h1>
+<p>用docker容器的golang编译本地代码</p>
+<p>需要设置<code>GOPROXY</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run --rm -v <span class="s2">&#34;</span><span class="nv">$PWD</span><span class="s2">&#34;</span>:/go/src/mobile_cron -v <span class="s2">&#34;/Users/joker/code/go/src/cloud/mobile_service_project/mobile_base&#34;</span>:/go/src/mobile_base -w /go/src/mobile_cron -it golang:1.17 bash -c <span class="s2">&#34;go env -w GOPROXY=https://goproxy.cn,direct &amp;&amp; go build&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/03/golang/go-cli/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://cat3306.github.io/2022/03/golang/go-cli/" data-title="go cli" data-hashtags="golang"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://cat3306.github.io/2022/03/golang/go-cli/" data-hashtag="golang"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://cat3306.github.io/2022/03/golang/go-cli/" data-title="go cli"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://cat3306.github.io/2022/03/golang/go-cli/" data-title="go cli"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://cat3306.github.io/2022/03/golang/go-cli/" data-title="go cli"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/golang/">golang</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2022/02/golang/go-scheduler/" class="prev" rel="prev" title="go scheduler"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>go scheduler</a>
+            <a href="/2022/03/c-d-s/chapter2/" class="next" rel="next" title="第二章算法分析">第二章算法分析<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat3306</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.76e39bd605d45b2d1944123c66608b0c8bb9baeb70720b212571531c7cf9bc2a.css" integrity="sha256-duOb1gXUWy0ZRBI8ZmCLDIu5uutwcgshJXFTHHz5vCo="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.cd0d0b6e50ff01ff2f3a9a70d7cfb66a7c6cb9acf7a566325568be6d3bd31fc4.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.ae2da1bd62c6469ee27770ad1cddf2e8296d8a7f6d85b091463e5200c5e320af.js" integrity="sha256-ri2hvWLGRp7id3CtHN3y6Cltin9thbCRRj5SAMXjIK8="></script><script type="text/javascript" src="/lib/lunr/lunr.min.08a93c0120364b01159db3c287f39b2180bb740334472bda0675bd3f18981676.js" integrity="sha256-CKk8ASA2SwEVnbPCh/ObIYC7dAM0RyvaBnW9PxiYFnY="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js" integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck="></script><script type="text/javascript" src="/lib/sharer/sharer.min.cc31d902aa4f3fcc8bb8c81aa534a4e2103e9b11f65b9fbd5b7156e089889ceb.js" integrity="sha256-zDHZAqpPP8yLuMgapTSk4hA+mxH2W5+9W3FW4ImInOs="></script><script type="text/javascript" src="/lib/katex/katex.min.eb18207487161674e717087c317db14ac1a62dadaecccb802499ce173bfeb739.js" integrity="sha256-6xggdIcWFnTnFwh8MX2xSsGmLa2uzMuAJJnOFzv+tzk="></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.cb7f4ca60ed5dc3e258415f8c7a3b46d4a93578a52adf83011f18a7f190e7602.js" integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.52ce78fab4860d24ef22128a52ce24ca01368a9034457a565a1d3fccbab0ddbb.js" integrity="sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.5c0a121a8b490afc85860a522347aeb34fb508c6b23044e5d29f6b2194227b51.js" integrity="sha256-XAoSGotJCvyFhgpSI0eus0+1CMayMETl0p9rIZQie1E="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.e55842a856a6d829feca3c3ad736c136b6c7549e9247274f78aa296259e06e24.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.e8d2be21e46b332dc48b46049b0c07b11a65970524ed512fac5d352f19eea7a5.js" integrity="sha256-6NK+IeRrMy3Ei0YEmwwHsRpllwUk7VEvrF01Lxnup6U="></script></body>
+</html>

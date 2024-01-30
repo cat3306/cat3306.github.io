@@ -5,26 +5,26 @@
         <description>工具 - Tag - cat3306</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 26 Jan 2022 16:50:06 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/%E5%B7%A5%E5%85%B7/" rel="self" type="application/rss+xml" /><item>
     <title>抓包工具wireshark 和tcpdump</title>
-    <link>https://cat3306.github.io/tcpdump_wireshark/</link>
+    <link>https://cat3306.github.io/2022/01/tool/tcpdump_wireshark/</link>
     <pubDate>Wed, 26 Jan 2022 16:50:06 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>https://cat3306.github.io/tcpdump_wireshark/</guid>
+    <guid>https://cat3306.github.io/2022/01/tool/tcpdump_wireshark/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>jmeter</title>
-    <link>https://cat3306.github.io/%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</link>
+    <link>https://cat3306.github.io/2021/11/tool/%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</link>
     <pubDate>Wed, 17 Nov 2021 13:38:14 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>https://cat3306.github.io/%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</guid>
+    <guid>https://cat3306.github.io/2021/11/tool/%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</guid>
     <description><![CDATA[jmeter]]></description>
 </item>
 <item>
     <title>hugo 简易安装指导</title>
-    <link>https://cat3306.github.io/hugo_guide/</link>
+    <link>https://cat3306.github.io/2021/09/tool/hugo_guide/</link>
     <pubDate>Mon, 20 Sep 2021 17:05:26 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>https://cat3306.github.io/hugo_guide/</guid>
+    <guid>https://cat3306.github.io/2021/09/tool/hugo_guide/</guid>
     <description><![CDATA[介绍 hugo 是由go实现，一个快速建立静态网站的工具。详细教程可参考hugo中文文档 正式官网
 安装 直接下载对应操作系统的二进制 Hugo Releases ，放到$GOPATH/bin/
 源码安装

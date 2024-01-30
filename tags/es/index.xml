@@ -5,10 +5,10 @@
         <description>es - Tag - cat3306</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 04 Aug 2022 15:38:22 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/es/" rel="self" type="application/rss+xml" /><item>
     <title>es 的应用场景</title>
-    <link>https://cat3306.github.io/es-application-scene/</link>
+    <link>https://cat3306.github.io/2022/08/es/es-application-scene/</link>
     <pubDate>Thu, 04 Aug 2022 15:38:22 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>https://cat3306.github.io/es-application-scene/</guid>
+    <guid>https://cat3306.github.io/2022/08/es/es-application-scene/</guid>
     <description><![CDATA[条件查询 &quot;must&quot;: []
 wildcard:模糊查询
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 POST user_action_record/_search { &#34;size&#34;: 1000, &#34;from&#34;: 0, &#34;query&#34;: { &#34;bool&#34;: { &#34;must&#34;: [ { &#34;range&#34;: { &#34;create_date&#34;: { &#34;gte&#34;: &#34;2022-07-30 17:23:55&#34;, &#34;lte&#34;: &#34;2022-07-31 17:23:55&#34; } } }, { &#34;match&#34;: { &#34;public.appver&#34;: &#34;1.5.1&#34; } }, { &#34;wildcard&#34;: { &#34;context.]]></description>

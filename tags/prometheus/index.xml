@@ -5,10 +5,10 @@
         <description>prometheus - Tag - cat3306</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 09 Jun 2022 16:15:49 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/prometheus/" rel="self" type="application/rss+xml" /><item>
     <title>prometheus guide</title>
-    <link>https://cat3306.github.io/guide/</link>
+    <link>https://cat3306.github.io/2022/06/prometheus/guide/</link>
     <pubDate>Thu, 09 Jun 2022 16:15:49 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>https://cat3306.github.io/guide/</guid>
+    <guid>https://cat3306.github.io/2022/06/prometheus/guide/</guid>
     <description><![CDATA[<p>一款开源的系统监控</p>]]></description>
 </item>
 </channel>

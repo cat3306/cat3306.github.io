@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>mysql 事务 - cat3306</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="mysql 事务" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cat3306.github.io/2021/12/mysql/mysql_transaction/" /><meta property="og:image" content="https://cat3306.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-09T22:30:28+08:00" />
+<meta property="article:modified_time" content="2024-01-29T15:42:47+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://cat3306.github.io/logo.png"/>
+
+<meta name="twitter:title" content="mysql 事务"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="cat3306">
+<meta name="apple-mobile-web-app-title" content="cat3306"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://cat3306.github.io/2021/12/mysql/mysql_transaction/" /><link rel="prev" href="https://cat3306.github.io/2021/11/tool/%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" /><link rel="next" href="https://cat3306.github.io/2021/12/net/http/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "mysql 事务",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/cat3306.github.io\/2021\/12\/mysql\/mysql_transaction\/"
+        },"genre": "posts","keywords": "mysql","wordcount":  163 ,
+        "url": "https:\/\/cat3306.github.io\/2021\/12\/mysql\/mysql_transaction\/","datePublished": "2021-12-09T22:30:28+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat3306"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat3306">❤️🔞❤️</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat3306">❤️🔞❤️</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">mysql 事务</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat3306</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-12-09">2021-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;163 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#相关语法">相关语法</a></li>
+    <li><a href="#演示">演示</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<p>mysql的事务不管是面试还是工作中，都有理由去掌握并应用。因为这关系到数据一致性问题，如果数据一致性(包括缓存)处理不好，就会带来毁灭性的灾难。</p>
+<h2 id="相关语法">相关语法</h2>
+<ul>
+<li>
+<p>查看全局，会话事务的隔离级别</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">#</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="err">后</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">全局</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">@@</span><span class="k">global</span><span class="p">.</span><span class="n">transaction_isolation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">会话</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">@@</span><span class="k">session</span><span class="p">.</span><span class="n">transaction_isolation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">全局</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">transaction_isolation</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">#</span><span class="err">全局</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">global</span><span class="p">.</span><span class="n">tx_isolation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">会话</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">session</span><span class="p">.</span><span class="n">tx_isolation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">全局</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">tx_isolation</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>设置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="p">[</span><span class="k">SESSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">GLOBAL</span><span class="p">]</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="err">{</span><span class="k">READ</span><span class="w"> </span><span class="k">UNCOMMITTED</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">COMMITTED</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">SERIALIZABLE</span><span class="err">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>概念</p>
+<ul>
+<li>
+<p><code>READ UNCOMMITTED</code> 读未提交，一个事务可以读到另一个事务的未提交(commit) 的数据，该隔离级别会导致脏读现象</p>
+</li>
+<li>
+<p><code>READ COMMITTED</code> 读已提交，一个事物能读到另一个事务的已提交的(commit) 的数据，但是如果这个事务重复的读有可能会导致数据不一致的情况，后面详细介绍，该隔离级别会导致两次读数据不一致的现象。</p>
+</li>
+<li>
+<p><code>REPEATABLE READ</code> 可重复的读，一个事务能读到另一个事务的已提交的(commit) 的数据，并且重复读数据得到的是相同的结果，该隔离级别会导致幻读</p>
+</li>
+<li>
+<p><code>SERIALIZABLE</code> 串行，并发量最低，数据正确度最高，最高隔离级别</p>
+</li>
+</ul>
+</li>
+<li>
+<p>总结
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/img/mysql/6.png"
+        data-srcset="/img/mysql/6.png, /img/mysql/6.png 1.5x, /img/mysql/6.png 2x"
+        data-sizes="auto"
+        alt="/img/mysql/6.png"
+        title="/img/mysql/6.png" /></p>
+</li>
+</ul>
+<h2 id="演示">演示</h2>
+<ul>
+<li>
+<p>READ UNCOMMITTED 读未提交</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">UNCOMMITTED</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>终端1会话隔离级别为
+<figure><a class="lightgallery" href="/img/mysql/7.png" title="/img/mysql/7.png" data-thumbnail="/img/mysql/7.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/7.png"
+            data-srcset="/img/mysql/7.png, /img/mysql/7.png 1.5x, /img/mysql/7.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/7.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+设置终端1当前会话隔离级别为<code>READ UNCOMMITTED</code>
+<figure><a class="lightgallery" href="/img/mysql/8.png" title="/img/mysql/8.png" data-thumbnail="/img/mysql/8.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/8.png"
+            data-srcset="/img/mysql/8.png, /img/mysql/8.png 1.5x, /img/mysql/8.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/8.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+再开一个终端叫终端2，查看数据为level 为0
+<figure><a class="lightgallery" href="/img/mysql/9.png" title="/img/mysql/9.png" data-thumbnail="/img/mysql/9.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/9.png"
+            data-srcset="/img/mysql/9.png, /img/mysql/9.png 1.5x, /img/mysql/9.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/9.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+在终端1上，起事务更新数据 level 为1
+<figure><a class="lightgallery" href="/img/mysql/10.png" title="/img/mysql/10.png" data-thumbnail="/img/mysql/10.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/10.png"
+            data-srcset="/img/mysql/10.png, /img/mysql/10.png 1.5x, /img/mysql/10.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/10.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+在终端2上设置会话隔离级别为<code>READ UNCOMMITTED</code>，并查看数据，发现level已经变成了1
+<figure><a class="lightgallery" href="/img/mysql/11.png" title="/img/mysql/11.png" data-thumbnail="/img/mysql/11.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/11.png"
+            data-srcset="/img/mysql/11.png, /img/mysql/11.png 1.5x, /img/mysql/11.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/11.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure></p>
+</li>
+<li>
+<p>READ COMMITTED 读已提交
+设置终端1，终端2的隔离级别为 READ COMMITTED</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">COMMITTED</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>终端1起事务，更新数据
+<figure><a class="lightgallery" href="/img/mysql/12.png" title="/img/mysql/12.png" data-thumbnail="/img/mysql/12.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/12.png"
+            data-srcset="/img/mysql/12.png, /img/mysql/12.png 1.5x, /img/mysql/12.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/12.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+终端2上查看数据，发现level并没有发生改变
+<figure><a class="lightgallery" href="/img/mysql/13.png" title="/img/mysql/13.png" data-thumbnail="/img/mysql/13.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/13.png"
+            data-srcset="/img/mysql/13.png, /img/mysql/13.png 1.5x, /img/mysql/13.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/13.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+终端1提交数据
+<figure><a class="lightgallery" href="/img/mysql/14.png" title="/img/mysql/14.png" data-thumbnail="/img/mysql/14.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/14.png"
+            data-srcset="/img/mysql/14.png, /img/mysql/14.png 1.5x, /img/mysql/14.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/14.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+终端2上查看数据，发现level变成了9
+<figure><a class="lightgallery" href="/img/mysql/15.png" title="/img/mysql/15.png" data-thumbnail="/img/mysql/15.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/15.png"
+            data-srcset="/img/mysql/15.png, /img/mysql/15.png 1.5x, /img/mysql/15.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/15.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure></p>
+</li>
+<li>
+<p>REPEATABLE READ 可重复读
+设置终端1，终端2的隔离级别为 <code>REPEATABLE READ</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>终端1起事务，更新数据
+<figure><a class="lightgallery" href="/img/mysql/16.png" title="/img/mysql/16.png" data-thumbnail="/img/mysql/16.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/16.png"
+            data-srcset="/img/mysql/16.png, /img/mysql/16.png 1.5x, /img/mysql/16.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/16.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure></p>
+<p>终端2起事务，查看数据
+<figure><a class="lightgallery" href="/img/mysql/17.png" title="/img/mysql/17.png" data-thumbnail="/img/mysql/17.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/17.png"
+            data-srcset="/img/mysql/17.png, /img/mysql/17.png 1.5x, /img/mysql/17.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/17.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+终端1提交数据
+<figure><a class="lightgallery" href="/img/mysql/18.png" title="/img/mysql/18.png" data-thumbnail="/img/mysql/18.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/18.png"
+            data-srcset="/img/mysql/18.png, /img/mysql/18.png 1.5x, /img/mysql/18.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/18.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+终端2查看数据，发现level还是9
+<figure><a class="lightgallery" href="/img/mysql/19.png" title="/img/mysql/19.png" data-thumbnail="/img/mysql/19.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/19.png"
+            data-srcset="/img/mysql/19.png, /img/mysql/19.png 1.5x, /img/mysql/19.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/19.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+终端2提交，再次查看发现level变成了199了
+<figure><a class="lightgallery" href="/img/mysql/20.png" title="/img/mysql/20.png" data-thumbnail="/img/mysql/20.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/20.png"
+            data-srcset="/img/mysql/20.png, /img/mysql/20.png 1.5x, /img/mysql/20.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/20.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure></p>
+<p>如果终端1，插入数据会怎么样，其他查询事务会看见吗
+终端2起事务，查看数据
+<figure><a class="lightgallery" href="/img/mysql/21.png" title="/img/mysql/21.png" data-thumbnail="/img/mysql/21.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/21.png"
+            data-srcset="/img/mysql/21.png, /img/mysql/21.png 1.5x, /img/mysql/21.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/21.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+终端1插入数据</p>
+</li>
+<li>
+<p>SERIALIZABLE 串行
+终端1，终端2，设置隔离级别为 <code>SERIALIZABLE</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">SERIALIZABLE</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>终端1，起事务插入数据
+<figure><a class="lightgallery" href="/img/mysql/22.png" title="/img/mysql/22.png" data-thumbnail="/img/mysql/22.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/22.png"
+            data-srcset="/img/mysql/22.png, /img/mysql/22.png 1.5x, /img/mysql/22.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/22.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure>
+终端2，起事务，查看数据发现，卡住了直到超时
+<figure><a class="lightgallery" href="/img/mysql/23.png" title="/img/mysql/23.png" data-thumbnail="/img/mysql/23.png" data-sub-html="<h2>工作流程</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/img/mysql/23.png"
+            data-srcset="/img/mysql/23.png, /img/mysql/23.png 1.5x, /img/mysql/23.png 2x"
+            data-sizes="auto"
+            alt="/img/mysql/23.png" />
+    </a><figcaption class="image-caption">工作流程</figcaption>
+    </figure></p>
+</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2021/12/mysql/mysql_transaction/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://cat3306.github.io/2021/12/mysql/mysql_transaction/" data-title="mysql 事务" data-hashtags="mysql"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://cat3306.github.io/2021/12/mysql/mysql_transaction/" data-hashtag="mysql"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://cat3306.github.io/2021/12/mysql/mysql_transaction/" data-title="mysql 事务"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://cat3306.github.io/2021/12/mysql/mysql_transaction/" data-title="mysql 事务"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://cat3306.github.io/2021/12/mysql/mysql_transaction/" data-title="mysql 事务"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/mysql/">mysql</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2021/11/tool/%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" class="prev" rel="prev" title="jmeter"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>jmeter</a>
+            <a href="/2021/12/net/http/" class="next" rel="next" title="http 协议">http 协议<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat3306</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.76e39bd605d45b2d1944123c66608b0c8bb9baeb70720b212571531c7cf9bc2a.css" integrity="sha256-duOb1gXUWy0ZRBI8ZmCLDIu5uutwcgshJXFTHHz5vCo="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.cd0d0b6e50ff01ff2f3a9a70d7cfb66a7c6cb9acf7a566325568be6d3bd31fc4.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.ae2da1bd62c6469ee27770ad1cddf2e8296d8a7f6d85b091463e5200c5e320af.js" integrity="sha256-ri2hvWLGRp7id3CtHN3y6Cltin9thbCRRj5SAMXjIK8="></script><script type="text/javascript" src="/lib/lunr/lunr.min.08a93c0120364b01159db3c287f39b2180bb740334472bda0675bd3f18981676.js" integrity="sha256-CKk8ASA2SwEVnbPCh/ObIYC7dAM0RyvaBnW9PxiYFnY="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js" integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck="></script><script type="text/javascript" src="/lib/sharer/sharer.min.cc31d902aa4f3fcc8bb8c81aa534a4e2103e9b11f65b9fbd5b7156e089889ceb.js" integrity="sha256-zDHZAqpPP8yLuMgapTSk4hA+mxH2W5+9W3FW4ImInOs="></script><script type="text/javascript" src="/lib/katex/katex.min.eb18207487161674e717087c317db14ac1a62dadaecccb802499ce173bfeb739.js" integrity="sha256-6xggdIcWFnTnFwh8MX2xSsGmLa2uzMuAJJnOFzv+tzk="></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.cb7f4ca60ed5dc3e258415f8c7a3b46d4a93578a52adf83011f18a7f190e7602.js" integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.52ce78fab4860d24ef22128a52ce24ca01368a9034457a565a1d3fccbab0ddbb.js" integrity="sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.5c0a121a8b490afc85860a522347aeb34fb508c6b23044e5d29f6b2194227b51.js" integrity="sha256-XAoSGotJCvyFhgpSI0eus0+1CMayMETl0p9rIZQie1E="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.e55842a856a6d829feca3c3ad736c136b6c7549e9247274f78aa296259e06e24.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.e8d2be21e46b332dc48b46049b0c07b11a65970524ed512fac5d352f19eea7a5.js" integrity="sha256-6NK+IeRrMy3Ei0YEmwwHsRpllwUk7VEvrF01Lxnup6U="></script></body>
+</html>

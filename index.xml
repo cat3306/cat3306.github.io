@@ -3,89 +3,105 @@
         <title>cat3306</title>
         <link>https://cat3306.github.io/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 24 Jan 2024 13:42:38 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 30 Jan 2024 10:17:00 &#43;0800</lastBuildDate>
             <atom:link href="https://cat3306.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>主题文档 - 基本概念</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Fri, 06 Mar 2020 21:40:32 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<p>探索 Hugo - <strong>LoveIt</strong> 主题的全部内容和背后的核心概念.</p>]]></description>
+    <title>Install</title>
+    <link>https://cat3306.github.io/2024/01/minio/install/</link>
+    <pubDate>Tue, 30 Jan 2024 10:17:00 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2024/01/minio/install/</guid>
+    <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>主题文档 - 内容</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Thu, 05 Mar 2020 16:30:05 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<p>了解如何在 <strong>LoveIt</strong> 主题中快速, 直观地创建和组织内容.</p>]]></description>
+    <title>mysql install</title>
+    <link>https://cat3306.github.io/2024/01/mysql/install/</link>
+    <pubDate>Tue, 30 Jan 2024 10:05:57 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2024/01/mysql/install/</guid>
+    <description><![CDATA[docker compose 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 services: mysql: image: mysql container_name: mysql hostname: mysqldb ports: - 3306:3306 restart: always volumes: - mysqldata:/var/lib/mysql environment: - MYSQL_ROOT_PASSWORD=12345678 - TZ=Asia/Shanghai networks: - &#34;mysqlnet&#34; volumes: mysqldata: networks: mysqlnet: 1 docker run --name mysql -v ~/docker/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=12345678 -d -p 3307:3306 --restart=always mysql ]]></description>
 </item>
 <item>
-    <title>主题文档 - 内置 Shortcodes</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Wed, 04 Mar 2020 16:29:59 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<p><strong>Hugo</strong> 提供了多个内置的 Shortcodes, 以方便作者保持 Markdown 内容的整洁.</p>]]></description>
+    <title>1</title>
+    <link>https://cat3306.github.io/2024/01/1/1/</link>
+    <pubDate>Wed, 24 Jan 2024 13:42:38 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2024/01/1/1/</guid>
+    <description><![CDATA[2024年似乎要做一些改变。 改变对人的态度，不能太热情，如果没有必要请冷淡处理 改变作息时间，十二点钟之前必须上床睡觉，就是天王老子来了也不行 深入学习java，golang。c# 虽说优雅，但精力有限 做一款网络游戏 谈一场恋爱，但不要认真 忘掉过去，禁止看已经看过的电影，禁止重复性做某件事情，要让自己明白过去的事情已经过去 ]]></description>
 </item>
 <item>
-    <title>主题文档 - 扩展 Shortcodes</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Tue, 03 Mar 2020 16:29:59 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<p><strong>LoveIt</strong> 主题在 Hugo 内置的 shortcode 的基础上提供多个扩展的 shortcode.</p>]]></description>
+    <title>Vim</title>
+    <link>https://cat3306.github.io/2024/01/vim/vim/</link>
+    <pubDate>Mon, 22 Jan 2024 15:44:13 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2024/01/vim/vim/</guid>
+    <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>Markdown 基本语法</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Sun, 01 Dec 2019 21:57:40 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<p>这篇文章提供了可以在 Hugo 的文章中使用的基本 Markdown 语法示例.</p>]]></description>
+    <title>Cs Tartget</title>
+    <link>https://cat3306.github.io/2022/12/cs-target/cs-tartget/</link>
+    <pubDate>Fri, 30 Dec 2022 14:58:16 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2022/12/cs-target/cs-tartget/</guid>
+    <description><![CDATA[相互吸引的本质是提供对方认为有用的价值，]]></description>
 </item>
 <item>
-    <title>主题文档 - mermaid Shortcode</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Tue, 03 Mar 2020 15:29:59 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<a href="https://github.com/dillonzq/LoveIt/releases/tag/v0.2.11" rel="noopener noreffer" target="_blank"></a>
-<p><code>mermaid</code> shortcode 使用 <a href="https://mermaidjs.github.io/" target="_blank" rel="noopener noreffer ">Mermaid</a> 库提供绘制图表和流程图的功能.</p>]]></description>
+    <title>Volumes Backup</title>
+    <link>https://cat3306.github.io/2022/11/docker/volumes-backup/</link>
+    <pubDate>Fri, 18 Nov 2022 15:33:31 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2022/11/docker/volumes-backup/</guid>
+    <description><![CDATA[需求 当本地docker 容器需要迁移，数据卷（volumes）的备份是必要的
+原始备份 脚本 docker-vackup
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 #!]]></description>
 </item>
 <item>
-    <title>Emoji 支持</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Tue, 01 Oct 2019 17:55:28 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<p>Emoji 可以通过多种方式在 Hugo 项目中启用.</p>]]></description>
+    <title>go pprof</title>
+    <link>https://cat3306.github.io/2022/11/golang/pprof/</link>
+    <pubDate>Tue, 15 Nov 2022 14:58:38 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2022/11/golang/pprof/</guid>
+    <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>主题文档 - echarts Shortcode</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Tue, 03 Mar 2020 14:29:59 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<p><code>echarts</code> shortcode 使用 <a href="https://echarts.apache.org/" target="_blank" rel="noopener noreffer ">ECharts</a> 库提供数据可视化的功能.</p>]]></description>
+    <title>go Select</title>
+    <link>https://cat3306.github.io/2022/10/golang/select/</link>
+    <pubDate>Sat, 29 Oct 2022 15:10:28 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2022/10/golang/select/</guid>
+    <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>主题文档 - mapbox Shortcode</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Tue, 03 Mar 2020 13:29:59 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<a href="https://github.com/dillonzq/LoveIt/releases/tag/v0.2.0" rel="noopener noreffer" target="_blank"></a>
-<p><code>mapbox</code> shortcode 使用 <a href="https://docs.mapbox.com/mapbox-gl-js" target="_blank" rel="noopener noreffer ">Mapbox GL JS</a> 库提供互动式地图的功能.</p>]]></description>
+    <title>go pkg</title>
+    <link>https://cat3306.github.io/2022/10/golang/go-pkg/</link>
+    <pubDate>Thu, 27 Oct 2022 14:32:00 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2022/10/golang/go-pkg/</guid>
+    <description><![CDATA[golang 框架和库 web 框架 gin
+orm gorm
+显示进度条 progressbar
+下载文件 grab
+日志 zap
+RPC gRPC
+rpcx
+爬虫 colly
+工具函数库 lancet
+分布式存储 minio
+redis cli 终端UI 非常漂亮的终端ui
+tview]]></description>
 </item>
 <item>
-    <title>主题文档 - music Shortcode</title>
-    <link>https://cat3306.github.io/index.zh-cn/</link>
-    <pubDate>Tue, 03 Mar 2020 12:29:59 &#43;0800</pubDate>
-    <author>Dillon</author>
-    <guid>https://cat3306.github.io/index.zh-cn/</guid>
-    <description><![CDATA[<p><code>music</code> shortcode 基于 <a href="https://github.com/MoePlayer/APlayer" target="_blank" rel="noopener noreffer ">APlayer</a> 和 <a href="https://github.com/metowolf/MetingJS" target="_blank" rel="noopener noreffer ">MetingJS</a> 库提供了一个内嵌的响应式音乐播放器.</p>]]></description>
+    <title>docker mysql 数据恢复</title>
+    <link>https://cat3306.github.io/2022/10/mysql/mysql-fix-problem/</link>
+    <pubDate>Sat, 22 Oct 2022 16:04:37 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2022/10/mysql/mysql-fix-problem/</guid>
+    <description><![CDATA[缘由 本地的docker的 k8s 经常启动失败，谷歌检索问题后，stack overflow 上的帖子说到一种解决方案docker-desktop-kubernetes-failed-to-start，没错，这个解决方案，要把本地的所有镜像容器给干掉包括docker volume，我想着本地的容器也没啥，唯独mysql的数据是挂载外部的 /Users/joker/docker/mysql/lib，于是我初始化了docker 的所有镜像和容器。但是当我重新启动mysql容器，绑定这个路径发现容器根本起不起来，内部错误 Unknown redo log format。完了，里面的数据读不出来。不过文件还在.ibd文件还在，应该可以恢复
+恢复过程 启动一个纯净mysql容器 docker-compose.yml
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 version: &#39;3.9&#39; services: mysql: image: mysql ports: - 3307:3306 restart: always volumes: - mysqldata:/var/lib/mysql - /Users/joker/docker/mysql/lib/pwd/my_pwd.ibd:/my_pwd.ibd environment: - MYSQL_ROOT_PASSWORD=12345678 - TZ=Asia/Shanghai volumes: mysqldata: 把/Users/joker/docker/mysql/lib/pwd/my_pwd.ibd映射到容器里面
+把表结构同步到新的mysql中，并执行
+1 ALTER TABLE my_pwd DISCARD TABLESPACE; /my_pwd.ibd 将拷贝到/var/lib/mysql/pwd中，并且修改权限
+1 2 root@03dd4294e1cb:/var/lib/mysql/pwd# cp /my_pwd.ibd .]]></description>
 </item>
 </channel>
 </rss>

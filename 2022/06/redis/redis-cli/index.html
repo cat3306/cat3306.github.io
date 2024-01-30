@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>redis cli - cat3306</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="redis cli" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cat3306.github.io/2022/06/redis/redis-cli/" /><meta property="og:image" content="https://cat3306.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-27T23:04:53+08:00" />
+<meta property="article:modified_time" content="2024-01-29T15:42:47+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://cat3306.github.io/logo.png"/>
+
+<meta name="twitter:title" content="redis cli"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="cat3306">
+<meta name="apple-mobile-web-app-title" content="cat3306"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://cat3306.github.io/2022/06/redis/redis-cli/" /><link rel="prev" href="https://cat3306.github.io/2022/06/golang/go-map/" /><link rel="next" href="https://cat3306.github.io/2022/06/op-system/ipc/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "redis cli",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/cat3306.github.io\/2022\/06\/redis\/redis-cli\/"
+        },"genre": "posts","keywords": "redis","wordcount":  1235 ,
+        "url": "https:\/\/cat3306.github.io\/2022\/06\/redis\/redis-cli\/","datePublished": "2022-06-27T23:04:53+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat3306"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat3306">❤️🔞❤️</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat3306">❤️🔞❤️</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">redis cli</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat3306</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-06-27">2022-06-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1235 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#del">DEL</a></li>
+    <li><a href="#dump">DUMP</a></li>
+    <li><a href="#exists">EXISTS</a></li>
+    <li><a href="#expire">EXPIRE</a></li>
+    <li><a href="#expireat">EXPIREAT</a></li>
+    <li><a href="#keys">KEYS</a></li>
+    <li><a href="#migrate">MIGRATE</a></li>
+    <li><a href="#move">MOVE</a></li>
+    <li><a href="#object">OBJECT</a></li>
+    <li><a href="#persist">PERSIST</a></li>
+    <li><a href="#pexpireat">PEXPIREAT</a></li>
+    <li><a href="#pttl">PTTL</a></li>
+    <li><a href="#randomkey">RANDOMKEY</a></li>
+    <li><a href="#rename">RENAME</a></li>
+    <li><a href="#renamenx">RENAMENX</a></li>
+    <li><a href="#restore">RESTORE</a></li>
+    <li><a href="#sort">SORT</a></li>
+    <li><a href="#ttl">TTL</a></li>
+    <li><a href="#type">TYPE</a></li>
+    <li><a href="#scan">SCAN</a>
+      <ul>
+        <li><a href="#match-选项">MATCH 选项</a></li>
+        <li><a href="#count-选项">COUNT 选项</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#append">APPEND</a></li>
+    <li><a href="#bitcount">BITCOUNT</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#hset">HSET</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="key">KEY</h1>
+<h2 id="del">DEL</h2>
+<p>删除<code>key</code></p>
+<p>DEL key [key &hellip;]</p>
+<p>示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; SET name joker
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; GET name
+</span></span><span class="line"><span class="cl">joker
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; DEL name
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; GET name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="dump">DUMP</h2>
+<h2 id="exists">EXISTS</h2>
+<p>判断一个key是否存在</p>
+<p>时间复杂度：O(1)</p>
+<p>返回值：</p>
+<p>若 <code>key</code> 存在，返回 <code>1</code> ，否则返回 <code>0</code> 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name haha
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; exists name
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; del name
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; exists name
+</span></span><span class="line"><span class="cl">0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="expire">EXPIRE</h2>
+<p><strong>EXPIRE key seconds</strong></p>
+<p>设置<code>key</code>的过期时间</p>
+<p>以下几个操作不会改变<code>key</code>的过期时间</p>
+<ul>
+<li>对一个<code>key</code>进行<code>INCR</code>,<code>LPUSH</code>,<code>HSET</code>等</li>
+<li><code>RENAME</code>，重命名某个<code>key</code></li>
+</ul>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><code>SET </code> 同一个 <code>key</code>时会删除过期时间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name joker
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; expire name 10000
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">9997
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; set name top
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">-1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<p><strong>另外如果想移除某个<code>key</code>的过期时间，可以用 <code>PERSIST</code>命令</strong></p>
+<p>时间复杂度</p>
+<p>O(1)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; get name
+</span></span><span class="line"><span class="cl">haha
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; expire name 1000
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">993
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; expire name 1000
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">998
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">976
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; PERSIST name
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">-1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="expireat">EXPIREAT</h2>
+<p><strong>EXPIREAT key timestamp</strong></p>
+<p>从字面意思可知，设置过期日期</p>
+<p>时间复杂度：</p>
+<p>O(1)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 1658997850 --&gt;2022-07-28 16:44:10
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; expireat name 1658997850
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">7183
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="keys">KEYS</h2>
+<p><strong>KEYS pattern</strong></p>
+<p><code>KEYS *</code> 匹配数据库中所有 <code>key</code></p>
+<p><code>KEYS h?llo</code> 匹配 <code>hello</code> ， <code>hallo</code> 和 <code>hxllo</code> 等。</p>
+<p><code>KEYS h*llo</code> 匹配 <code>hllo</code> 和 <code>heeeeello</code> 等。</p>
+<p><code>KEYS h[ae]llo</code> 匹配 <code>hello</code> 和 <code>hallo</code> ，但不匹配 <code>hillo</code> 。</p>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">虽然<code>keys</code> 的速度非常快，但是在存在大量<code>key</code>的数据库中尽量少用。原因之一是<code>redis</code>是单线程来处理逻辑，如果<code>key</code>的数量非常多就会很耗时，必定会影响其他的请求，此操作是O(n)的复杂度</div>
+        </div>
+    </div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; MSET name1 joker name2 bob name3 haha
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; keys *am*
+</span></span><span class="line"><span class="cl">name2
+</span></span><span class="line"><span class="cl">name1
+</span></span><span class="line"><span class="cl">name3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="migrate">MIGRATE</h2>
+<p><strong>MIGRATE host port key  destination-db timeout [COPY] [REPLACE] [AUTH password]</strong></p>
+<p>这个命令是将指定的 <code>key</code> 原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功， <code>key</code> 保证会出现在目标实例上，而当前实例上的 <code>key</code> 会被删除。</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">下面的例子中<code>ip</code>和密码已抹去真实性</div>
+        </div>
+    </div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; get joker
+</span></span><span class="line"><span class="cl">hahaha
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; MIGRATE 111.36.72.254 6375 AUTH 1234 joker 0 1000 REPLACE
+</span></span><span class="line"><span class="cl">ERR syntax error
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; MIGRATE 111.36.72.254 6375  joker 0 1000 REPLACE
+</span></span><span class="line"><span class="cl">ERR Target instance replied with error: NOAUTH Authentication required
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; MIGRATE 111.36.72.254 6375  joker 0 1000 REPLACE AUTH 1234
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">111.36.72.254:6375&gt; get joker
+</span></span><span class="line"><span class="cl">&#34;hahaha&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get joker
+</span></span><span class="line"><span class="cl">//本地已删除
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该命令是原子操作，执行时会阻塞两个实例，直到以下任意结果发生：迁移成功，迁移失败，网络超时等。</p>
+<p>命令的内部实现是这样的：在传输目标实例之前，会执行<code>DUMP</code>操作将本地指定的<code>key</code>序列化，然后在传送给目标实例，目标实例接收后执行<code>RESTORE</code>将数据反序列化，并添加到数据库中。如果可选参数是<code>REPLACE</code>会删除本地实例的<code>key</code>,如果是<code>COPY</code>则不会删除，但是如果目标实例有相同的<code>key</code>会发生错误<code>ERR Target instance replied with error: BUSYKEY Target key name already exists.</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; MIGRATE 111.36.72.254 6375  joker 0 1000 COPY AUTH 1234
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get joker
+</span></span><span class="line"><span class="cl">hahahhah
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">111.36.72.254:6375&gt; get joker
+</span></span><span class="line"><span class="cl">&#34;hahahhah&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; MIGRATE 111.36.72.254 6375  joker 0 1000 COPY AUTH 1234
+</span></span><span class="line"><span class="cl">ERR Target instance replied with error: BUSYKEY Target key name already exists.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">MIGRATE 命令是原子操作，即使失败也不会丢<code>key</code></div>
+        </div>
+    </div>
+<h2 id="move">MOVE</h2>
+<p><strong>MOVE key db</strong></p>
+<p>将指定<code>key</code>的移动到指定的数据库中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; select 0
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get joker
+</span></span><span class="line"><span class="cl">hahahhah
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; move joker 1
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; exists joker
+</span></span><span class="line"><span class="cl">0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; select 1
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379[1]&gt; get joker
+</span></span><span class="line"><span class="cl">hahahhah
+</span></span><span class="line"><span class="cl">127.0.0.1:6379[1]&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是试图移动的<code>key</code>和目标数据库存在<code>key</code>相同，目标数据库的<code>key</code>对应的<code>value</code>并不会被覆盖</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379[1]&gt; select 0
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get joker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; set joker jjjjj
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; move joker 1
+</span></span><span class="line"><span class="cl">0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get joker
+</span></span><span class="line"><span class="cl">jjjjj
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; select 1
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379[1]&gt; get joker
+</span></span><span class="line"><span class="cl">hahahhah
+</span></span><span class="line"><span class="cl">127.0.0.1:6379[1]&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="object">OBJECT</h2>
+<p><strong>OBJECT subcommand [arguments [arguments]]</strong></p>
+<ul>
+<li><code>OBJECT REFCOUNT key</code>  返回给定 <code>key</code> 引用所储存的值的次数</li>
+<li><code>OBJECT ENCODING key</code>  储存的值所使用的内部表示</li>
+<li><code>OBJECT IDLETIME key</code>  自储存以来的空转时间</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name haha
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; OBJECT REFCOUNT name
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; OBJECT ENCODING name
+</span></span><span class="line"><span class="cl">embstr
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; OBJECT IDLETIME name
+</span></span><span class="line"><span class="cl">36
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; GET name
+</span></span><span class="line"><span class="cl">haha
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; OBJECT IDLETIME name
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="persist">PERSIST</h2>
+<p><strong>PERSIST key</strong></p>
+<p>移除给定 <code>key</code> 的生存时间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name haha
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; expire name 10000
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">9997
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; PERSIST name
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">-1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="pexpireat">PEXPIREAT</h2>
+<p><strong>PEXPIREAT key milliseconds-timestamp</strong></p>
+<p>以毫秒为单位设置过期时间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name 123
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">//1659166810000 --&gt;2022-07-30 15:40:10
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; PEXPIREAT name 1659166810000
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">3547
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="pttl">PTTL</h2>
+<p><strong>PTTL key</strong></p>
+<p>以毫秒为单位返回 <code>key</code> 的剩余生存时间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name haha
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; expire name 10
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pttl name
+</span></span><span class="line"><span class="cl">4075
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="randomkey">RANDOMKEY</h2>
+<p>从当前数据库中随机返回一个<code>key</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; MSET name haha name1 joker name2 jhsj name3 sasdad
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; RANDOMKEY
+</span></span><span class="line"><span class="cl">name3
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; RANDOMKEY
+</span></span><span class="line"><span class="cl">name2
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; RANDOMKEY
+</span></span><span class="line"><span class="cl">name1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; RANDOMKEY
+</span></span><span class="line"><span class="cl">name3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="rename">RENAME</h2>
+<p><strong>RENAME key newkey</strong></p>
+<p>将 <code>key</code> 改名为 <code>newkey</code></p>
+<p>可以看见<code>rename</code>不会删除原有过期时间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name 123
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; expire name 100
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">92
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; rename name rename
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl rename
+</span></span><span class="line"><span class="cl">77
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果已经存在新的<code>key</code>，则会覆盖</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name haha
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; set name1 joker
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; rename name name1
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get name1
+</span></span><span class="line"><span class="cl">haha
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="renamenx">RENAMENX</h2>
+<p><strong>RENAMENX key newkey</strong></p>
+<p>当且仅当 <code>newkey</code> 不存在时，将 <code>key</code> 改名为 <code>newkey</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name haha
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; set name1 joker
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; RENAMENX name name1
+</span></span><span class="line"><span class="cl">0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; MGET name name1
+</span></span><span class="line"><span class="cl">haha
+</span></span><span class="line"><span class="cl">joker
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="restore">RESTORE</h2>
+<p><strong>RESTORE key ttl serialized-value</strong></p>
+<h2 id="sort">SORT</h2>
+<p><strong>SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern &hellip;]] [ASC | DESC] [ALPHA] [STORE destination]</strong></p>
+<h2 id="ttl">TTL</h2>
+<p>以秒为单位，返回给定 <code>key</code> 的剩余生存时间(TTL, time to live)。</p>
+<p>返回值</p>
+<ul>
+<li>当 <code>key</code> 不存在时，返回 <code>-2</code> 。</li>
+<li>当 <code>key</code> 存在但没有设置剩余生存时间时，返回 <code>-1</code> 。</li>
+<li>否则，以秒为单位，返回 <code>key</code> 的剩余生存时间。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; set name haha
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">-1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl nam
+</span></span><span class="line"><span class="cl">-2
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; expire name 100
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ttl name
+</span></span><span class="line"><span class="cl">96
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="type">TYPE</h2>
+<p><strong>TYPE key</strong></p>
+<p>返回<code>key</code>的类型</p>
+<ul>
+<li><code>none </code>    (key不存在)</li>
+<li><code>string</code> (字符串)</li>
+<li><code>list</code>     (列表)</li>
+<li><code>set</code>       (集合)</li>
+<li><code>zset</code>     (有序集)</li>
+<li><code>hash</code>     (哈希表)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"></code></pre></td></tr></table>
+</div>
+</div><h2 id="scan">SCAN</h2>
+<p><strong>SCAN cursor [MATCH pattern] [COUNT count]</strong></p>
+<p><code>SCAN</code>是基于游标的迭代器。执行命令后都会返回一个新的游标，第二次<code>SCAN</code>根据新的游标进行迭代</p>
+<p><code>SCAN</code>从0开始，如果迭代已结束会返回0，如下所示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; SCAN 0
+</span></span><span class="line"><span class="cl">1) &#34;0&#34;
+</span></span><span class="line"><span class="cl">2) 1) &#34;name1&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="match-选项">MATCH 选项</h3>
+<p>过滤某种<code>key</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6375[5]&gt; SCAN 294913  MATCH first_pay*
+</span></span><span class="line"><span class="cl">1) &#34;16385&#34;
+</span></span><span class="line"><span class="cl">2) 1) &#34;first_pay_0455024283648&#34;
+</span></span><span class="line"><span class="cl">   2) &#34;first_pay_4210839597056&#34;
+</span></span><span class="line"><span class="cl">   3) &#34;first_pay_3615148937216&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="count-选项">COUNT 选项</h3>
+<p>指定返回的个数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6375[5]&gt; SCAN 720896  COUNT 12
+</span></span><span class="line"><span class="cl">1) &#34;360448&#34;
+</span></span><span class="line"><span class="cl">2)  1) &#34;mobile_5347552301056&#34;
+</span></span><span class="line"><span class="cl">    2) &#34;first_pay_7677150433280&#34;
+</span></span><span class="line"><span class="cl">    3) &#34;firstPay:1455201652736&#34;
+</span></span><span class="line"><span class="cl">    4) &#34;first_pay_7533806170112&#34;
+</span></span><span class="line"><span class="cl">    5) &#34;firstPay:2564312084480&#34;
+</span></span><span class="line"><span class="cl">    6) &#34;first_pay_8645317152768&#34;
+</span></span><span class="line"><span class="cl">    7) &#34;first_pay_9162111070208&#34;
+</span></span><span class="line"><span class="cl">    8) &#34;first_pay_8233627316224&#34;
+</span></span><span class="line"><span class="cl">    9) &#34;first_pay_1507511316480&#34;
+</span></span><span class="line"><span class="cl">   10) &#34;first_pay_9747146321920&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="string">string</h1>
+<h2 id="append">APPEND</h2>
+<p><strong>APPEND key value</strong></p>
+<ul>
+<li>如果<code>key</code>存在并且是字符串，<code>APPEND</code>将<code>value</code>追加到原来的<code>value</code>中</li>
+<li>如果<code>key</code>不存在，就直接设置<code>value</code>,和 <code>SET key value</code> 一样</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; EXISTS name
+</span></span><span class="line"><span class="cl">(integer) 0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; APPEND name haha
+</span></span><span class="line"><span class="cl">(integer) 4
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get name
+</span></span><span class="line"><span class="cl">&#34;haha&#34;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; APPEND name &#39;love you&#39;
+</span></span><span class="line"><span class="cl">(integer) 12
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get nmae
+</span></span><span class="line"><span class="cl">(nil)
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get name
+</span></span><span class="line"><span class="cl">&#34;hahalove you&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回的是追加后的字符个数</p>
+<h2 id="bitcount">BITCOUNT</h2>
+<p>计算字符串中，被设置为1的比特位数量。可以指定<code>start</code> 或 <code>end</code> 参数</p>
+<p>例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; SETBIT haha 0 1
+</span></span><span class="line"><span class="cl">(integer) 0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; SETBIT haha 1 1
+</span></span><span class="line"><span class="cl">(integer) 0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; SETBIT haha 2 1
+</span></span><span class="line"><span class="cl">(integer) 0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; SETBIT haha 3 0
+</span></span><span class="line"><span class="cl">(integer) 0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; BITCOUNT haha 0 -1
+</span></span><span class="line"><span class="cl">(integer) 3
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>BITCOUNT haha 0 -1</code> -1表示最后一个，也可以不指定<code>start</code> <code>end</code>，表示全部</p>
+<p>如图</p>
+<figure><img src="/img/redis/1.png"
+         alt="img"/>
+</figure>
+<h1 id="hash">HASH</h1>
+<h2 id="hset">HSET</h2>
+<p><strong>HSET key field value</strong></p>
+<p><strong>返回值：</strong></p>
+<p>如果 <code>field</code> 是哈希表中的一个新建域，并且值设置成功，返回 <code>1</code> 。</p>
+<p>如果哈希表中域 <code>field</code> 已经存在且旧值已被新值覆盖，返回 <code>0</code> 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">127.0.0.1:6379&gt; HSET website google &#34;www.g.cn&#34;
+</span></span><span class="line"><span class="cl">(integer) 1
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; HSET website google &#34;www.google.com&#34;
+</span></span><span class="line"><span class="cl">(integer) 0
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/06/redis/redis-cli/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://cat3306.github.io/2022/06/redis/redis-cli/" data-title="redis cli" data-hashtags="redis"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://cat3306.github.io/2022/06/redis/redis-cli/" data-hashtag="redis"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://cat3306.github.io/2022/06/redis/redis-cli/" data-title="redis cli"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://cat3306.github.io/2022/06/redis/redis-cli/" data-title="redis cli"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://cat3306.github.io/2022/06/redis/redis-cli/" data-title="redis cli"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/redis/">redis</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2022/06/golang/go-map/" class="prev" rel="prev" title="go map"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>go map</a>
+            <a href="/2022/06/op-system/ipc/" class="next" rel="next" title="IPC">IPC<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat3306</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.76e39bd605d45b2d1944123c66608b0c8bb9baeb70720b212571531c7cf9bc2a.css" integrity="sha256-duOb1gXUWy0ZRBI8ZmCLDIu5uutwcgshJXFTHHz5vCo="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.cd0d0b6e50ff01ff2f3a9a70d7cfb66a7c6cb9acf7a566325568be6d3bd31fc4.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.ae2da1bd62c6469ee27770ad1cddf2e8296d8a7f6d85b091463e5200c5e320af.js" integrity="sha256-ri2hvWLGRp7id3CtHN3y6Cltin9thbCRRj5SAMXjIK8="></script><script type="text/javascript" src="/lib/lunr/lunr.min.08a93c0120364b01159db3c287f39b2180bb740334472bda0675bd3f18981676.js" integrity="sha256-CKk8ASA2SwEVnbPCh/ObIYC7dAM0RyvaBnW9PxiYFnY="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js" integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck="></script><script type="text/javascript" src="/lib/sharer/sharer.min.cc31d902aa4f3fcc8bb8c81aa534a4e2103e9b11f65b9fbd5b7156e089889ceb.js" integrity="sha256-zDHZAqpPP8yLuMgapTSk4hA+mxH2W5+9W3FW4ImInOs="></script><script type="text/javascript" src="/lib/katex/katex.min.eb18207487161674e717087c317db14ac1a62dadaecccb802499ce173bfeb739.js" integrity="sha256-6xggdIcWFnTnFwh8MX2xSsGmLa2uzMuAJJnOFzv+tzk="></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.cb7f4ca60ed5dc3e258415f8c7a3b46d4a93578a52adf83011f18a7f190e7602.js" integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.52ce78fab4860d24ef22128a52ce24ca01368a9034457a565a1d3fccbab0ddbb.js" integrity="sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.5c0a121a8b490afc85860a522347aeb34fb508c6b23044e5d29f6b2194227b51.js" integrity="sha256-XAoSGotJCvyFhgpSI0eus0+1CMayMETl0p9rIZQie1E="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.e55842a856a6d829feca3c3ad736c136b6c7549e9247274f78aa296259e06e24.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.e8d2be21e46b332dc48b46049b0c07b11a65970524ed512fac5d352f19eea7a5.js" integrity="sha256-6NK+IeRrMy3Ei0YEmwwHsRpllwUk7VEvrF01Lxnup6U="></script></body>
+</html>

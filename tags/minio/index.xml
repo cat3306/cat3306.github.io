@@ -3,12 +3,20 @@
         <title>minio - Tag - cat3306</title>
         <link>https://cat3306.github.io/tags/minio/</link>
         <description>minio - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 23 Apr 2022 17:53:47 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/minio/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 30 Jan 2024 10:17:00 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/minio/" rel="self" type="application/rss+xml" /><item>
+    <title>Install</title>
+    <link>https://cat3306.github.io/2024/01/minio/install/</link>
+    <pubDate>Tue, 30 Jan 2024 10:17:00 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2024/01/minio/install/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>minio command</title>
-    <link>https://cat3306.github.io/minio-cli/</link>
+    <link>https://cat3306.github.io/2022/04/minio/minio-cli/</link>
     <pubDate>Sat, 23 Apr 2022 17:53:47 &#43;0800</pubDate>
     <author>cat3306</author>
-    <guid>https://cat3306.github.io/minio-cli/</guid>
+    <guid>https://cat3306.github.io/2022/04/minio/minio-cli/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

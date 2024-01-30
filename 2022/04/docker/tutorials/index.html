@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>docker guide - cat3306</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="docker guide" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cat3306.github.io/2022/04/docker/tutorials/" /><meta property="og:image" content="https://cat3306.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-25T16:46:35+08:00" />
+<meta property="article:modified_time" content="2024-01-29T15:42:47+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://cat3306.github.io/logo.png"/>
+
+<meta name="twitter:title" content="docker guide"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="cat3306">
+<meta name="apple-mobile-web-app-title" content="cat3306"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://cat3306.github.io/2022/04/docker/tutorials/" /><link rel="prev" href="https://cat3306.github.io/2022/04/minio/minio-cli/" /><link rel="next" href="https://cat3306.github.io/2022/05/mac/mac-cli/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "docker guide",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/cat3306.github.io\/2022\/04\/docker\/tutorials\/"
+        },"genre": "posts","keywords": "docker","wordcount":  1299 ,
+        "url": "https:\/\/cat3306.github.io\/2022\/04\/docker\/tutorials\/","datePublished": "2022-04-25T16:46:35+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat3306"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat3306">❤️🔞❤️</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat3306">❤️🔞❤️</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">docker guide</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat3306</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-25">2022-04-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1299 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker的架构">Docker的架构</a></li>
+    <li><a href="#docker-daemon">Docker daemon</a></li>
+    <li><a href="#docker-client">Docker client</a></li>
+    <li><a href="#docker-desktop">Docker Desktop</a></li>
+    <li><a href="#docker-registries">Docker registries</a></li>
+    <li><a href="#images">Images</a></li>
+    <li><a href="#containers">Containers</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#docker-version"><code>docker version</code></a></li>
+    <li><a href="#docker-run"><code>docker run</code></a>
+      <ul>
+        <li><a href="#docker-run---name-test--it-debian"><code>docker run --name test -it debian</code></a></li>
+        <li><a href="#docker-run---cidfile-tmpdocker_testcid-ubuntu-echo-test"><code>docker run --cidfile /tmp/docker_test.cid ubuntu echo &quot;test&quot;</code></a></li>
+        <li><a href="#--privileged">&ndash;privileged</a></li>
+        <li><a href="#设置工作目录-w">设置工作目录（-w）</a></li>
+        <li><a href="#挂载-tmpfs---tmpfs">挂载 tmpfs (&ndash;tmpfs)</a></li>
+        <li><a href="#挂载卷-v--read-only">挂载卷（-v，&ndash;read-only）</a></li>
+        <li><a href="#--mount">&ndash;mount</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#docker-composeyml">docker-compose.yml</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本篇是按照<a href="https://docs.docker.com/" target="_blank" rel="noopener noreffer ">官方文档</a>走一遍</p>
+<h1 id="概述">概述</h1>
+<p><code>docker</code>是一个用于开发，部署，运行的开放平台，可以为开发者虚拟出独立的沙箱环境用于程序运行。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h2 id="docker的架构">Docker的架构</h2>
+<p><code>docker</code>是典型的的C/S架构</p>
+<figure class="center"><img src="/img/docker/1.png"
+         alt="img"/>
+</figure>
+<h2 id="docker-daemon">Docker daemon</h2>
+<p><code>docker</code>后台进程(<code>dockerd</code>)，接收docker命令，管理<code>images</code>，<code>containers</code>,<code>networks</code>,<code>volumes</code> 。dockerd和dockerd之间也可有通信。</p>
+<h2 id="docker-client">Docker client</h2>
+<p>docker的客户端，是用户与<code>dockerd</code>的交互方式。例如<code> docker run -d -p 3001:3001 getting-started</code>，客户端会将这些命令发送到<code>dockerd</code>，由<code>dockerd</code>执行。<code>docker</code> 客户端可以与多个<code>dockerd</code>通信</p>
+<h2 id="docker-desktop">Docker Desktop</h2>
+<p>集成了<code>dockerd</code>,<code>docker</code>,<code>docker compose</code>,<code>docker content trust</code>,<code>kubernetes</code></p>
+<h2 id="docker-registries">Docker registries</h2>
+<p>存储大量<code>image</code>的地方</p>
+<h2 id="images">Images</h2>
+<p>docker镜像</p>
+<h2 id="containers">Containers</h2>
+<p>容器，是镜像的实例</p>
+<h1 id="cli">CLI</h1>
+<h2 id="docker-version"><code>docker version</code></h2>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>例如</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&ndash;format ,-f</td>
+<td>docker version</td>
+<td>格式化输出版本信息</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>例如</p>
+<ul>
+<li><code>docker version</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Client:
+</span></span><span class="line"><span class="cl"> Cloud integration: v1.0.23
+</span></span><span class="line"><span class="cl"> Version:           20.10.14
+</span></span><span class="line"><span class="cl"> API version:       1.41
+</span></span><span class="line"><span class="cl"> Go version:        go1.16.15
+</span></span><span class="line"><span class="cl"> Git commit:        a224086
+</span></span><span class="line"><span class="cl"> Built:             Thu Mar 24 01:49:20 2022
+</span></span><span class="line"><span class="cl"> OS/Arch:           darwin/amd64
+</span></span><span class="line"><span class="cl"> Context:           default
+</span></span><span class="line"><span class="cl"> Experimental:      true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Server: Docker Desktop 4.7.1 (77678)
+</span></span><span class="line"><span class="cl"> Engine:
+</span></span><span class="line"><span class="cl">  Version:          20.10.14
+</span></span><span class="line"><span class="cl">  API version:      1.41 (minimum version 1.12)
+</span></span><span class="line"><span class="cl">  Go version:       go1.16.15
+</span></span><span class="line"><span class="cl">  Git commit:       87a90dc
+</span></span><span class="line"><span class="cl">  Built:            Thu Mar 24 01:46:14 2022
+</span></span><span class="line"><span class="cl">  OS/Arch:          linux/amd64
+</span></span><span class="line"><span class="cl">  Experimental:     false
+</span></span><span class="line"><span class="cl"> containerd:
+</span></span><span class="line"><span class="cl">  Version:          1.5.11
+</span></span><span class="line"><span class="cl">  GitCommit:        3df54a852345ae127d1fa3092b95168e4a88e2f8
+</span></span><span class="line"><span class="cl"> runc:
+</span></span><span class="line"><span class="cl">  Version:          1.0.3
+</span></span><span class="line"><span class="cl">  GitCommit:        v1.0.3-0-gf46b6ba
+</span></span><span class="line"><span class="cl"> docker-init:
+</span></span><span class="line"><span class="cl">  Version:          0.19.0
+</span></span><span class="line"><span class="cl">  GitCommit:        de40ad0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>docker version -f '{{json .}}'</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;Client&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Platform&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Name&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;CloudIntegration&#34;</span><span class="o">:</span> <span class="s2">&#34;v1.0.23&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Version&#34;</span><span class="o">:</span> <span class="s2">&#34;20.10.14&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ApiVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;1.41&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;DefaultAPIVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;1.41&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;GitCommit&#34;</span><span class="o">:</span> <span class="s2">&#34;a224086&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;GoVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;go1.16.15&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Os&#34;</span><span class="o">:</span> <span class="s2">&#34;darwin&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Arch&#34;</span><span class="o">:</span> <span class="s2">&#34;amd64&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;BuildTime&#34;</span><span class="o">:</span> <span class="s2">&#34;Thu Mar 24 01:49:20 2022&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Context&#34;</span><span class="o">:</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Experimental&#34;</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;Server&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Platform&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Name&#34;</span><span class="o">:</span> <span class="s2">&#34;Docker Desktop 4.7.1 (77678)&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Components&#34;</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Name&#34;</span><span class="o">:</span> <span class="s2">&#34;Engine&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Version&#34;</span><span class="o">:</span> <span class="s2">&#34;20.10.14&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Details&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;ApiVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;1.41&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Arch&#34;</span><span class="o">:</span> <span class="s2">&#34;amd64&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;BuildTime&#34;</span><span class="o">:</span> <span class="s2">&#34;Thu Mar 24 01:46:14 2022&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Experimental&#34;</span><span class="o">:</span> <span class="s2">&#34;false&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;GitCommit&#34;</span><span class="o">:</span> <span class="s2">&#34;87a90dc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;GoVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;go1.16.15&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;KernelVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;5.10.104-linuxkit&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;MinAPIVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;1.12&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Os&#34;</span><span class="o">:</span> <span class="s2">&#34;linux&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Name&#34;</span><span class="o">:</span> <span class="s2">&#34;containerd&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Version&#34;</span><span class="o">:</span> <span class="s2">&#34;1.5.11&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Details&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;GitCommit&#34;</span><span class="o">:</span> <span class="s2">&#34;3df54a852345ae127d1fa3092b95168e4a88e2f8&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Name&#34;</span><span class="o">:</span> <span class="s2">&#34;runc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Version&#34;</span><span class="o">:</span> <span class="s2">&#34;1.0.3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Details&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;GitCommit&#34;</span><span class="o">:</span> <span class="s2">&#34;v1.0.3-0-gf46b6ba&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Name&#34;</span><span class="o">:</span> <span class="s2">&#34;docker-init&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Version&#34;</span><span class="o">:</span> <span class="s2">&#34;0.19.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Details&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;GitCommit&#34;</span><span class="o">:</span> <span class="s2">&#34;de40ad0&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Version&#34;</span><span class="o">:</span> <span class="s2">&#34;20.10.14&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ApiVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;1.41&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;MinAPIVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;1.12&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;GitCommit&#34;</span><span class="o">:</span> <span class="s2">&#34;87a90dc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;GoVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;go1.16.15&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Os&#34;</span><span class="o">:</span> <span class="s2">&#34;linux&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Arch&#34;</span><span class="o">:</span> <span class="s2">&#34;amd64&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;KernelVersion&#34;</span><span class="o">:</span> <span class="s2">&#34;5.10.104-linuxkit&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;BuildTime&#34;</span><span class="o">:</span> <span class="s2">&#34;2022-03-24T01:46:14.000000000+00:00&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>docker version --format '{{.Server.Version}}'</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">20.10.14
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="docker-run"><code>docker run</code></h2>
+<p>例子</p>
+<h3 id="docker-run---name-test--it-debian"><code>docker run --name test -it debian</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker run --name <span class="nb">test</span> -it debian
+</span></span><span class="line"><span class="cl">Unable to find image <span class="s1">&#39;debian:latest&#39;</span> locally
+</span></span><span class="line"><span class="cl">latest: Pulling from library/debian
+</span></span><span class="line"><span class="cl">6aefca2dc61d: Already exists
+</span></span><span class="line"><span class="cl">Digest: sha256:6846593d7d8613e5dcc68c8f7d8b8e3179c7f3397b84a47c5b2ce989ef1075a0
+</span></span><span class="line"><span class="cl">Status: Downloaded newer image <span class="k">for</span> debian:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span> <span class="m">13</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$?</span>
+</span></span><span class="line"><span class="cl"><span class="m">13</span>
+</span></span><span class="line"><span class="cl">$ docker ps -a <span class="p">|</span> grep <span class="nb">test</span>
+</span></span><span class="line"><span class="cl">a30b8390fce8   debian                   <span class="s2">&#34;bash&#34;</span>                   <span class="m">2</span> minutes ago       Exited <span class="o">(</span>13<span class="o">)</span> About a minute ago
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果本地没有<code>debian</code>镜像，则去拉取最新的<code>debian:latest</code> ,-i 是交互模式，-t后台运行容器，&ndash;name取名字，<code>echo $?</code>：打印出刚才退出去的进程退出码</p>
+<h3 id="docker-run---cidfile-tmpdocker_testcid-ubuntu-echo-test"><code>docker run --cidfile /tmp/docker_test.cid ubuntu echo &quot;test&quot;</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker run --cidfile /tmp/docker_test.cid ubuntu <span class="nb">echo</span> <span class="s2">&#34;test&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">test</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建一个容器并打印<code>test</code>到控制台。<code>cidfile</code> 尝试创建一个新文件并将容器 ID 写入其中，如果文件已经存在返回错误，命令结束时关闭此文件。</p>
+<p>在宿主机上</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cat /tmp/docker_test.cid
+</span></span><span class="line"><span class="cl">759876e15d829ae04bd91a81410959be8630efcbb68a29dba344d105e87522d3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--privileged">&ndash;privileged</h3>
+<p>赋予最高权限</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker run -t -i --rm ubuntu bash
+</span></span><span class="line"><span class="cl">root@e700a5cb0af4:/#
+</span></span><span class="line"><span class="cl">root@e700a5cb0af4:/# mount -t tmpfs none /mnt
+</span></span><span class="line"><span class="cl">mount: /mnt: permission denied.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker run -t -i --privileged ubuntu bash
+</span></span><span class="line"><span class="cl">root@f66cf697d0d1:/#
+</span></span><span class="line"><span class="cl">root@f66cf697d0d1:/# mount -t tmpfs none /mnt
+</span></span><span class="line"><span class="cl">root@f66cf697d0d1:/#
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参数&ndash;privileged，可以越过很多限制，意味着容器几乎可以做主机可以做的所有事情。该参数用于特殊用例，例如在 Docker 中运行 Docker</p>
+<h3 id="设置工作目录-w">设置工作目录（-w）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker  run -w /path/to/dir/ -i -t  ubuntu <span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl">/path/to/dir
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>-w</code>让命令在给定的目录中执行， 这里是<code>/path/to/dir/</code>。如果路径不存在，则在容器内创建。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker  run -w /path/to/dir/ -i -t  ubuntu
+</span></span><span class="line"><span class="cl">root@83958f63bad9:/path/to/dir#
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="挂载-tmpfs---tmpfs">挂载 tmpfs (&ndash;tmpfs)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker run -d --tmpfs /run:rw,noexec,nosuid,size<span class="o">=</span>65536k my_image
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="挂载卷-v--read-only">挂载卷（-v，&ndash;read-only）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -p 9000:9000 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -p 9090:9090 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --name minio <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -v ~/Desktop/testminio:/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -e <span class="s2">&#34;MINIO_ROOT_USER=ROOTNAME&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -e <span class="s2">&#34;MINIO_ROOT_PASSWORD=CHANGEME123&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   minio/minio server /data --console-address <span class="s2">&#34;:9090&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>-p ：端口映射，host_port:local_port</p>
+<p>&ndash;name：容器的名字</p>
+<p>-v：挂载</p>
+<p>-d：后台运行</p>
+<p>-e：设置环境变量，<code>MINIO_ROOT_USER</code>和<code>MINIO_ROOT_PASSWORD</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker  run  -v <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span> -w <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span> -i -t  ubuntu <span class="nb">pwd</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>-v</code>参数将当前工作目录挂载到容器中。<code>-w</code> 让命令在当前工作目录中执行，最后在容器中执行<code>pwd</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker  run  -v <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span> -w <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span> -i -t  ubuntu
+</span></span><span class="line"><span class="cl">root@be74d2cdbc61:/Users/joker#
+</span></span><span class="line"><span class="cl">root@be74d2cdbc61:/Users/joker# ls
+</span></span><span class="line"><span class="cl">1.mpeg   Documents  Library  Music     Postman  blog  java_error_in_goland_52033.log  software_pkg
+</span></span><span class="line"><span class="cl">Desktop  Downloads  Movies   Pictures  Public   code  software
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>很明显，进入容器后，访问的是是宿主机的家目录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker run --read-only -v /icanwrite busybox touch /icanwrite/here
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--mount">&ndash;mount</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker run -t -i --mount <span class="nv">type</span><span class="o">=</span>bind,src<span class="o">=</span>/data,dst<span class="o">=</span>/data busybox sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="docker-compose">docker-compose</h1>
+<p>Compose is a tool for defining and running multi-container Docker applications</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker-compose -h
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Define and run multi-container applications with Docker.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  docker-compose <span class="o">[</span>-f &lt;arg&gt;...<span class="o">]</span> <span class="o">[</span>--profile &lt;name&gt;...<span class="o">]</span> <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>--<span class="o">]</span> <span class="o">[</span>COMMAND<span class="o">]</span> <span class="o">[</span>ARGS...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">  docker-compose -h<span class="p">|</span>--help
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">  -f, --file FILE             Specify an alternate compose file
+</span></span><span class="line"><span class="cl">                              <span class="o">(</span>default: docker-compose.yml<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  -p, --project-name NAME     Specify an alternate project name
+</span></span><span class="line"><span class="cl">                              <span class="o">(</span>default: directory name<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  --profile NAME              Specify a profile to <span class="nb">enable</span>
+</span></span><span class="line"><span class="cl">  -c, --context NAME          Specify a context name
+</span></span><span class="line"><span class="cl">  --verbose                   Show more output
+</span></span><span class="line"><span class="cl">  --log-level LEVEL           Set log level <span class="o">(</span>DEBUG, INFO, WARNING, ERROR, CRITICAL<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  --ansi <span class="o">(</span>never<span class="p">|</span>always<span class="p">|</span>auto<span class="o">)</span>  Control when to print ANSI control characters
+</span></span><span class="line"><span class="cl">  --no-ansi                   Do not print ANSI control characters <span class="o">(</span>DEPRECATED<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  -v, --version               Print version and <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">  -H, --host HOST             Daemon socket to connect to
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  --tls                       Use TLS<span class="p">;</span> implied by --tlsverify
+</span></span><span class="line"><span class="cl">  --tlscacert CA_PATH         Trust certs signed only by this CA
+</span></span><span class="line"><span class="cl">  --tlscert CLIENT_CERT_PATH  Path to TLS certificate file
+</span></span><span class="line"><span class="cl">  --tlskey TLS_KEY_PATH       Path to TLS key file
+</span></span><span class="line"><span class="cl">  --tlsverify                 Use TLS and verify the remote
+</span></span><span class="line"><span class="cl">  --skip-hostname-check       Don<span class="s1">&#39;t check the daemon&#39;</span>s hostname against the
+</span></span><span class="line"><span class="cl">                              name specified in the client certificate
+</span></span><span class="line"><span class="cl">  --project-directory PATH    Specify an alternate working directory
+</span></span><span class="line"><span class="cl">                              <span class="o">(</span>default: the path of the Compose file<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  --compatibility             If set, Compose will attempt to convert keys
+</span></span><span class="line"><span class="cl">                              in v3 files to their non-Swarm equivalent <span class="o">(</span>DEPRECATED<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  --env-file PATH             Specify an alternate environment file
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  build              Build or rebuild services
+</span></span><span class="line"><span class="cl">  config             Validate and view the Compose file
+</span></span><span class="line"><span class="cl">  create             Create services
+</span></span><span class="line"><span class="cl">  down               Stop and remove resources
+</span></span><span class="line"><span class="cl">  events             Receive real <span class="nb">time</span> events from containers
+</span></span><span class="line"><span class="cl">  <span class="nb">exec</span>               Execute a <span class="nb">command</span> in a running container
+</span></span><span class="line"><span class="cl">  <span class="nb">help</span>               Get <span class="nb">help</span> on a <span class="nb">command</span>
+</span></span><span class="line"><span class="cl">  images             List images
+</span></span><span class="line"><span class="cl">  <span class="nb">kill</span>               Kill containers
+</span></span><span class="line"><span class="cl">  logs               View output from containers
+</span></span><span class="line"><span class="cl">  pause              Pause services
+</span></span><span class="line"><span class="cl">  port               Print the public port <span class="k">for</span> a port binding
+</span></span><span class="line"><span class="cl">  ps                 List containers
+</span></span><span class="line"><span class="cl">  pull               Pull service images
+</span></span><span class="line"><span class="cl">  push               Push service images
+</span></span><span class="line"><span class="cl">  restart            Restart services
+</span></span><span class="line"><span class="cl">  rm                 Remove stopped containers
+</span></span><span class="line"><span class="cl">  run                Run a one-off <span class="nb">command</span>
+</span></span><span class="line"><span class="cl">  scale              Set number of containers <span class="k">for</span> a service
+</span></span><span class="line"><span class="cl">  start              Start services
+</span></span><span class="line"><span class="cl">  stop               Stop services
+</span></span><span class="line"><span class="cl">  top                Display the running processes
+</span></span><span class="line"><span class="cl">  unpause            Unpause services
+</span></span><span class="line"><span class="cl">  up                 Create and start containers
+</span></span><span class="line"><span class="cl">  version            Show version information and quit
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 后台运行</span>
+</span></span><span class="line"><span class="cl">$ docker-compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="docker-composeyml">docker-compose.yml</h2>
+<p><code>docker-compose</code> 读取这个配置文件来运行<code>containers</code></p>
+<p>例如<code>minio</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.7&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Settings and configurations that are common for all containers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">x-minio-common</span><span class="p">:</span><span class="w"> </span><span class="cp">&amp;minio-common</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">quay.io/minio/minio:RELEASE.2022-06-03T01-40-53Z</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">server --console-address &#34;:9001&#34; http://minio{1...4}/data{1...2}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">expose</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;9000&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;9001&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># environment:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># MINIO_ROOT_USER: minioadmin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># MINIO_ROOT_PASSWORD: minioadmin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;CMD&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;curl&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;-f&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;http://localhost:9000/minio/health/live&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">20s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># starts 4 docker containers running minio server instances.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># using nginx reverse proxy, load balancing, you can access</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># it through port 9000.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">minio1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*minio-common</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">minio1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">data1-1:/data1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">data1-2:/data2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">minio2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*minio-common</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">minio2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">data2-1:/data1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">data2-2:/data2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">minio3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*minio-common</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">minio3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">data3-1:/data1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">data3-2:/data2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">minio4</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*minio-common</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">minio4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">data4-1:/data1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">data4-2:/data2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nginx</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.19.2-alpine</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./nginx.conf:/etc/nginx/nginx.conf:ro</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;9000:9000&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;9001:9001&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">minio1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">minio2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">minio3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">minio4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">## By default this config uses default local driver,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">## For custom volumes replace with volume driver configuration.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data1-1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data1-2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data2-1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data2-2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data3-1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data3-2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data4-1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data4-2</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://docs.docker.com/get-started/overview/#the-docker-platform" target="_blank" rel="noopener noreffer ">https://docs.docker.com/get-started/overview/#the-docker-platform</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/04/docker/tutorials/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://cat3306.github.io/2022/04/docker/tutorials/" data-title="docker guide" data-hashtags="docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://cat3306.github.io/2022/04/docker/tutorials/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://cat3306.github.io/2022/04/docker/tutorials/" data-title="docker guide"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://cat3306.github.io/2022/04/docker/tutorials/" data-title="docker guide"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://cat3306.github.io/2022/04/docker/tutorials/" data-title="docker guide"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">docker</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2022/04/minio/minio-cli/" class="prev" rel="prev" title="minio command"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>minio command</a>
+            <a href="/2022/05/mac/mac-cli/" class="next" rel="next" title="mac command">mac command<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat3306</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.76e39bd605d45b2d1944123c66608b0c8bb9baeb70720b212571531c7cf9bc2a.css" integrity="sha256-duOb1gXUWy0ZRBI8ZmCLDIu5uutwcgshJXFTHHz5vCo="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.cd0d0b6e50ff01ff2f3a9a70d7cfb66a7c6cb9acf7a566325568be6d3bd31fc4.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.ae2da1bd62c6469ee27770ad1cddf2e8296d8a7f6d85b091463e5200c5e320af.js" integrity="sha256-ri2hvWLGRp7id3CtHN3y6Cltin9thbCRRj5SAMXjIK8="></script><script type="text/javascript" src="/lib/lunr/lunr.min.08a93c0120364b01159db3c287f39b2180bb740334472bda0675bd3f18981676.js" integrity="sha256-CKk8ASA2SwEVnbPCh/ObIYC7dAM0RyvaBnW9PxiYFnY="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js" integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck="></script><script type="text/javascript" src="/lib/sharer/sharer.min.cc31d902aa4f3fcc8bb8c81aa534a4e2103e9b11f65b9fbd5b7156e089889ceb.js" integrity="sha256-zDHZAqpPP8yLuMgapTSk4hA+mxH2W5+9W3FW4ImInOs="></script><script type="text/javascript" src="/lib/katex/katex.min.eb18207487161674e717087c317db14ac1a62dadaecccb802499ce173bfeb739.js" integrity="sha256-6xggdIcWFnTnFwh8MX2xSsGmLa2uzMuAJJnOFzv+tzk="></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.cb7f4ca60ed5dc3e258415f8c7a3b46d4a93578a52adf83011f18a7f190e7602.js" integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.52ce78fab4860d24ef22128a52ce24ca01368a9034457a565a1d3fccbab0ddbb.js" integrity="sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.5c0a121a8b490afc85860a522347aeb34fb508c6b23044e5d29f6b2194227b51.js" integrity="sha256-XAoSGotJCvyFhgpSI0eus0+1CMayMETl0p9rIZQie1E="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.e55842a856a6d829feca3c3ad736c136b6c7549e9247274f78aa296259e06e24.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.e8d2be21e46b332dc48b46049b0c07b11a65970524ed512fac5d352f19eea7a5.js" integrity="sha256-6NK+IeRrMy3Ei0YEmwwHsRpllwUk7VEvrF01Lxnup6U="></script></body>
+</html>
