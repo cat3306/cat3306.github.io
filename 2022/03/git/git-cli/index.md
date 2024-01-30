@@ -351,3 +351,26 @@ echo "alias git='LANG=en_GB git'" >> ~/.bash
    
    [git community book](http://shafiul.github.io/gitbook/index.html)
 
+## git 子模块
+
+### 添加子模块
+
+``` bash
+git submodule add git@github.com:cat3306/cat3306.github.io.git
+```
+
+### 更新子模块
+
+``` bash
+   git submodule update --remote
+```
+
+### 子模块push
+
+``` bash
+cd my_submodule
+git add .
+git commit -m "your message"
+git push origin master
+```
+

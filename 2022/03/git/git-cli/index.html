@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/cat3306.github.io\/2022\/03\/git\/git-cli\/"
-        },"genre": "posts","keywords": "git","wordcount":  947 ,
+        },"genre": "posts","keywords": "git","wordcount":  980 ,
         "url": "https:\/\/cat3306.github.io\/2022\/03\/git\/git-cli\/","datePublished": "2022-03-25T10:53:12+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">git command</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat3306</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-25">2022-03-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;947 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-25">2022-03-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;980 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -129,6 +129,13 @@
         <li><a href="#流程图">流程图</a></li>
         <li><a href="#fork后的仓库怎么与原仓库同步">fork后的仓库怎么与原仓库同步</a></li>
         <li><a href="#社区书">社区书</a></li>
+      </ul>
+    </li>
+    <li><a href="#git-子模块">git 子模块</a>
+      <ul>
+        <li><a href="#添加子模块">添加子模块</a></li>
+        <li><a href="#更新子模块">更新子模块</a></li>
+        <li><a href="#子模块push">子模块push</a></li>
       </ul>
     </li>
   </ul>
@@ -778,7 +785,42 @@
 </div><h3 id="社区书">社区书</h3>
 <p><a href="http://shafiul.github.io/gitbook/index.html" target="_blank" rel="noopener noreffer ">git community book</a></p>
 </li>
-</ol></div><div class="post-footer" id="post-footer">
+</ol>
+<h2 id="git-子模块">git 子模块</h2>
+<h3 id="添加子模块">添加子模块</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git submodule add git@github.com:cat3306/cat3306.github.io.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="更新子模块">更新子模块</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   git submodule update --remote
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="子模块push">子模块push</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> my_submodule
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;your message&#34;</span>
+</span></span><span class="line"><span class="cl">git push origin master
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
