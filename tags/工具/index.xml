@@ -19,16 +19,5 @@
     <guid>https://cat3306.github.io/2021/11/tool/%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</guid>
     <description><![CDATA[jmeter]]></description>
 </item>
-<item>
-    <title>hugo 简易安装指导</title>
-    <link>https://cat3306.github.io/2021/09/tool/hugo_guide/</link>
-    <pubDate>Mon, 20 Sep 2021 17:05:26 &#43;0800</pubDate>
-    <author>cat3306</author>
-    <guid>https://cat3306.github.io/2021/09/tool/hugo_guide/</guid>
-    <description><![CDATA[介绍 hugo 是由go实现，一个快速建立静态网站的工具。详细教程可参考hugo中文文档 正式官网
-安装 直接下载对应操作系统的二进制 Hugo Releases ，放到$GOPATH/bin/
-源码安装
-1 2 3 $ cd $GOPATH/src/github.com $ git clone git@github.com:gohugoio/hugo.git $ go install hugo命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # 生成站点 $ hugo new site ~/blog/Joker_null # 在根目录(Joker_null)下执行，生成Markdown文件 $ hugo new posts/hugo_guide.md # 在根目录(Joker_null)下执行,运行本地服务用于预览,-D参数是指草稿文件也加入预览文件中，localhost:1313 $ hugo server -D # 打包生成静态网页，用于部署 $ hugo -d ./release #详细命令参考 $ hugo help 主题安装 在执行hugo new site ~/blog/Joker_null 后有一个 themes 文件夹用来存放主题，主题各种各样，本站用的zzo]]></description>
-</item>
 </channel>
 </rss>

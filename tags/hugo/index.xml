@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>hugo - Tag - cat3306</title>
+        <link>https://cat3306.github.io/tags/hugo/</link>
+        <description>hugo - Tag - cat3306</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 30 Jan 2024 14:15:55 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/hugo/" rel="self" type="application/rss+xml" /><item>
+    <title>Hugo</title>
+    <link>https://cat3306.github.io/2024/01/hugo/hugo/</link>
+    <pubDate>Tue, 30 Jan 2024 14:15:55 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2024/01/hugo/hugo/</guid>
+    <description><![CDATA[介绍 hugo 是由go实现，一个快速建立静态网站的工具。详细教程可参考hugo中文文档 正式官网
+安装 直接下载对应操作系统的二进制 Hugo Releases ，放到$GOPATH/bin/
+源码安装
+1 2 3 cd $GOPATH/src/github.com git clone git@github.com:gohugoio/hugo.git go install hugo命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 # 生成站点 hugo new site ~/blog/Joker_null # 在根目录(Joker_null)下执行，生成Markdown文件 hugo new posts/hugo_guide.md # 在根目录(Joker_null)下执行,运行本地服务用于预览,-D参数是指草稿文件也加入预览文件中，localhost:1313 hugo server -D # 打包生成静态网页，用于部署 hugo -d ./release #详细命令参考 hugo help #启用正式环境变量 hugo server --environment production ]]></description>
+</item>
+</channel>
+</rss>

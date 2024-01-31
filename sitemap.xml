@@ -2,11 +2,15 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://cat3306.github.io/</loc><lastmod>2024-01-30T10:43:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://cat3306.github.io/</loc><lastmod>2024-01-30T14:15:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://cat3306.github.io/tags/hugo/</loc><lastmod>2024-01-30T14:15:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://cat3306.github.io/2024/01/hugo/hugo/</loc><lastmod>2024-01-30T14:15:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://cat3306.github.io/posts/</loc><lastmod>2024-01-30T14:15:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://cat3306.github.io/tags/</loc><lastmod>2024-01-30T14:15:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://cat3306.github.io/tags/redis/</loc><lastmod>2024-01-30T14:11:49&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://cat3306.github.io/2024/01/redis/install/</loc><lastmod>2024-01-30T14:11:49&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/2024/01/minio/install/</loc><lastmod>2024-01-30T10:28:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/tags/minio/</loc><lastmod>2024-01-30T10:28:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://cat3306.github.io/posts/</loc><lastmod>2024-01-30T10:43:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://cat3306.github.io/tags/</loc><lastmod>2024-01-30T10:43:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/tags/mysql/</loc><lastmod>2024-01-30T10:28:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/2024/01/mysql/install/</loc><lastmod>2024-01-30T10:28:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/2024/01/1/1/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
@@ -30,7 +34,6 @@
             <loc>https://cat3306.github.io/2022/08/mysql/mysql-application-scene/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/2022/08/mysql/mysql-joins/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/2022/07/golang/go-sync/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://cat3306.github.io/tags/redis/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/2022/07/redis/redis-application-scene/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/2022/07/home/change-theme/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/2022/07/golang/goroutine-preemption/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
@@ -101,5 +104,4 @@
             <loc>https://cat3306.github.io/2021/09/linux/ufw/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE/</loc><lastmod>2021-09-29T18:09:08&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://cat3306.github.io/2021/09/reg/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc><lastmod>2021-09-29T18:09:08&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://cat3306.github.io/2021/09/tool/hugo_guide/</loc><lastmod>2024-01-29T15:42:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://cat3306.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>

@@ -3,7 +3,15 @@
         <title>redis - Tag - cat3306</title>
         <link>https://cat3306.github.io/tags/redis/</link>
         <description>redis - Tag - cat3306</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 28 Jul 2022 14:15:42 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/redis/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 30 Jan 2024 14:11:49 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/redis/" rel="self" type="application/rss+xml" /><item>
+    <title>redis install</title>
+    <link>https://cat3306.github.io/2024/01/redis/install/</link>
+    <pubDate>Tue, 30 Jan 2024 14:11:49 &#43;0800</pubDate>
+    <author>cat3306</author>
+    <guid>https://cat3306.github.io/2024/01/redis/install/</guid>
+    <description><![CDATA[docker compose 1 2 3 4 5 6 7 8 9 10 11 12 13 version: &#39;3.8&#39; services: cache: image: redis restart: always ports: - &#39;6379:6379&#39; command: redis-server --save 20 1 --loglevel warning --requirepass facai888 volumes: - cache:/data volumes: cache: driver: local ]]></description>
+</item>
+<item>
     <title>redis 应用场景</title>
     <link>https://cat3306.github.io/2022/07/redis/redis-application-scene/</link>
     <pubDate>Thu, 28 Jul 2022 14:15:42 &#43;0800</pubDate>
