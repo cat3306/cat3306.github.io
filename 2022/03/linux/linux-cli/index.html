@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/cat3306.github.io\/2022\/03\/linux\/linux-cli\/"
-        },"genre": "posts","keywords": "linux","wordcount":  2206 ,
+        },"genre": "posts","keywords": "linux","wordcount":  2219 ,
         "url": "https:\/\/cat3306.github.io\/2022\/03\/linux\/linux-cli\/","datePublished": "2022-03-25T11:05:46+08:00","dateModified": "2024-01-29T15:42:47+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">linux cli</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat3306</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-25">2022-03-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2206 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-25">2022-03-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2219 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -113,18 +113,48 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#shell">shell</a></li>
+    <li><a href="#adduser">adduser</a></li>
+    <li><a href="#bc">bc</a></li>
+    <li><a href="#cat">cat</a></li>
+    <li><a href="#chgrp">chgrp</a></li>
+    <li><a href="#chmod">chmod</a></li>
+    <li><a href="#chown">chown</a></li>
+    <li><a href="#cut">cut</a></li>
+    <li><a href="#du">du</a></li>
+    <li><a href="#find">find</a></li>
+    <li><a href="#rm">rm</a></li>
+    <li><a href="#ssh">ssh</a>
       <ul>
-        <li><a href="#ssh-use-pem-file">ssh use .pem file</a></li>
+        <li>
+          <ul>
+            <li><a href="#ssh-use-pem-file">ssh use .pem file</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#免密">免密</a></li>
+    <li><a href="#tar">tar</a></li>
+    <li><a href="#top-命令">top 命令</a></li>
+    <li><a href="#uniq">uniq</a></li>
+    <li><a href="#vim">vim</a></li>
+    <li><a href="#wc">wc</a></li>
+    <li><a href="#grep">grep</a></li>
+    <li><a href="#ss">SS</a></li>
+    <li><a href="#netstat">netstat</a></li>
+    <li><a href="#scp">scp</a></li>
+    <li><a href="#sudo">sudo</a>
+      <ul>
+        <li><a href="#免密">免密</a></li>
+      </ul>
+    </li>
+    <li><a href="#lsblk">lsblk</a></li>
+    <li><a href="#apt">apt</a></li>
+    <li><a href="#rsync">rsync</a></li>
+    <li><a href="#crontab">crontab</a></li>
+    <li><a href="#ip">IP</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="shell">shell</h1>
+            </div><div class="content" id="content"><h2 id="shell">shell</h2>
 <ul>
 <li>
 <div class="highlight"><div class="chroma">
@@ -163,7 +193,7 @@
 </div>
 </div></li>
 </ul>
-<h1 id="adduser">adduser</h1>
+<h2 id="adduser">adduser</h2>
 <p>adduser 和 useradd 是一个意思的命令，用于增加一个linux系统的用户账号添加
 参数如下：</p>
 <div class="highlight"><div class="chroma">
@@ -202,7 +232,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#创建一个myhome用户uid 520 家目录是/usr/myhome,-m是自动创建家目录</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="bc">bc</h1>
+</div><h2 id="bc">bc</h2>
 <p>通用计算器</p>
 <ul>
 <li>
@@ -239,7 +269,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="s2">&#34;scale=2;(2.777-1.4744)/1&#34;</span> <span class="p">|</span> bc
-</span></span><span class="line"><span class="cl">1.30 <span class="c1"># scale 设置小数点</span>
+</span></span><span class="line"><span class="cl">1.30 <span class="c1">## scale 设置小数点</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -254,7 +284,7 @@
 </div>
 </div></li>
 </ul>
-<h1 id="cat">cat</h1>
+<h2 id="cat">cat</h2>
 <p>命令用于连接文件并打印到标准输出设备上</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -306,7 +336,7 @@
 </span></span><span class="line"><span class="cl">$ cat /dev/null &gt; file_name 
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="chgrp">chgrp</h1>
+</div><h2 id="chgrp">chgrp</h2>
 <p>更改文件或者目录的所属群组</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -338,7 +368,7 @@
 </span></span><span class="line"><span class="cl">$ chgrp -v -R group_name file_name 
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="chmod">chmod</h1>
+</div><h2 id="chmod">chmod</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -361,7 +391,7 @@
         data-sizes="auto"
         alt="/img/linux/1.png"
         title="/img/linux/1.png" /></p>
-<h1 id="chown">chown</h1>
+<h2 id="chown">chown</h2>
 <p>chown(change owner) 设置文件或文件夹的所有者和关联组，该命令只能root执行</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -403,7 +433,7 @@
 </span></span><span class="line"><span class="cl">$ chown -R joker:joker *  
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="cut">cut</h1>
+</div><h2 id="cut">cut</h2>
 <p>cut用于截取每行的类容</p>
 <ul>
 <li>-b ：以字节为单位进行分割。这些字节位置将忽略多字节字符边界，除非也指定了 -n 标志。</li>
@@ -436,7 +466,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>cut -d 表示用自定义分割符 <code>,</code> -f 表示哪个域，1表示：以<code>,</code> 分割的第一个子串,2表示分割的第二个子串，例子中第二个子串是<code>user_id:07f438bb-28b5-4f37-a6e7-8312ff90cabc</code> 依次类推</p>
-<h1 id="du">du</h1>
+<h2 id="du">du</h2>
 <p>(全称:disk usage)</p>
 <ul>
 <li>
@@ -474,7 +504,7 @@
 </div>
 </div></li>
 </ul>
-<h1 id="find">find</h1>
+<h2 id="find">find</h2>
 <p>find 指定目录下查找文件或者文件夹</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -484,14 +514,14 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ find path -name <span class="s2">&#34;file_name&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="rm">rm</h1>
+</div><h2 id="rm">rm</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 直接删除，不需要询问</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 直接删除，不需要询问</span>
 </span></span><span class="line"><span class="cl">$ rm -f path or file
 </span></span></code></pre></td></tr></table>
 </div>
@@ -501,7 +531,7 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 递归强删</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 递归强删</span>
 </span></span><span class="line"><span class="cl">$ rm -rf path or file 
 </span></span></code></pre></td></tr></table>
 </div>
@@ -511,7 +541,7 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 找出目录下的所有后缀为.go并强删除</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 找出目录下的所有后缀为.go并强删除</span>
 </span></span><span class="line"><span class="cl">$ find path -name <span class="s2">&#34;.go&#34;</span> <span class="p">|</span> xargs rm -rf 
 </span></span></code></pre></td></tr></table>
 </div>
@@ -521,18 +551,18 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 过滤 &#39;1.md&#39; 删除所有文件</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 过滤 &#39;1.md&#39; 删除所有文件</span>
 </span></span><span class="line"><span class="cl">$ find * <span class="p">|</span> grep -v <span class="s1">&#39;1.md&#39;</span> <span class="p">|</span> xargs rm
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="ssh">ssh</h1>
+</div><h2 id="ssh">ssh</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> <span class="c1"># 生成公私钥</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> <span class="c1">## 生成公私钥</span>
 </span></span><span class="line"><span class="cl">$ ssh-keygen -t rsa
 </span></span></code></pre></td></tr></table>
 </div>
@@ -626,7 +656,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>流程就是本地ssh服务用<code>~/.ssh/id_rsa</code> 私钥将一个随机字符串加密，发到服务器，服务器将你的公钥解密</p>
-<h3 id="ssh-use-pem-file">ssh use .pem file</h3>
+<h4 id="ssh-use-pem-file">ssh use .pem file</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -635,7 +665,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ssh -i ~/Downloads/demo.pem root@192.168.0.100
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="tar">tar</h1>
+</div><h2 id="tar">tar</h2>
 <ul>
 <li>
 <p>压缩</p>
@@ -681,7 +711,7 @@
 </div>
 </div></li>
 </ul>
-<h1 id="top-命令">top 命令</h1>
+<h2 id="top-命令">top 命令</h2>
 <p>用于实时显示各个进程的状态</p>
 <p><figure><a class="lightgallery" href="/img/linux/2.png" title="/img/linux/2.png" data-thumbnail="/img/linux/2.png" data-sub-html="<h2>工作流程</h2>">
         <img
@@ -812,10 +842,10 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">top -p pid #根据pid搜索进程
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="uniq">uniq</h1>
+</div><h2 id="uniq">uniq</h2>
 <p>Linux uniq 命令用于检查及删除文本文件中重复出现的行列，一般与 sort 命令结合使用。
 uniq 可检查文本文件中重复出现的行列。</p>
-<h1 id="vim">vim</h1>
+<h2 id="vim">vim</h2>
 <ol>
 <li>
 <p>命令</p>
@@ -862,7 +892,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </div>
 </div></li>
 </ol>
-<h1 id="wc">wc</h1>
+<h2 id="wc">wc</h2>
 <p>wc 用于计算文件的byte，字数，或是列数</p>
 <ul>
 <li>wc -c或&ndash;byte或&ndash;chars 只显示byte</li>
@@ -890,7 +920,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span></span><span class="line"><span class="cl">grep <span class="s2">&#34;ERRO&#34;</span> /var/log/go_log/tcp_game.log <span class="p">|</span> wc
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="grep">grep</h1>
+</div><h2 id="grep">grep</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -903,13 +933,13 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -C10 匹配行和它的前后10行</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## -C10 匹配行和它的前后10行</span>
 </span></span><span class="line"><span class="cl">grep  -C10 panic userinfo_center.out.2021-11-02.07:28:34
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># -B 匹配行和它的前10行</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## -B 匹配行和它的前10行</span>
 </span></span><span class="line"><span class="cl">grep  -C10 panic userinfo_center.out.2021-11-02.07:28:34
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># -A 匹配行和它的后10行</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## -A 匹配行和它的后10行</span>
 </span></span><span class="line"><span class="cl">grep  -A10 panic userinfo_center.out.2021-11-02.07:28:34
 </span></span></code></pre></td></tr></table>
 </div>
@@ -988,7 +1018,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span></span><span class="line"><span class="cl">2024-01-28 14:39:26.248 WARN /home/cat13/go/src/cloud/AK/ak-user-info/models/free_limit_conf.go:32 SLOW SQL &gt;<span class="o">=</span> 200ms<span class="o">[</span>736.443ms<span class="o">]</span> <span class="o">[</span>rows:1<span class="o">]</span> SELECT * FROM <span class="sb">`</span>yebao_game_prod<span class="sb">`</span>.<span class="sb">`</span>mobile_free_limit_conf<span class="sb">`</span> WHERE <span class="nv">os</span> <span class="o">=</span> <span class="m">0</span> ORDER BY <span class="sb">`</span>mobile_free_limit_conf<span class="sb">`</span>.<span class="sb">`</span>id<span class="sb">`</span> DESC LIMIT <span class="m">1</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="ss">SS</h1>
+</div><h2 id="ss">SS</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -996,7 +1026,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 进程id pid 端口号 进程名</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 进程id pid 端口号 进程名</span>
 </span></span><span class="line"><span class="cl">$ ss -tunlp <span class="p">|</span> grep <span class="m">6666</span>
 </span></span><span class="line"><span class="cl">LISTEN     <span class="m">0</span>      <span class="m">128</span>                      :::6666                    :::*      users:<span class="o">((</span><span class="s2">&#34;shoe&#34;</span>,28547,18<span class="o">))</span>
 </span></span></code></pre></td></tr></table>
@@ -1007,11 +1037,11 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 统计链接服务器的链接数，9095为服务器端口</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 统计链接服务器的链接数，9095为服务器端口</span>
 </span></span><span class="line"><span class="cl">ss <span class="p">|</span> grep <span class="m">9095</span> <span class="p">|</span>wc -l
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="netstat">netstat</h1>
+</div><h2 id="netstat">netstat</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1029,7 +1059,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 <li><strong>-l</strong> - 仅显示监听地址端口</li>
 <li>-p - 显示进程的PID和名称，仅当root 或者sudo用户身份，才会显示信息</li>
 </ul>
-<h1 id="scp">scp</h1>
+<h2 id="scp">scp</h2>
 <ul>
 <li>-1： 强制scp命令使用协议ssh1</li>
 <li>-2： 强制scp命令使用协议ssh2</li>
@@ -1091,8 +1121,8 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span></span><span class="line"><span class="cl">$ scp  192.168.0.102:~/Desktop/test.png ~/test.png
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="sudo">sudo</h1>
-<h2 id="免密">免密</h2>
+</div><h2 id="sudo">sudo</h2>
+<h3 id="免密">免密</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1119,7 +1149,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span></span><span class="line"><span class="cl"><span class="c1">#添加 &#39;cat13 ALL=(ALL) NOPASSWD:ALL&#39;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="lsblk">lsblk</h1>
+</div><h2 id="lsblk">lsblk</h2>
 <p>列出块设备信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1331,7 +1361,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ lsblk -Jnbo NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,TRAN
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="apt">apt</h1>
+</div><h2 id="apt">apt</h2>
 <p>全称<code>Advanced Packaging Tool</code>,<code>Debian </code>和 <code>Ubuntu </code>的包管理软件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1339,7 +1369,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"></code></pre></td></tr></table>
 </div>
-</div><h1 id="rsync">rsync</h1>
+</div><h2 id="rsync">rsync</h2>
 <p>rsync is an <a href="https://www.opensource.org/" target="_blank" rel="noopener noreffer ">open source</a> utility that provides fast incremental file transfer</p>
 <p>Rsync是一个开源实用程序，提供快速增量文件传输</p>
 <div class="highlight"><div class="chroma">
@@ -1352,7 +1382,7 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span></span><span class="line"><span class="cl">rsync -rv --exclude<span class="o">=</span>.git ../Joker_null/  ./
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="crontab">crontab</h1>
+</div><h2 id="crontab">crontab</h2>
 <p>定时任务</p>
 <p>编辑定时任务配置</p>
 <div class="highlight"><div class="chroma">
@@ -1370,6 +1400,21 @@ uniq 可检查文本文件中重复出现的行列。</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service cron reload
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="ip">IP</h2>
+<figure class="center"><img src="/img/linux/9.png"
+         alt="img"/><figcaption>
+            <h4>socket_detail</h4>
+        </figcaption>
+</figure>
+<p>更改目标地址<code>112.16.229.104</code> 走<code>ens3</code>网卡</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ip route add 112.16.229.104 via 0.0.0.0 dev ens3
 </span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">

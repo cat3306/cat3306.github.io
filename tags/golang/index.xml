@@ -9,7 +9,8 @@
     <pubDate>Tue, 15 Nov 2022 14:58:38 &#43;0800</pubDate>
     <author>cat3306</author>
     <guid>https://cat3306.github.io/2022/11/golang/pprof/</guid>
-    <description><![CDATA[]]></description>
+    <description><![CDATA[测试代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 package main import ( &#34;fmt&#34; &#34;net/http&#34; _ &#34;net/http/pprof&#34; &#34;runtime&#34; ) func main() { fmt.Println(runtime.NumCPU()) go http.ListenAndServe(&#34;0.0.0.0:6060&#34;, nil) fmt.Println(fib(100)) select {} } func fib(n int) int { if n &lt;= 1 { return 1 } return fib(n-1) + fib(n-2) } go tool pprof 火焰图
+1 go tool pprof -http :8080 profile go test 采集内存]]></description>
 </item>
 <item>
     <title>go Select</title>

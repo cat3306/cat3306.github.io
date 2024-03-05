@@ -3,7 +3,7 @@
 
 <!--more-->
 
-# shell
+## shell
 
 - ```bash
   #查看存在的shell
@@ -20,7 +20,7 @@
   chsh -s /usr/bin/fish
   ```
 
-# adduser
+## adduser
 
 adduser 和 useradd 是一个意思的命令，用于增加一个linux系统的用户账号添加
 参数如下：
@@ -45,7 +45,7 @@ useradd -u 520 -d /usr/myhome  -g users -m  myhome
 #创建一个myhome用户uid 520 家目录是/usr/myhome,-m是自动创建家目录
 ```
 
-# bc 
+## bc 
 
 通用计算器
 
@@ -68,7 +68,7 @@ useradd -u 520 -d /usr/myhome  -g users -m  myhome
 
   ```bash
   $ echo "scale=2;(2.777-1.4744)/1" | bc
-  1.30 # scale 设置小数点
+  1.30 ## scale 设置小数点
   ```
 
   ```bash
@@ -76,7 +76,7 @@ useradd -u 520 -d /usr/myhome  -g users -m  myhome
   1101111  #obase=2(输出二进制),ibase=10(输入十进制),110是输入参数
   ```
 
-# cat
+## cat
 
 命令用于连接文件并打印到标准输出设备上 
 
@@ -105,7 +105,7 @@ $ cat -b file_name_1 file_name_2 >> file_name_3
 $ cat /dev/null > file_name 
 ```
 
-# chgrp
+## chgrp
 
  更改文件或者目录的所属群组
 
@@ -124,7 +124,7 @@ $ chgrp -v group_name file_name
 $ chgrp -v -R group_name file_name 
 ```
 
-# chmod
+## chmod
 
 ````
 #“a”表示所有用户，“u”表示创建者、“g”表示创建者同组用户、“o”表示其他用户；“+”表示添加权限，“-”表示取消权限；“r”表示读权限、“w”表示写权限、“x”表示写权限。
@@ -135,7 +135,7 @@ chmod u+x ./*
 
 ![](/img/linux/1.png)
 
-# chown 
+## chown 
 
 chown(change owner) 设置文件或文件夹的所有者和关联组，该命令只能root执行
 
@@ -159,7 +159,7 @@ $ chown -R joker:joker /var/log/go_log
 $ chown -R joker:joker *  
 ```
 
-# cut 
+## cut 
 
 cut用于截取每行的类容
 
@@ -186,7 +186,7 @@ user_id:07f438bb-28b5-4f37-a6e7-8312ff90cabc,routeId:074ae03c-95ab-11eb-a48a-017
 
 cut -d 表示用自定义分割符 `,` -f 表示哪个域，1表示：以`,` 分割的第一个子串,2表示分割的第二个子串，例子中第二个子串是`user_id:07f438bb-28b5-4f37-a6e7-8312ff90cabc` 依次类推
 
-# du 
+## du 
 
 (全称:disk usage)
 
@@ -208,7 +208,7 @@ cut -d 表示用自定义分割符 `,` -f 表示哪个域，1表示：以`,` 分
   45M	.
   ```
 
-# find
+## find
 
 find 指定目录下查找文件或者文件夹
 
@@ -216,34 +216,34 @@ find 指定目录下查找文件或者文件夹
 $ find path -name "file_name"
 ```
 
-# rm
+## rm
 
 ```bash
-# 直接删除，不需要询问
+## 直接删除，不需要询问
 $ rm -f path or file
 ```
 
 ```bash
-# 递归强删
+## 递归强删
 $ rm -rf path or file 
 ```
 
 ```bash
-# 找出目录下的所有后缀为.go并强删除
+## 找出目录下的所有后缀为.go并强删除
 $ find path -name ".go" | xargs rm -rf 
 ```
 
 ```bash
-# 过滤 '1.md' 删除所有文件
+## 过滤 '1.md' 删除所有文件
 $ find * | grep -v '1.md' | xargs rm
 ```
 
 
 
-# ssh
+## ssh
 
 ```bash
- # 生成公私钥
+ ## 生成公私钥
 $ ssh-keygen -t rsa
 ```
 
@@ -297,7 +297,7 @@ sudo ufw allow 2223
 
 
 
-### ssh use .pem file
+#### ssh use .pem file
 
 ```bash
 $ ssh -i ~/Downloads/demo.pem root@192.168.0.100
@@ -305,7 +305,7 @@ $ ssh -i ~/Downloads/demo.pem root@192.168.0.100
 
 
 
-# tar
+## tar
 
 - 压缩
 
@@ -330,7 +330,7 @@ $ ssh -i ~/Downloads/demo.pem root@192.168.0.100
   -x或--extract或--get 从备份文件还原文件
   ```
 
-# top 命令
+## top 命令
 
 
 
@@ -412,12 +412,12 @@ $ ssh -i ~/Downloads/demo.pem root@192.168.0.100
 top -p pid #根据pid搜索进程
 ```
 
-# uniq
+## uniq
 
 Linux uniq 命令用于检查及删除文本文件中重复出现的行列，一般与 sort 命令结合使用。
 uniq 可检查文本文件中重复出现的行列。
 
-# vim
+## vim
 
 1. 命令
 
@@ -442,7 +442,7 @@ uniq 可检查文本文件中重复出现的行列。
    shift+$ //跳到句尾
    ```
 
-# wc
+## wc
 
 wc 用于计算文件的byte，字数，或是列数
 
@@ -461,16 +461,16 @@ wc 用于计算文件的byte，字数，或是列数
 grep "ERRO" /var/log/go_log/tcp_game.log | wc
 ```
 
-# grep
+## grep
 
 ```bash
-# -C10 匹配行和它的前后10行
+## -C10 匹配行和它的前后10行
 grep  -C10 panic userinfo_center.out.2021-11-02.07:28:34
 
-# -B 匹配行和它的前10行
+## -B 匹配行和它的前10行
 grep  -C10 panic userinfo_center.out.2021-11-02.07:28:34
 
-# -A 匹配行和它的后10行
+## -A 匹配行和它的后10行
 grep  -A10 panic userinfo_center.out.2021-11-02.07:28:34
 ```
 
@@ -513,20 +513,20 @@ grep -E '([5-9][0-9]{2}|[0-9]{4,}).[0-9]{3}ms' ak-user-info-sql_WARN.log
 2024-01-28 14:39:26.248 WARN /home/cat13/go/src/cloud/AK/ak-user-info/models/free_limit_conf.go:32 SLOW SQL >= 200ms[736.443ms] [rows:1] SELECT * FROM `yebao_game_prod`.`mobile_free_limit_conf` WHERE os = 0 ORDER BY `mobile_free_limit_conf`.`id` DESC LIMIT 1
 ```
 
-# SS 
+## SS 
 
 ```bash
-# 进程id pid 端口号 进程名
+## 进程id pid 端口号 进程名
 $ ss -tunlp | grep 6666
 LISTEN     0      128                      :::6666                    :::*      users:(("shoe",28547,18))
 ```
 
 ````bash
-# 统计链接服务器的链接数，9095为服务器端口
+## 统计链接服务器的链接数，9095为服务器端口
 ss | grep 9095 |wc -l
 ````
 
-# netstat
+## netstat
 
 ```bash
 #网络监听，使用端口情况
@@ -539,7 +539,7 @@ netstat -tulnp
 - **-l** - 仅显示监听地址端口
 - -p - 显示进程的PID和名称，仅当root 或者sudo用户身份，才会显示信息
 
-# scp
+## scp
 
 - -1： 强制scp命令使用协议ssh1
 - -2： 强制scp命令使用协议ssh2
@@ -583,9 +583,9 @@ $ scp  -r 192.168.0.102:~/Desktop/oldimg ~/oldimg
 $ scp  192.168.0.102:~/Desktop/test.png ~/test.png
 ```
 
-# sudo
+## sudo
 
-## 免密
+### 免密
 
 ```bash
 $ sudo chmod 640 /etc/sudoers
@@ -600,7 +600,7 @@ $ vim cat13
 #添加 'cat13 ALL=(ALL) NOPASSWD:ALL'
 ```
 
-# lsblk
+## lsblk
 
 列出块设备信息
 
@@ -709,14 +709,14 @@ For more details see lsblk(8).
 $ lsblk -Jnbo NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,TRAN
 ```
 
-# apt
+## apt
 全称`Advanced Packaging Tool`,`Debian `和 `Ubuntu `的包管理软件
 
 ```
 
 ```
 
-# rsync
+## rsync
 
 rsync is an [open source](https://www.opensource.org/) utility that provides fast incremental file transfer
 
@@ -727,7 +727,7 @@ Rsync是一个开源实用程序，提供快速增量文件传输
 rsync -rv --exclude=.git ../Joker_null/  ./
 ````
 
-# crontab 
+## crontab 
 
 定时任务
 
@@ -743,9 +743,15 @@ crontab -e
 service cron reload
 ```
 
+## IP
 
+{{% figure class="center" src="/img/linux/9.png" title="socket_detail" alt="img" %}}
 
+更改目标地址`112.16.229.104` 走`ens3`网卡
 
+```bash
+ip route add 112.16.229.104 via 0.0.0.0 dev ens3
+```
 
 
 

@@ -9,7 +9,9 @@
     <pubDate>Mon, 22 Jan 2024 15:44:13 &#43;0800</pubDate>
     <author>cat3306</author>
     <guid>https://cat3306.github.io/2024/01/vim/vim/</guid>
-    <description><![CDATA[复制粘贴 yy 复制一行 p 粘贴]]></description>
+    <description><![CDATA[复制粘贴 yy 复制一行 p 粘贴
+跳转定义 在 VsCode 的 Vim 插件中，要跳转到定义，你可以在一般对应变量或函数的位置上按下 &ldquo;gd&rdquo;（Go to definition）。
+返回上一个光标的位置 ctrl+o]]></description>
 </item>
 </channel>
 </rss>
