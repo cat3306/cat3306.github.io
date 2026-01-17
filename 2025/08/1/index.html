@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Termux与 frp 实现内网穿透 - cat13の部屋</title><meta name="Description" content="部屋"><meta property="og:url" content="https://cat3306.github.io/2025/08/1/">
+  <meta property="og:site_name" content="cat13の部屋">
+  <meta property="og:title" content="Termux与 frp 实现内网穿透">
+  <meta property="og:description" content="部屋">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-07T15:53:45+08:00">
+    <meta property="article:modified_time" content="2025-08-08T09:54:33+08:00">
+    <meta property="og:image" content="https://cat3306.github.io/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://cat3306.github.io/logo.png">
+  <meta name="twitter:title" content="Termux与 frp 实现内网穿透">
+  <meta name="twitter:description" content="部屋">
+<meta name="application-name" content="cat13の部屋">
+<meta name="apple-mobile-web-app-title" content="cat13の部屋">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://cat3306.github.io/2025/08/1/" /><link rel="prev" href="https://cat3306.github.io/2025/06/1/" /><link rel="next" href="https://cat3306.github.io/2025/10/redis-1/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Termux与 frp 实现内网穿透",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/cat3306.github.io\/2025\/08\/1\/"
+        },"genre": "posts","wordcount":  1583 ,
+        "url": "https:\/\/cat3306.github.io\/2025\/08\/1\/","datePublished": "2025-08-07T15:53:45+08:00","dateModified": "2025-08-08T09:54:33+08:00","license": "cat13の部屋","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat13"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat13の部屋"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat13の部屋"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Termux与 frp 实现内网穿透</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat13</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-08-07">2025-08-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1583 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#第一步在-vps-上安装和配置-frp-服务端">第一步：在 VPS 上安装和配置 FRP 服务端</a>
+      <ul>
+        <li><a href="#1-在-vps-上安装-frp-服务端">1. 在 VPS 上安装 FRP 服务端</a></li>
+        <li><a href="#2-创建-vps-服务端配置文件">2. 创建 VPS 服务端配置文件</a></li>
+        <li><a href="#3-创建系统服务">3. 创建系统服务</a></li>
+        <li><a href="#4-启动并设置开机自启">4. 启动并设置开机自启</a></li>
+        <li><a href="#5-配置防火墙如果有">5. 配置防火墙（如果有）</a></li>
+      </ul>
+    </li>
+    <li><a href="#第二步在-termux-中安装和配置-frp-客户端">第二步：在 Termux 中安装和配置 FRP 客户端</a>
+      <ul>
+        <li><a href="#1-安装-frp-客户端">1. 安装 FRP 客户端</a></li>
+        <li><a href="#2-创建客户端配置文件">2. 创建客户端配置文件</a></li>
+        <li><a href="#3-启动-termux-中的-ssh-服务">3. 启动 Termux 中的 SSH 服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-启动-frp-客户端">4. 启动 FRP 客户端</a></li>
+    <li><a href="#第三步创建管理脚本">第三步：创建管理脚本</a></li>
+    <li><a href="#第四步配置和启动服务">第四步：配置和启动服务</a>
+      <ul>
+        <li><a href="#1-生成配置文件">1. 生成配置文件</a></li>
+        <li><a href="#2-启动服务">2. 启动服务</a></li>
+        <li><a href="#3-从外网连接测试">3. 从外网连接测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#第五步设置开机自启和监控">第五步：设置开机自启和监控</a>
+      <ul>
+        <li><a href="#1-设置开机自启">1. 设置开机自启</a></li>
+        <li><a href="#2-启动自动重连监控">2. 启动自动重连监控</a></li>
+      </ul>
+    </li>
+    <li><a href="#故障排除">故障排除</a>
+      <ul>
+        <li><a href="#1-常见问题检查">1. 常见问题检查</a></li>
+        <li><a href="#2-vps-服务端检查">2. VPS 服务端检查</a></li>
+        <li><a href="#3-网络连通性检查">3. 网络连通性检查</a></li>
+      </ul>
+    </li>
+    <li><a href="#安全建议">安全建议</a>
+      <ul>
+        <li><a href="#1-修改默认端口和密码">1. 修改默认端口和密码</a></li>
+        <li><a href="#2-配置防火墙规则">2. 配置防火墙规则</a></li>
+        <li><a href="#3-监控访问日志">3. 监控访问日志</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="termux与-frp-实现内网穿透">Termux与 frp 实现内网穿透</h1>
+<h2 id="第一步在-vps-上安装和配置-frp-服务端">第一步：在 VPS 上安装和配置 FRP 服务端</h2>
+<h3 id="1-在-vps-上安装-frp-服务端">1. 在 VPS 上安装 FRP 服务端</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># SSH 连接到你的 VPS</span>
+</span></span><span class="line"><span class="cl">ssh root@your-vps-ip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载 FRP 最新版本</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /opt
+</span></span><span class="line"><span class="cl">wget https://github.com/fatedier/frp/releases/download/v0.52.3/frp_0.52.3_linux_amd64.tar.gz
+</span></span><span class="line"><span class="cl">tar -xzf frp_0.52.3_linux_amd64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> frp_0.52.3_linux_amd64
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 复制服务端文件</span>
+</span></span><span class="line"><span class="cl">cp frps /usr/local/bin/
+</span></span><span class="line"><span class="cl">mkdir -p /etc/frp</span></span></code></pre></div></div>
+<h3 id="2-创建-vps-服务端配置文件">2. 创建 VPS 服务端配置文件</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano /etc/frp/frps.toml</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-toml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># FRP 服务端配置</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">common</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">bind_port</span> <span class="p">=</span> <span class="mi">7000</span>
+</span></span><span class="line"><span class="cl"><span class="nx">bind_addr</span> <span class="p">=</span> <span class="s2">&#34;0.0.0.0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;your_secure_token_here_123456&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 管理后台</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">webServer</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">addr</span> <span class="p">=</span> <span class="s2">&#34;0.0.0.0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">port</span> <span class="p">=</span> <span class="mi">7500</span>
+</span></span><span class="line"><span class="cl"><span class="nx">user</span> <span class="p">=</span> <span class="s2">&#34;admin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">password</span> <span class="p">=</span> <span class="s2">&#34;admin123&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 日志配置</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">log</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">to</span> <span class="p">=</span> <span class="s2">&#34;/var/log/frps.log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">level</span> <span class="p">=</span> <span class="s2">&#34;info&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">max_days</span> <span class="p">=</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 允许端口范围</span>
+</span></span><span class="line"><span class="cl"><span class="nx">allow_ports</span> <span class="p">=</span> <span class="s2">&#34;2000-3000,3001,3003,4000-50000&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 心跳配置</span>
+</span></span><span class="line"><span class="cl"><span class="nx">heartbeat_timeout</span> <span class="p">=</span> <span class="mi">90</span></span></span></code></pre></div></div>
+<h3 id="3-创建系统服务">3. 创建系统服务</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano /etc/systemd/system/frps.service</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-ini">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">Frp Server Service</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+</span></span><span class="line"><span class="cl"><span class="na">User</span><span class="o">=</span><span class="s">root</span>
+</span></span><span class="line"><span class="cl"><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+</span></span><span class="line"><span class="cl"><span class="na">RestartSec</span><span class="o">=</span><span class="s">5s</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/frps -c /etc/frp/frps.toml</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecReload</span><span class="o">=</span><span class="s">/bin/kill -s HUP $MAINPID</span>
+</span></span><span class="line"><span class="cl"><span class="na">KillMode</span><span class="o">=</span><span class="s">mixed</span>
+</span></span><span class="line"><span class="cl"><span class="na">TimeoutStopSec</span><span class="o">=</span><span class="s">5s</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Install]</span>
+</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span></span></span></code></pre></div></div>
+<h3 id="4-启动并设置开机自启">4. 启动并设置开机自启</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 重载系统服务</span>
+</span></span><span class="line"><span class="cl">systemctl daemon-reload
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动服务</span>
+</span></span><span class="line"><span class="cl">systemctl start frps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置开机自启</span>
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> frps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看状态</span>
+</span></span><span class="line"><span class="cl">systemctl status frps</span></span></code></pre></div></div>
+<h3 id="5-配置防火墙如果有">5. 配置防火墙（如果有）</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># UFW 防火墙</span>
+</span></span><span class="line"><span class="cl">ufw allow <span class="m">7000</span>
+</span></span><span class="line"><span class="cl">ufw allow <span class="m">7500</span>
+</span></span><span class="line"><span class="cl">ufw allow <span class="m">2222</span>  <span class="c1"># SSH 穿透端口</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># iptables 防火墙</span>
+</span></span><span class="line"><span class="cl">iptables -A INPUT -p tcp --dport <span class="m">7000</span> -j ACCEPT
+</span></span><span class="line"><span class="cl">iptables -A INPUT -p tcp --dport <span class="m">7500</span> -j ACCEPT
+</span></span><span class="line"><span class="cl">iptables -A INPUT -p tcp --dport <span class="m">2222</span> -j ACCEPT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 保存规则（CentOS/RHEL）</span>
+</span></span><span class="line"><span class="cl">service iptables save</span></span></code></pre></div></div>
+<h2 id="第二步在-termux-中安装和配置-frp-客户端">第二步：在 Termux 中安装和配置 FRP 客户端</h2>
+<h3 id="1-安装-frp-客户端">1. 安装 FRP 客户端</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 更新 Termux</span>
+</span></span><span class="line"><span class="cl">pkg update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载 FRP ARM64 版本</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/downloads <span class="o">||</span> mkdir ~/downloads <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/downloads
+</span></span><span class="line"><span class="cl">wget https://github.com/fatedier/frp/releases/download/v0.52.3/frp_0.52.3_linux_arm64.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 解压安装</span>
+</span></span><span class="line"><span class="cl">tar -xzf frp_0.52.3_linux_arm64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> frp_0.52.3_linux_arm64
+</span></span><span class="line"><span class="cl">cp frpc <span class="nv">$PREFIX</span>/bin/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证安装</span>
+</span></span><span class="line"><span class="cl">frpc --version</span></span></code></pre></div></div>
+<h3 id="2-创建客户端配置文件">2. 创建客户端配置文件</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p <span class="nv">$PREFIX</span>/etc/frp
+</span></span><span class="line"><span class="cl">nano <span class="nv">$PREFIX</span>/etc/frp/frpc.toml</span></span></code></pre></div></div>
+<p>配置内容：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-toml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">serverAddr</span> <span class="p">=</span> <span class="s2">&#34;1.2.3.4&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">serverPort</span> <span class="p">=</span> <span class="mi">7000</span>
+</span></span><span class="line"><span class="cl"><span class="nx">auth</span><span class="p">.</span><span class="nx">method</span> <span class="p">=</span> <span class="s2">&#34;token&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">auth</span><span class="p">.</span><span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;your_token&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># MySQL 主库</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">proxies</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;mysql_master&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">type</span> <span class="p">=</span> <span class="s2">&#34;tcp&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">localIP</span> <span class="p">=</span> <span class="s2">&#34;127.0.0.1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">localPort</span> <span class="p">=</span> <span class="mi">3306</span>
+</span></span><span class="line"><span class="cl"><span class="nx">remotePort</span> <span class="p">=</span> <span class="mi">3306</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># MySQL 从库</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">proxies</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;mysql_slave&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">type</span> <span class="p">=</span> <span class="s2">&#34;tcp&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">localIP</span> <span class="p">=</span> <span class="s2">&#34;127.0.0.1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">localPort</span> <span class="p">=</span> <span class="mi">3307</span>
+</span></span><span class="line"><span class="cl"><span class="nx">remotePort</span> <span class="p">=</span> <span class="mi">3307</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Redis 集群</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">proxies</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;redis_node1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">type</span> <span class="p">=</span> <span class="s2">&#34;tcp&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">localIP</span> <span class="p">=</span> <span class="s2">&#34;127.0.0.1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">localPort</span> <span class="p">=</span> <span class="mi">6379</span>
+</span></span><span class="line"><span class="cl"><span class="nx">remotePort</span> <span class="p">=</span> <span class="mi">6379</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">proxies</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;redis_node2&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">type</span> <span class="p">=</span> <span class="s2">&#34;tcp&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">localIP</span> <span class="p">=</span> <span class="s2">&#34;127.0.0.1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">localPort</span> <span class="p">=</span> <span class="mi">6380</span>
+</span></span><span class="line"><span class="cl"><span class="nx">remotePort</span> <span class="p">=</span> <span class="mi">6380</span></span></span></code></pre></div></div>
+<p>重要： 将 <code>YOUR_VPS_IP</code> 替换为你的 VPS 实际 IP 地址，<code>token</code> 必须与服务端配置一致。</p>
+<h3 id="3-启动-termux-中的-ssh-服务">3. 启动 Termux 中的 SSH 服务</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 OpenSSH</span>
+</span></span><span class="line"><span class="cl">pkg install openssh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置密码（如果还没有）</span>
+</span></span><span class="line"><span class="cl">passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 SSH 服务（默认运行在 8022 端口）</span>
+</span></span><span class="line"><span class="cl">sshd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证 SSH 服务运行</span>
+</span></span><span class="line"><span class="cl">ps aux <span class="p">|</span> grep sshd
+</span></span><span class="line"><span class="cl">netstat -tuln <span class="p">|</span> grep <span class="m">8022</span></span></span></code></pre></div></div>
+<h2 id="4-启动-frp-客户端">4. 启动 FRP 客户端</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 前台启动（调试用）</span>
+</span></span><span class="line"><span class="cl">frpc -c <span class="nv">$PREFIX</span>/etc/frp/frpc.toml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 后台启动</span>
+</span></span><span class="line"><span class="cl">nohup frpc -c <span class="nv">$PREFIX</span>/etc/frp/frpc.toml &gt; ~/frpc.log 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span></span></span></code></pre></div></div>
+<h2 id="第三步创建管理脚本">第三步：创建管理脚本</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano ~/frp-ssh.sh</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/data/data/com.termux/files/usr/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FRP SSH 穿透管理脚本</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">VPS_IP</span><span class="o">=</span><span class="s2">&#34;YOUR_VPS_IP&#34;</span>  <span class="c1"># 替换为你的 VPS IP</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SSH_PORT</span><span class="o">=</span><span class="m">2222</span>         <span class="c1"># VPS 上的 SSH 穿透端口</span>
+</span></span><span class="line"><span class="cl"><span class="nv">FRPC_CONFIG</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$PREFIX</span><span class="s2">/etc/frp/frpc.toml&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">FRPC_LOG</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/frpc.log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">FRPC_PID</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/frpc.pid&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 颜色定义</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RED</span><span class="o">=</span><span class="s1">&#39;\033[0;31m&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GREEN</span><span class="o">=</span><span class="s1">&#39;\033[0;32m&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">YELLOW</span><span class="o">=</span><span class="s1">&#39;\033[1;33m&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">BLUE</span><span class="o">=</span><span class="s1">&#39;\033[0;34m&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">NC</span><span class="o">=</span><span class="s1">&#39;\033[0m&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">log_info<span class="o">()</span> <span class="o">{</span> <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">[INFO]</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2"> </span><span class="nv">$1</span><span class="s2">&#34;</span><span class="p">;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">log_warn<span class="o">()</span> <span class="o">{</span> <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">YELLOW</span><span class="si">}</span><span class="s2">[WARN]</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2"> </span><span class="nv">$1</span><span class="s2">&#34;</span><span class="p">;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">log_error<span class="o">()</span> <span class="o">{</span> <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">RED</span><span class="si">}</span><span class="s2">[ERROR]</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2"> </span><span class="nv">$1</span><span class="s2">&#34;</span><span class="p">;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查 FRP 客户端是否运行</span>
+</span></span><span class="line"><span class="cl">is_frpc_running<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[[</span> -f <span class="s2">&#34;</span><span class="nv">$FRPC_PID</span><span class="s2">&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">local</span> <span class="nv">pid</span><span class="o">=</span><span class="k">$(</span>cat <span class="s2">&#34;</span><span class="nv">$FRPC_PID</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">kill</span> -0 <span class="s2">&#34;</span><span class="nv">$pid</span><span class="s2">&#34;</span> 2&gt;/dev/null<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            rm -f <span class="s2">&#34;</span><span class="nv">$FRPC_PID</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查 SSH 服务是否运行</span>
+</span></span><span class="line"><span class="cl">is_sshd_running<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    pgrep -f <span class="s2">&#34;sshd&#34;</span> &gt;/dev/null
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 SSH 服务</span>
+</span></span><span class="line"><span class="cl">start_sshd<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> is_sshd_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;SSH 服务已运行&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;启动 SSH 服务...&#34;</span>
+</span></span><span class="line"><span class="cl">        sshd
+</span></span><span class="line"><span class="cl">        sleep <span class="m">2</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> is_sshd_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">            log_info <span class="s2">&#34;SSH 服务启动成功&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            log_error <span class="s2">&#34;SSH 服务启动失败&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 FRP 客户端</span>
+</span></span><span class="line"><span class="cl">start_frpc<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[[</span> ! -f <span class="s2">&#34;</span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_error <span class="s2">&#34;配置文件不存在: </span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;请运行 &#39;</span><span class="nv">$0</span><span class="s2"> config&#39; 创建配置文件&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> is_frpc_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_warn <span class="s2">&#34;FRP 客户端已运行&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;启动 FRP 客户端...&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 验证配置文件</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> ! frpc verify -c <span class="s2">&#34;</span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span> &gt;/dev/null 2&gt;<span class="p">&amp;</span>1<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_error <span class="s2">&#34;配置文件验证失败&#34;</span>
+</span></span><span class="line"><span class="cl">        frpc verify -c <span class="s2">&#34;</span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 启动客户端</span>
+</span></span><span class="line"><span class="cl">    nohup frpc -c <span class="s2">&#34;</span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span> &gt; <span class="s2">&#34;</span><span class="nv">$FRPC_LOG</span><span class="s2">&#34;</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="nv">$pid</span> &gt; <span class="s2">&#34;</span><span class="nv">$FRPC_PID</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 等待启动</span>
+</span></span><span class="line"><span class="cl">    sleep <span class="m">3</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> is_frpc_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;FRP 客户端启动成功 (PID: </span><span class="nv">$pid</span><span class="s2">)&#34;</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;SSH 穿透地址: </span><span class="nv">$VPS_IP</span><span class="s2">:</span><span class="nv">$SSH_PORT</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_error <span class="s2">&#34;FRP 客户端启动失败&#34;</span>
+</span></span><span class="line"><span class="cl">        log_error <span class="s2">&#34;查看日志: tail -f </span><span class="nv">$FRPC_LOG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 停止服务</span>
+</span></span><span class="line"><span class="cl">stop_services<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 停止 FRP 客户端</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> is_frpc_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">local</span> <span class="nv">pid</span><span class="o">=</span><span class="k">$(</span>cat <span class="s2">&#34;</span><span class="nv">$FRPC_PID</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;停止 FRP 客户端 (PID: </span><span class="nv">$pid</span><span class="s2">)...&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">kill</span> <span class="s2">&#34;</span><span class="nv">$pid</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        rm -f <span class="s2">&#34;</span><span class="nv">$FRPC_PID</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;FRP 客户端已停止&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_warn <span class="s2">&#34;FRP 客户端未运行&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 停止 SSH 服务</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> is_sshd_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;停止 SSH 服务...&#34;</span>
+</span></span><span class="line"><span class="cl">        pkill -f <span class="s2">&#34;sshd&#34;</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;SSH 服务已停止&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_warn <span class="s2">&#34;SSH 服务未运行&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启服务</span>
+</span></span><span class="line"><span class="cl">restart_services<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;重启 SSH 穿透服务...&#34;</span>
+</span></span><span class="line"><span class="cl">    stop_services
+</span></span><span class="line"><span class="cl">    sleep <span class="m">2</span>
+</span></span><span class="line"><span class="cl">    start_all
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动所有服务</span>
+</span></span><span class="line"><span class="cl">start_all<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    start_sshd
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        start_frpc
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示状态</span>
+</span></span><span class="line"><span class="cl">show_status<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">BLUE</span><span class="si">}</span><span class="s2">=== SSH 穿透服务状态 ===</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># SSH 服务状态</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> is_sshd_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">✓</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2"> SSH 服务: 运行中&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;  本地端口: 8022&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">RED</span><span class="si">}</span><span class="s2">✗</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2"> SSH 服务: 未运行&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># FRP 客户端状态</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> is_frpc_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">local</span> <span class="nv">pid</span><span class="o">=</span><span class="k">$(</span>cat <span class="s2">&#34;</span><span class="nv">$FRPC_PID</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">✓</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2"> FRP 客户端: 运行中 (PID: </span><span class="nv">$pid</span><span class="s2">)&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;  穿透地址: </span><span class="nv">$VPS_IP</span><span class="s2">:</span><span class="nv">$SSH_PORT</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;  管理界面: http://127.0.0.1:7400&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">RED</span><span class="si">}</span><span class="s2">✗</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2"> FRP 客户端: 未运行&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">BLUE</span><span class="si">}</span><span class="s2">=== 连接信息 ===</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;外网 SSH 连接命令:&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;  ssh -p </span><span class="nv">$SSH_PORT</span><span class="s2"> </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">@</span><span class="nv">$VPS_IP</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;本地连接测试:&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;  ssh -p 8022 </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">@127.0.0.1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 测试连接</span>
+</span></span><span class="line"><span class="cl">test_connection<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;测试本地 SSH 连接...&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> nc -z 127.0.0.1 8022<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;本地 SSH 服务正常&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_error <span class="s2">&#34;本地 SSH 服务不可达&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;测试 VPS 连接...&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> nc -z <span class="s2">&#34;</span><span class="nv">$VPS_IP</span><span class="s2">&#34;</span> 7000<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;VPS FRP 服务正常&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_error <span class="s2">&#34;无法连接到 VPS FRP 服务&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;测试穿透端口...&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> nc -z <span class="s2">&#34;</span><span class="nv">$VPS_IP</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="nv">$SSH_PORT</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;SSH 穿透端口正常&#34;</span>
+</span></span><span class="line"><span class="cl">        log_info <span class="s2">&#34;可以使用以下命令连接:&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;  ssh -p </span><span class="nv">$SSH_PORT</span><span class="s2"> </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">@</span><span class="nv">$VPS_IP</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_error <span class="s2">&#34;SSH 穿透端口不可达&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示日志</span>
+</span></span><span class="line"><span class="cl">show_logs<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">lines</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">50</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[[</span> -f <span class="s2">&#34;</span><span class="nv">$FRPC_LOG</span><span class="s2">&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">BLUE</span><span class="si">}</span><span class="s2">=== FRP 客户端日志 (最后 </span><span class="nv">$lines</span><span class="s2"> 行) ===</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        tail -n <span class="s2">&#34;</span><span class="nv">$lines</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="nv">$FRPC_LOG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_warn <span class="s2">&#34;日志文件不存在: </span><span class="nv">$FRPC_LOG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 实时监控日志</span>
+</span></span><span class="line"><span class="cl">monitor_logs<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[[</span> -f <span class="s2">&#34;</span><span class="nv">$FRPC_LOG</span><span class="s2">&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">BLUE</span><span class="si">}</span><span class="s2">=== 实时监控 FRP 日志 (Ctrl+C 退出) ===</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        tail -f <span class="s2">&#34;</span><span class="nv">$FRPC_LOG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        log_warn <span class="s2">&#34;日志文件不存在: </span><span class="nv">$FRPC_LOG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成配置文件</span>
+</span></span><span class="line"><span class="cl">generate_config<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[[</span> -f <span class="s2">&#34;</span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        log_warn <span class="s2">&#34;配置文件已存在: </span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">read</span> -p <span class="s2">&#34;是否覆盖? (y/N): &#34;</span> -r
+</span></span><span class="line"><span class="cl">        <span class="o">[[</span> ! <span class="nv">$REPLY</span> <span class="o">=</span>~ ^<span class="o">[</span>Yy<span class="o">]</span>$ <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="k">return</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 获取用户输入</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">YELLOW</span><span class="si">}</span><span class="s2">请输入配置信息:</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">read</span> -p <span class="s2">&#34;VPS IP 地址: &#34;</span> vps_ip
+</span></span><span class="line"><span class="cl">    <span class="nb">read</span> -p <span class="s2">&#34;认证令牌 (与服务端一致): &#34;</span> token
+</span></span><span class="line"><span class="cl">    <span class="nb">read</span> -p <span class="s2">&#34;SSH 穿透端口 (默认 2222): &#34;</span> ssh_port
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nv">ssh_port</span><span class="o">=</span><span class="si">${</span><span class="nv">ssh_port</span><span class="k">:-</span><span class="nv">2222</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 创建配置目录</span>
+</span></span><span class="line"><span class="cl">    mkdir -p <span class="s2">&#34;</span><span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 生成配置文件</span>
+</span></span><span class="line"><span class="cl">    cat &gt; <span class="s2">&#34;</span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span> <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s"># FRP 客户端配置
+</span></span></span><span class="line"><span class="cl"><span class="s">[common]
+</span></span></span><span class="line"><span class="cl"><span class="s">server_addr = &#34;$vps_ip&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">server_port = 7000
+</span></span></span><span class="line"><span class="cl"><span class="s">token = &#34;$token&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">user = &#34;termux_user&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">admin_addr = &#34;127.0.0.1&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">admin_port = 7400
+</span></span></span><span class="line"><span class="cl"><span class="s">admin_user = &#34;admin&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">admin_pwd = &#34;admin123&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[log]
+</span></span></span><span class="line"><span class="cl"><span class="s">to = &#34;$FRPC_LOG&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">level = &#34;info&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">max_days = 3
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">heartbeat_interval = 30
+</span></span></span><span class="line"><span class="cl"><span class="s">heartbeat_timeout = 90
+</span></span></span><span class="line"><span class="cl"><span class="s">pool_count = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">tcp_mux = true
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s"># SSH 服务代理
+</span></span></span><span class="line"><span class="cl"><span class="s">[[proxies]]
+</span></span></span><span class="line"><span class="cl"><span class="s">name = &#34;ssh&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">type = &#34;tcp&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">local_ip = &#34;127.0.0.1&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">local_port = 8022
+</span></span></span><span class="line"><span class="cl"><span class="s">remote_port = $ssh_port
+</span></span></span><span class="line"><span class="cl"><span class="s">use_encryption = true
+</span></span></span><span class="line"><span class="cl"><span class="s">use_compression = true
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 更新脚本变量</span>
+</span></span><span class="line"><span class="cl">    sed -i <span class="s2">&#34;s/YOUR_VPS_IP/</span><span class="nv">$vps_ip</span><span class="s2">/g&#34;</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    sed -i <span class="s2">&#34;s/SSH_PORT=2222/SSH_PORT=</span><span class="nv">$ssh_port</span><span class="s2">/g&#34;</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;配置文件已创建: </span><span class="nv">$FRPC_CONFIG</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;VPS 地址: </span><span class="nv">$vps_ip</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;SSH 端口: </span><span class="nv">$ssh_port</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 自动重连监控</span>
+</span></span><span class="line"><span class="cl">auto_reconnect<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">interval</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">30</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">max_retries</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="nv">10</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">retry_count</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;启动自动重连监控 (间隔: </span><span class="si">${</span><span class="nv">interval</span><span class="si">}</span><span class="s2">秒)&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> ! is_frpc_running <span class="o">||</span> ! is_sshd_running<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">retry_count</span><span class="o">=</span><span class="k">$((</span>retry_count <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+</span></span><span class="line"><span class="cl">            log_warn <span class="s2">&#34;服务异常，尝试重启 (第 </span><span class="nv">$retry_count</span><span class="s2"> 次)&#34;</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">[[</span> <span class="nv">$retry_count</span> -le <span class="nv">$max_retries</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">                restart_services
+</span></span><span class="line"><span class="cl">                sleep <span class="m">10</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                log_error <span class="s2">&#34;达到最大重试次数，停止监控&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">break</span>
+</span></span><span class="line"><span class="cl">            <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">retry_count</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">        <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        sleep <span class="s2">&#34;</span><span class="nv">$interval</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">done</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开机自启脚本</span>
+</span></span><span class="line"><span class="cl">setup_autostart<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">boot_script</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.termux/boot/frp-ssh&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    mkdir -p <span class="s2">&#34;</span><span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$boot_script</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    cat &gt; <span class="s2">&#34;</span><span class="nv">$boot_script</span><span class="s2">&#34;</span> <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">#!/data/data/com.termux/files/usr/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s"># 等待网络就绪
+</span></span></span><span class="line"><span class="cl"><span class="s">sleep 15
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s"># 获取唤醒锁
+</span></span></span><span class="line"><span class="cl"><span class="s">termux-wake-lock
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s"># 启动 SSH 穿透服务
+</span></span></span><span class="line"><span class="cl"><span class="s">$0 start
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s"># 启动自动重连监控
+</span></span></span><span class="line"><span class="cl"><span class="s">nohup $0 auto &gt; /dev/null 2&gt;&amp;1 &amp;
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    chmod +x <span class="s2">&#34;</span><span class="nv">$boot_script</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    log_info <span class="s2">&#34;开机自启动已配置: </span><span class="nv">$boot_script</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 主函数</span>
+</span></span><span class="line"><span class="cl">main<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> in
+</span></span><span class="line"><span class="cl">        start<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            start_all
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        stop<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            stop_services
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        restart<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            restart_services
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        status<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            show_status
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">test</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">            test_connection
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        logs<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            show_logs <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        monitor<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            monitor_logs
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        config<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            generate_config
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        auto<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            auto_reconnect <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="nv">$3</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        setup<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            setup_autostart
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">        *<span class="o">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">BLUE</span><span class="si">}</span><span class="s2">FRP SSH 穿透管理工具</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;用法: </span><span class="nv">$0</span><span class="s2"> &lt;命令&gt; [选项]&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">YELLOW</span><span class="si">}</span><span class="s2">命令:</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  start                启动 SSH 穿透服务&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  stop                 停止所有服务&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  restart              重启服务&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  status               查看服务状态&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  test                 测试连接&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  logs [lines]         查看日志&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  monitor              实时监控日志&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  config               生成配置文件&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  auto [interval]      自动重连监控&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  setup                设置开机自启&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> -e <span class="s2">&#34;</span><span class="si">${</span><span class="nv">YELLOW</span><span class="si">}</span><span class="s2">示例:</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  </span><span class="nv">$0</span><span class="s2"> config            # 首次使用，生成配置&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  </span><span class="nv">$0</span><span class="s2"> start             # 启动服务&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  </span><span class="nv">$0</span><span class="s2"> status            # 查看状态&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  </span><span class="nv">$0</span><span class="s2"> test              # 测试连接&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  </span><span class="nv">$0</span><span class="s2"> auto 30           # 30秒检查间隔自动重连&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;  </span><span class="nv">$0</span><span class="s2"> setup             # 设置开机自启&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">esac</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行主函数</span>
+</span></span><span class="line"><span class="cl">main <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></span></span></code></pre></div></div>
+<h2 id="第四步配置和启动服务">第四步：配置和启动服务</h2>
+<h3 id="1-生成配置文件">1. 生成配置文件</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 运行配置向导</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh config
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 按提示输入：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># VPS IP 地址: 你的VPS IP</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 认证令牌: your_secure_token_here_123456 (与服务端一致)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SSH 穿透端口: 2222 (默认)</span></span></span></code></pre></div></div>
+<h3 id="2-启动服务">2. 启动服务</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 启动 SSH 穿透服务</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh start
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看状态</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 测试连接</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh test</span></span></code></pre></div></div>
+<h3 id="3-从外网连接测试">3. 从外网连接测试</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 从外网连接 (替换为你的实际 VPS IP 和用户名)</span>
+</span></span><span class="line"><span class="cl">ssh -p <span class="m">2222</span> your_termux_username@your_vps_ip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看 Termux 用户名</span>
+</span></span><span class="line"><span class="cl">whoami</span></span></code></pre></div></div>
+<h2 id="第五步设置开机自启和监控">第五步：设置开机自启和监控</h2>
+<h3 id="1-设置开机自启">1. 设置开机自启</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 Termux:Boot (从 F-Droid)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 然后运行：</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh setup</span></span></code></pre></div></div>
+<h3 id="2-启动自动重连监控">2. 启动自动重连监控</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 30秒检查一次，最多重试10次</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh auto <span class="m">30</span> <span class="m">10</span> <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 后台运行</span>
+</span></span><span class="line"><span class="cl">nohup ~/frp-ssh.sh auto <span class="m">30</span> <span class="m">10</span> &gt; ~/frp-auto.log 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span></span></span></code></pre></div></div>
+<h2 id="故障排除">故障排除</h2>
+<h3 id="1-常见问题检查">1. 常见问题检查</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看 Termux 服务状态</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看详细日志</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh logs <span class="m">100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 实时监控日志</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh monitor
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 测试各个环节的连接</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh test</span></span></code></pre></div></div>
+<h3 id="2-vps-服务端检查">2. VPS 服务端检查</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 在 VPS 上检查服务状态</span>
+</span></span><span class="line"><span class="cl">systemctl status frps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看服务端日志</span>
+</span></span><span class="line"><span class="cl">tail -f /var/log/frps.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查端口监听</span>
+</span></span><span class="line"><span class="cl">netstat -tuln <span class="p">|</span> grep -E <span class="s1">&#39;:(7000|7500|2222)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启服务端</span>
+</span></span><span class="line"><span class="cl">systemctl restart frps</span></span></code></pre></div></div>
+<h3 id="3-网络连通性检查">3. 网络连通性检查</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 在 Termux 中测试到 VPS 的连接</span>
+</span></span><span class="line"><span class="cl">ping your_vps_ip
+</span></span><span class="line"><span class="cl">nc -zv your_vps_ip <span class="m">7000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在外网测试穿透端口</span>
+</span></span><span class="line"><span class="cl">nc -zv your_vps_ip <span class="m">2222</span></span></span></code></pre></div></div>
+<h2 id="安全建议">安全建议</h2>
+<h3 id="1-修改默认端口和密码">1. 修改默认端口和密码</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 修改 SSH 端口和加强认证</span>
+</span></span><span class="line"><span class="cl">nano ~/.ssh/authorized_keys
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置强密码</span>
+</span></span><span class="line"><span class="cl">passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 禁用密码登录，只使用密钥认证（可选）</span></span></span></code></pre></div></div>
+<h3 id="2-配置防火墙规则">2. 配置防火墙规则</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 在 VPS 上只开放必要端口</span>
+</span></span><span class="line"><span class="cl">ufw --force reset
+</span></span><span class="line"><span class="cl">ufw default deny incoming
+</span></span><span class="line"><span class="cl">ufw default allow outgoing
+</span></span><span class="line"><span class="cl">ufw allow ssh
+</span></span><span class="line"><span class="cl">ufw allow <span class="m">7000</span>  <span class="c1"># FRP 控制端口</span>
+</span></span><span class="line"><span class="cl">ufw allow <span class="m">2222</span>  <span class="c1"># SSH 穿透端口</span>
+</span></span><span class="line"><span class="cl">ufw --force enable</span></span></code></pre></div></div>
+<h3 id="3-监控访问日志">3. 监控访问日志</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 监控 SSH 连接</span>
+</span></span><span class="line"><span class="cl">tail -f /var/log/auth.log <span class="p">|</span> grep ssh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 监控 FRP 连接</span>
+</span></span><span class="line"><span class="cl">~/frp-ssh.sh monitor</span></span></code></pre></div></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-08-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2025/08/1/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://cat3306.github.io/2025/08/1/" data-title="Termux与 frp 实现内网穿透"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://cat3306.github.io/2025/08/1/" data-title="Termux与 frp 实现内网穿透"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://cat3306.github.io/2025/08/1/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://cat3306.github.io/2025/08/1/" data-title="Termux与 frp 实现内网穿透"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://cat3306.github.io/2025/08/1/" data-title="Termux与 frp 实现内网穿透"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://cat3306.github.io/2025/08/1/" data-title="Termux与 frp 实现内网穿透"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://cat3306.github.io/2025/08/1/" data-title="Termux与 frp 实现内网穿透" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fcat3306.github.io%2f2025%2f08%2f1%2f&amp;text=Termux%e4%b8%8e%20frp%20%e5%ae%9e%e7%8e%b0%e5%86%85%e7%bd%91%e7%a9%bf%e9%80%8f" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2025/06/1/" class="prev" rel="prev" title="mysql FULLTEXT"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>mysql FULLTEXT</a>
+            <a href="/2025/10/redis-1/" class="next" rel="next" title="redis 常见操作">redis 常见操作<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk">Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat13</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/gitalk/gitalk.min.js"></script><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/twemoji/twemoji.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"comment":{"gitalk":{"admin":["cat3306"],"clientID":"d5f6ad529de41316ba79","clientSecret":"201ba88cd816ee32bdb3cc0a5758ca09d32093bf","id":"2025-08-07T15:53:45+08:00","owner":"cat3306","repo":"catblog-comment","title":"Termux与 frp 实现内网穿透"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,41 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Linux - Tag - cat13の部屋</title>
+        <link>https://cat3306.github.io/tags/linux/</link>
+        <description>Linux - Tag - cat13の部屋</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>cat016515@gmail.com (cat13)</managingEditor>
+            <webMaster>cat016515@gmail.com (cat13)</webMaster><copyright>cat13の部屋</copyright><lastBuildDate>Sat, 19 Apr 2025 18:10:38 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>linux 查询手册</title>
+    <link>https://cat3306.github.io/2025/04/guide/</link>
+    <pubDate>Sat, 19 Apr 2025 18:10:38 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2025/04/guide/</guid>
+    <description><![CDATA[<h3 id="文件描述符">文件描述符</h3>
+<ol>
+<li>查看系统级别的文件描述符限制
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /proc/sys/fs/file-max</span></span></code></pre></div></div>
+</li>
+<li>查看当前已使用的文件描述符数量
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /proc/sys/fs/file-nr</span></span></code></pre></div></div>
+输出示例：1234 0 1024000
+<ul>
+<li>第一个数字：已分配文件句柄数</li>
+<li>第二个数字：已分配但未使用的文件句柄数</li>
+<li>第三个数字：系统最大文件句柄数(file-max)</li>
+</ul>
+</li>
+</ol>
+<h4 id="查看进程级别的文件描述符使用">查看进程级别的文件描述符使用</h4>]]></description>
+</item>
+</channel>
+</rss>

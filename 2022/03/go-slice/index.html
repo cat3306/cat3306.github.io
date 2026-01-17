@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>go slice - cat13の部屋</title><meta name="Description" content="部屋"><meta property="og:url" content="https://cat3306.github.io/2022/03/go-slice/">
+  <meta property="og:site_name" content="cat13の部屋">
+  <meta property="og:title" content="go slice">
+  <meta property="og:description" content="部屋">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-03-26T17:35:02+08:00">
+    <meta property="article:modified_time" content="2025-04-01T11:43:34+08:00">
+    <meta property="article:tag" content="Golang">
+    <meta property="og:image" content="https://cat3306.github.io/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://cat3306.github.io/logo.png">
+  <meta name="twitter:title" content="go slice">
+  <meta name="twitter:description" content="部屋">
+<meta name="application-name" content="cat13の部屋">
+<meta name="apple-mobile-web-app-title" content="cat13の部屋">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://cat3306.github.io/2022/03/go-slice/" /><link rel="prev" href="https://cat3306.github.io/2022/03/go-cli/" /><link rel="next" href="https://cat3306.github.io/2022/04/go-http/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "go slice",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/cat3306.github.io\/2022\/03\/go-slice\/"
+        },"genre": "posts","keywords": "golang","wordcount":  1006 ,
+        "url": "https:\/\/cat3306.github.io\/2022\/03\/go-slice\/","datePublished": "2022-03-26T17:35:02+08:00","dateModified": "2025-04-01T11:43:34+08:00","license": "cat13の部屋","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat13"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat13の部屋"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat13の部屋"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">go slice</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat13</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-26">2022-03-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1006 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#slice的一些特性">slice的一些特性</a></li>
+    <li><a href="#slice的数据结构">slice的数据结构</a></li>
+    <li><a href="#图解上面的特性">图解上面的特性</a>
+      <ul>
+        <li><a href="#1">1</a></li>
+        <li><a href="#2">2</a></li>
+        <li><a href="#3">3</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#扩容逻辑">扩容逻辑</a></li>
+    <li><a href="#内存对齐">内存对齐</a>
+      <ul>
+        <li><a href="#调试">调试</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="切片">切片</h1>
+<p>go的切片是动态数组，所谓的动态是指切片的容量（底层数组长度）随着元素的增加而扩充，由于数组的长度一经确定就不能更改，所以扩充的原理很自然就想到<code>malloc</code> 一个新的数组空间，将原有的数组元素拷贝到新数组中。
+切片有四种申明方式：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">list</span><span class="o">:=</span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">list2</span> <span class="p">[]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">list3</span><span class="o">:=</span><span class="nx">list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">list4</span><span class="o">:=</span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span></span></span></code></pre></div></div>
+<p><code>make</code> 关键字的第二个参数是切片长度，第三个参数是容量。估计初始化容量可以减少扩容带来的性能损耗。</p>
+<h1 id="数据结构">数据结构</h1>
+<p>在谈数据结构之前，谈谈几个go切片的特性</p>
+<h2 id="slice的一些特性">slice的一些特性</h2>
+<ol>
+<li>下面输出是什么？</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">add</span><span class="p">(</span><span class="nx">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main func:&#34;</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">add1</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main func:&#34;</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nx">list</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;add func:&#34;</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">add1</span><span class="p">(</span><span class="nx">list</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="nx">list</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">list</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;add1 func:&#34;</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>答案<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">add func: [1 2 3]
+</span></span><span class="line"><span class="cl">main add: []
+</span></span><span class="line"><span class="cl">add1 func: &amp;[1 2 3]
+</span></span><span class="line"><span class="cl">main add1 [1 2 3]</span></span></code></pre></div></div>
+</div>
+        </div>
+    </div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>分析<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>因为go 的函数参数是值传递方式，切片底层是个结构体，由于切片的容量不够，发生了扩容，底层的数组地址已经改变了，但是调用者无法感知这种改变</p>
+<p>如果传入的是个切片指针，调用者是能感知扩容的变化</p>
+</div>
+        </div>
+    </div>	
+<ol start="2">
+<li>下面输出是什么？</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list1</span> <span class="o">:=</span> <span class="nx">list</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list1</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">list1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="nx">list1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list1</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">list1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="nx">list1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>答案<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[1 2 9] [1 2 9]
+</span></span><span class="line"><span class="cl">[1 2 9] [1 2 9 10]</span></span></code></pre></div></div>
+</div>
+        </div>
+    </div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>分析<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">再不发生扩容的情况下，list1 截取list部分元素，它们共享同一个数组，当<code>list1 = append(list1, 9)</code> 会直接覆盖原来的切片，新切片如果发生扩容<code> list1 = append(list1, 10)</code>，则不影响原来的底层数组</div>
+        </div>
+    </div>	
+<ol start="3">
+<li>下面输出是什么？</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list1</span> <span class="o">:=</span> <span class="nx">list</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">list</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">list</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">list1</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">list1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">list2</span> <span class="o">:=</span> <span class="nx">list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">list2</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">list2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>答案<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">3 3
+</span></span><span class="line"><span class="cl">2 3
+</span></span><span class="line"><span class="cl">2 2</span></span></code></pre></div></div>
+</div>
+        </div>
+    </div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>分析<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">当新切片是从其他切片截取的，新切片的容量会随着左下标增加而减少，如果<code>list2 := list[3:]</code> cap(list3) =0</div>
+        </div>
+    </div>	
+<h2 id="slice的数据结构">slice的数据结构</h2>
+<p><code>/usr/local/go/src/reflect/value.go</code></p>
+<ul>
+<li><code>Data</code> 是指向数组的指针</li>
+<li><code>Len</code> 是切片的长度</li>
+<li><code>Cap</code> 是当前切片的容量，即<code>Data</code>数组的长度</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">SliceHeader</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Data</span> <span class="kt">uintptr</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Len</span>  <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Cap</span>  <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<figure><a class="lightgallery" href="/images/golang/8.png" title="/images/golang/8.png" data-thumbnail="/images/golang/8.png" data-sub-html="<h2>图片描述</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/golang/8.png"
+            data-srcset="/images/golang/8.png, /images/golang/8.png 1.5x, /images/golang/8.png 2x"
+            data-sizes="auto"
+            alt="/images/golang/8.png" width="100%" height="242" />
+    </a><figcaption class="image-caption">图片描述</figcaption>
+    </figure>
+<h2 id="图解上面的特性">图解上面的特性</h2>
+<h3 id="1">1</h3>
+<figure><a class="lightgallery" href="/images/golang/9.png" title="/images/golang/9.png" data-thumbnail="/images/golang/9.png" data-sub-html="<h2>图片描述</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/golang/9.png"
+            data-srcset="/images/golang/9.png, /images/golang/9.png 1.5x, /images/golang/9.png 2x"
+            data-sizes="auto"
+            alt="/images/golang/9.png" width="100%" height="1252" />
+    </a><figcaption class="image-caption">图片描述</figcaption>
+    </figure>
+<h3 id="2">2</h3>
+<figure><a class="lightgallery" href="/images/golang/10.png" title="/images/golang/10.png" data-thumbnail="/images/golang/10.png" data-sub-html="<h2>图片描述</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/golang/10.png"
+            data-srcset="/images/golang/10.png, /images/golang/10.png 1.5x, /images/golang/10.png 2x"
+            data-sizes="auto"
+            alt="/images/golang/10.png" width="100%" height="1560" />
+    </a><figcaption class="image-caption">图片描述</figcaption>
+    </figure>
+<h3 id="3">3</h3>
+<figure><a class="lightgallery" href="/images/golang/11.png" title="/images/golang/11.png" data-thumbnail="/images/golang/11.png" data-sub-html="<h2>图片描述</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/golang/11.png"
+            data-srcset="/images/golang/11.png, /images/golang/11.png 1.5x, /images/golang/11.png 2x"
+            data-sizes="auto"
+            alt="/images/golang/11.png" width="100%" height="492" />
+    </a><figcaption class="image-caption">图片描述</figcaption>
+    </figure>
+<h1 id="追加与扩容">追加与扩容</h1>
+<p>可以使用<code>append</code>关键字向切片中追加元素，在追加元素过程中如果底层数组容量不够会触发扩容机制</p>
+<p>对于<code>list=append(list,1,2,3)</code>，会有下面代码步骤:</p>
+<p>获取旧的长度，容量，如果新的长度大于容量，则进行扩容<code>growslice</code></p>
+<p><code>*(ptr+len) = 1</code> 等一系列操作，给新的切片赋值</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// slice = append(slice, 1, 2, 3)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">slice</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ptr</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">cap</span> <span class="o">:=</span> <span class="nx">slice</span>
+</span></span><span class="line"><span class="cl"><span class="nx">newlen</span> <span class="o">:=</span> <span class="nx">len</span> <span class="o">+</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">uint</span><span class="p">(</span><span class="nx">newlen</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nb">uint</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">newptr</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">newcap</span> <span class="p">=</span> <span class="nf">growslice</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="nx">newlen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="nf">vardef</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="o">*</span><span class="nx">a</span><span class="p">.</span><span class="nx">cap</span> <span class="p">=</span> <span class="nx">newcap</span>
+</span></span><span class="line"><span class="cl">   <span class="o">*</span><span class="nx">a</span><span class="p">.</span><span class="nx">ptr</span> <span class="p">=</span> <span class="nx">newptr</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">newlen</span> <span class="p">=</span> <span class="nx">len</span> <span class="o">+</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="nx">a</span><span class="p">.</span><span class="nx">len</span> <span class="p">=</span> <span class="nx">newlen</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="p">(</span><span class="nx">ptr</span><span class="o">+</span><span class="nx">len</span><span class="p">)</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="p">(</span><span class="nx">ptr</span><span class="o">+</span><span class="nx">len</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="p">(</span><span class="nx">ptr</span><span class="o">+</span><span class="nx">len</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="p">=</span> <span class="mi">3</span></span></span></code></pre></div></div>
+<figure><a class="lightgallery" href="/images/golang/12.png" title="/images/golang/12.png" data-thumbnail="/images/golang/12.png" data-sub-html="<h2>图片描述</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/golang/12.png"
+            data-srcset="/images/golang/12.png, /images/golang/12.png 1.5x, /images/golang/12.png 2x"
+            data-sizes="auto"
+            alt="/images/golang/12.png" width="100%" height="772" />
+    </a><figcaption class="image-caption">图片描述</figcaption>
+    </figure>
+<h2 id="扩容逻辑">扩容逻辑</h2>
+<ul>
+<li>如果期望的容量大于当前容量的两倍，新的容量就是期望的容量</li>
+<li>如果当前的切片的长度小于1024，新的容量翻倍</li>
+<li>如果当前的切片的长度大于1024，就会每次增加容量的25%，直到新容量大于期望容量</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// /usr/local/go/src/runtime/slice.go</span>
+</span></span><span class="line"><span class="cl"><span class="nx">newcap</span> <span class="o">:=</span> <span class="nx">old</span><span class="p">.</span><span class="nx">cap</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">doublecap</span> <span class="o">:=</span> <span class="nx">newcap</span> <span class="o">+</span> <span class="nx">newcap</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">cap</span> <span class="p">&gt;</span> <span class="nx">doublecap</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newcap</span> <span class="p">=</span> <span class="nx">cap</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">old</span><span class="p">.</span><span class="nx">cap</span> <span class="p">&lt;</span> <span class="mi">1024</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">newcap</span> <span class="p">=</span> <span class="nx">doublecap</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// Check 0 &lt; newcap to detect overflow</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// and prevent an infinite loop.</span>
+</span></span><span class="line"><span class="cl">			<span class="k">for</span> <span class="mi">0</span> <span class="p">&lt;</span> <span class="nx">newcap</span> <span class="o">&amp;&amp;</span> <span class="nx">newcap</span> <span class="p">&lt;</span> <span class="nx">cap</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">newcap</span> <span class="o">+=</span> <span class="nx">newcap</span> <span class="o">/</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// Set newcap to the requested cap when</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// the newcap calculation overflowed.</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">newcap</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">newcap</span> <span class="p">=</span> <span class="nx">cap</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span></span></span></code></pre></div></div>
+<h2 id="内存对齐">内存对齐</h2>
+<p>关于内存对齐是怎么回事，专门有篇文章探讨<a href="../../op-system/memory-alignment/" rel="">内存对齐</a></p>
+<p>上面的步骤只是初步计算所需要的容量，还需要内存对齐计算精确的内存大小。如果切片的元素所占有的字节位1，8(<code>sys.PtrSize</code>)，2的幂数，需要内存对齐，过程如下</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">overflow</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">lenmem</span><span class="p">,</span> <span class="nx">newlenmem</span><span class="p">,</span> <span class="nx">capmem</span> <span class="kt">uintptr</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Specialize for common values of et.size.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// For 1 we don&#39;t need any division/multiplication.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// For sys.PtrSize, compiler will optimize division/multiplication into a shift by a constant.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// For powers of 2, use a variable shift.</span>
+</span></span><span class="line"><span class="cl">	<span class="k">switch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">lenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">old</span><span class="p">.</span><span class="nx">len</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newlenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">capmem</span> <span class="p">=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">overflow</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newcap</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">capmem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span> <span class="o">==</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">lenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">old</span><span class="p">.</span><span class="nx">len</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newlenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">capmem</span> <span class="p">=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">overflow</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span><span class="o">/</span><span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newcap</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">capmem</span> <span class="o">/</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nf">isPowerOfTwo</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">shift</span> <span class="kt">uintptr</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span> <span class="o">==</span> <span class="mi">8</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// Mask shift for better code generation.</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">shift</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">sys</span><span class="p">.</span><span class="nf">Ctz64</span><span class="p">(</span><span class="nb">uint64</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">)))</span> <span class="o">&amp;</span> <span class="mi">63</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">shift</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">sys</span><span class="p">.</span><span class="nf">Ctz32</span><span class="p">(</span><span class="nb">uint32</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">)))</span> <span class="o">&amp;</span> <span class="mi">31</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">lenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">old</span><span class="p">.</span><span class="nx">len</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">shift</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newlenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">shift</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">capmem</span> <span class="p">=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">shift</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">overflow</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="p">&gt;</span> <span class="p">(</span><span class="nx">maxAlloc</span> <span class="o">&gt;&gt;</span> <span class="nx">shift</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newcap</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">capmem</span> <span class="o">&gt;&gt;</span> <span class="nx">shift</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">lenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">old</span><span class="p">.</span><span class="nx">len</span><span class="p">)</span> <span class="o">*</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newlenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span> <span class="o">*</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">capmem</span><span class="p">,</span> <span class="nx">overflow</span> <span class="p">=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">MulUintptr</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">capmem</span> <span class="p">=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nx">capmem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">newcap</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">capmem</span> <span class="o">/</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span></span></span></code></pre></div></div>
+<p><code>roundupsize(uintptr(newcap) * sys.PtrSize)</code>会将将要申请的内存向上取整得到capmem，新的容量为	<code>newcap = int(capmem / sys.PtrSize)</code></p>
+<p>实际怎样，我们用<code>dlv</code>调试下</p>
+<h3 id="调试">调试</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">arr</span> <span class="p">[]</span><span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">cap</span><span class="p">(</span><span class="nx">arr</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">arr</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">cap</span><span class="p">(</span><span class="nx">arr</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ol>
+<li>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cat3306/gosrclearn/slice                                                                                                                                                                 
+</span></span><span class="line"><span class="cl">▶ dlv debug
+</span></span><span class="line"><span class="cl">Type &#39;help&#39; for list of commands.
+</span></span><span class="line"><span class="cl">(dlv) </span></span></code></pre></div></div>
+</li>
+<li>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">▶ dlv debug
+</span></span><span class="line"><span class="cl">Type &#39;help&#39; for list of commands.
+</span></span><span class="line"><span class="cl">(dlv) break runtime.growslice
+</span></span><span class="line"><span class="cl">Breakpoint 1 set at 0x1047fea for runtime.growslice() /usr/local/go/src/runtime/slice.go:162
+</span></span><span class="line"><span class="cl">(dlv) </span></span></code></pre></div></div>
+</li>
+<li>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">runtime</span><span class="o">.</span><span class="n">growslice</span><span class="p">()</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">runtime</span><span class="o">/</span><span class="n">slice</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">162</span> <span class="p">(</span><span class="n">hits</span> <span class="n">goroutine</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span><span class="mi">5</span> <span class="n">total</span><span class="p">:</span><span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x1047fea</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Warning</span><span class="p">:</span> <span class="n">debugging</span> <span class="n">optimized</span> <span class="n">function</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">157</span><span class="p">:</span> <span class="o">//</span> <span class="n">NOT</span> <span class="n">to</span> <span class="n">the</span> <span class="n">new</span> <span class="n">requested</span> <span class="n">capacity</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">158</span><span class="p">:</span> <span class="o">//</span> <span class="n">This</span> <span class="n">is</span> <span class="k">for</span> <span class="n">codegen</span> <span class="n">convenience</span><span class="o">.</span> <span class="n">The</span> <span class="n">old</span> <span class="n">slice</span><span class="s1">&#39;s length is used immediately</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">159</span><span class="p">:</span> <span class="o">//</span> <span class="n">to</span> <span class="n">calculate</span> <span class="n">where</span> <span class="n">to</span> <span class="n">write</span> <span class="n">new</span> <span class="n">values</span> <span class="n">during</span> <span class="n">an</span> <span class="n">append</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">160</span><span class="p">:</span> <span class="o">//</span> <span class="n">TODO</span><span class="p">:</span> <span class="n">When</span> <span class="n">the</span> <span class="n">old</span> <span class="n">backend</span> <span class="n">is</span> <span class="n">gone</span><span class="p">,</span> <span class="n">reconsider</span> <span class="n">this</span> <span class="n">decision</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">161</span><span class="p">:</span> <span class="o">//</span> <span class="n">The</span> <span class="n">SSA</span> <span class="n">backend</span> <span class="n">might</span> <span class="n">prefer</span> <span class="n">the</span> <span class="n">new</span> <span class="n">length</span> <span class="ow">or</span> <span class="n">to</span> <span class="k">return</span> <span class="n">only</span> <span class="n">ptr</span><span class="o">/</span><span class="n">cap</span> <span class="ow">and</span> <span class="n">save</span> <span class="n">stack</span> <span class="n">space</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span> <span class="mi">162</span><span class="p">:</span> <span class="k">func</span> <span class="n">growslice</span><span class="p">(</span><span class="n">et</span> <span class="o">*</span><span class="n">_type</span><span class="p">,</span> <span class="n">old</span> <span class="n">slice</span><span class="p">,</span> <span class="n">cap</span> <span class="ne">int</span><span class="p">)</span> <span class="n">slice</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">163</span><span class="p">:</span>         <span class="k">if</span> <span class="n">raceenabled</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">164</span><span class="p">:</span>                 <span class="n">callerpc</span> <span class="p">:</span><span class="o">=</span> <span class="n">getcallerpc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">165</span><span class="p">:</span>                 <span class="n">racereadrangepc</span><span class="p">(</span><span class="n">old</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">uintptr</span><span class="p">(</span><span class="n">old</span><span class="o">.</span><span class="n">len</span><span class="o">*</span><span class="ne">int</span><span class="p">(</span><span class="n">et</span><span class="o">.</span><span class="n">size</span><span class="p">)),</span> <span class="n">callerpc</span><span class="p">,</span> <span class="n">funcPC</span><span class="p">(</span><span class="n">growslice</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">166</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">167</span><span class="p">:</span>         <span class="k">if</span> <span class="n">msanenabled</span> <span class="p">{</span></span></span></code></pre></div></div>
+</li>
+<li>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) print old
+</span></span><span class="line"><span class="cl">runtime.slice {array: unsafe.Pointer(0x0), len: 0, cap: 0}
+</span></span><span class="line"><span class="cl">(dlv) print cap
+</span></span><span class="line"><span class="cl">5
+</span></span><span class="line"><span class="cl">(dlv) </span></span></code></pre></div></div>
+</li>
+<li>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">runtime</span><span class="o">.</span><span class="n">growslice</span><span class="p">()</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">runtime</span><span class="o">/</span><span class="n">slice</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">219</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x1048085</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Warning</span><span class="p">:</span> <span class="n">debugging</span> <span class="n">optimized</span> <span class="n">function</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">214</span><span class="p">:</span>                 <span class="n">newcap</span> <span class="o">=</span> <span class="ne">int</span><span class="p">(</span><span class="n">capmem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">215</span><span class="p">:</span>         <span class="k">case</span> <span class="n">et</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">sys</span><span class="o">.</span><span class="n">PtrSize</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">216</span><span class="p">:</span>                 <span class="n">lenmem</span> <span class="o">=</span> <span class="n">uintptr</span><span class="p">(</span><span class="n">old</span><span class="o">.</span><span class="n">len</span><span class="p">)</span> <span class="o">*</span> <span class="n">sys</span><span class="o">.</span><span class="n">PtrSize</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">217</span><span class="p">:</span>                 <span class="n">newlenmem</span> <span class="o">=</span> <span class="n">uintptr</span><span class="p">(</span><span class="n">cap</span><span class="p">)</span> <span class="o">*</span> <span class="n">sys</span><span class="o">.</span><span class="n">PtrSize</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">218</span><span class="p">:</span>                 <span class="n">capmem</span> <span class="o">=</span> <span class="n">roundupsize</span><span class="p">(</span><span class="n">uintptr</span><span class="p">(</span><span class="n">newcap</span><span class="p">)</span> <span class="o">*</span> <span class="n">sys</span><span class="o">.</span><span class="n">PtrSize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span> <span class="mi">219</span><span class="p">:</span>                 <span class="n">overflow</span> <span class="o">=</span> <span class="n">uintptr</span><span class="p">(</span><span class="n">newcap</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">maxAlloc</span><span class="o">/</span><span class="n">sys</span><span class="o">.</span><span class="n">PtrSize</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">220</span><span class="p">:</span>                 <span class="n">newcap</span> <span class="o">=</span> <span class="ne">int</span><span class="p">(</span><span class="n">capmem</span> <span class="o">/</span> <span class="n">sys</span><span class="o">.</span><span class="n">PtrSize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">221</span><span class="p">:</span>         <span class="k">case</span> <span class="n">isPowerOfTwo</span><span class="p">(</span><span class="n">et</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">222</span><span class="p">:</span>                 <span class="k">var</span> <span class="n">shift</span> <span class="n">uintptr</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">223</span><span class="p">:</span>                 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">PtrSize</span> <span class="o">==</span> <span class="mi">8</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">224</span><span class="p">:</span>                         <span class="o">//</span> <span class="n">Mask</span> <span class="n">shift</span> <span class="k">for</span> <span class="n">better</span> <span class="n">code</span> <span class="n">generation</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="nb">print</span> <span class="n">capmem</span>
+</span></span><span class="line"><span class="cl"><span class="mi">48</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> </span></span></code></pre></div></div>
+</li>
+<li>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">runtime</span><span class="o">.</span><span class="n">growslice</span><span class="p">()</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">runtime</span><span class="o">/</span><span class="n">slice</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">255</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x10481eb</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Warning</span><span class="p">:</span> <span class="n">debugging</span> <span class="n">optimized</span> <span class="n">function</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">250</span><span class="p">:</span>         <span class="o">//</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">251</span><span class="p">:</span>         <span class="o">//</span> <span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">252</span><span class="p">:</span>         <span class="o">//</span>   <span class="n">s</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">253</span><span class="p">:</span>         <span class="o">//</span>   <span class="nb">print</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">254</span><span class="p">:</span>         <span class="o">//</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span> <span class="mi">255</span><span class="p">:</span>         <span class="k">if</span> <span class="n">overflow</span> <span class="o">||</span> <span class="n">capmem</span> <span class="o">&gt;</span> <span class="n">maxAlloc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">256</span><span class="p">:</span>                 <span class="n">panic</span><span class="p">(</span><span class="n">errorString</span><span class="p">(</span><span class="s2">&#34;growslice: cap out of range&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">257</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">258</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">   <span class="mi">259</span><span class="p">:</span>         <span class="k">var</span> <span class="n">p</span> <span class="n">unsafe</span><span class="o">.</span><span class="n">Pointer</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">260</span><span class="p">:</span>         <span class="k">if</span> <span class="n">et</span><span class="o">.</span><span class="n">ptrdata</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="nb">print</span> <span class="n">newcap</span>
+</span></span><span class="line"><span class="cl"><span class="mi">6</span></span></span></code></pre></div></div>
+<p>由上面细节可知，预期容量是<code>40(5*8)</code>，但是由于内存对齐的逻辑，<code>capmem</code>是48，所以新的容量长度为<code>6</code></p>
+</li>
+</ol>
+<h1 id="拷贝切片">拷贝切片</h1>
+<p><code>copy(dst, src []Type)</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// /usr/local/go/src/runtime/slice.go</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">slicecopy</span><span class="p">(</span><span class="nx">toPtr</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">toLen</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">fromPtr</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">fromLen</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">width</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">fromLen</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">toLen</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">n</span> <span class="o">:=</span> <span class="nx">fromLen</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">toLen</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">n</span> <span class="p">=</span> <span class="nx">toLen</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">n</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">size</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">*</span> <span class="nx">width</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">raceenabled</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">callerpc</span> <span class="o">:=</span> <span class="nf">getcallerpc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">pc</span> <span class="o">:=</span> <span class="nf">funcPC</span><span class="p">(</span><span class="nx">slicecopy</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">racereadrangepc</span><span class="p">(</span><span class="nx">fromPtr</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">callerpc</span><span class="p">,</span> <span class="nx">pc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">racewriterangepc</span><span class="p">(</span><span class="nx">toPtr</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">callerpc</span><span class="p">,</span> <span class="nx">pc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">msanenabled</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">msanread</span><span class="p">(</span><span class="nx">fromPtr</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">msanwrite</span><span class="p">(</span><span class="nx">toPtr</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span> <span class="c1">// common case worth about 2x to do here</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO: is this still worth it with new memmove impl?</span>
+</span></span><span class="line"><span class="cl">		<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">byte</span><span class="p">)(</span><span class="nx">toPtr</span><span class="p">)</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">byte</span><span class="p">)(</span><span class="nx">fromPtr</span><span class="p">)</span> <span class="c1">// known to be a byte pointer</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">memmove</span><span class="p">(</span><span class="nx">toPtr</span><span class="p">,</span> <span class="nx">fromPtr</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">n</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<h1 id="延伸阅读">延伸阅读</h1>
+<ul>
+<li><a href="https://blog.golang.org/slices" target="_blank" rel="noopener noreffer ">Arrays, slices (and strings): The mechanics of ‘append’</a></li>
+<li><a href="https://blog.golang.org/go-slices-usage-and-internals" target="_blank" rel="noopener noreffer ">Go Slices: usage and internals</a></li>
+<li><a href="https://stackoverflow.com/questions/30525184/array-vs-slice-accessing-speed" target="_blank" rel="noopener noreffer ">Array vs Slice: accessing speed</a></li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-04-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/03/go-slice/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://cat3306.github.io/2022/03/go-slice/" data-title="go slice" data-hashtags="golang"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://cat3306.github.io/2022/03/go-slice/" data-title="go slice"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://cat3306.github.io/2022/03/go-slice/" data-hashtag="golang"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://cat3306.github.io/2022/03/go-slice/" data-title="go slice"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://cat3306.github.io/2022/03/go-slice/" data-title="go slice"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://cat3306.github.io/2022/03/go-slice/" data-title="go slice"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://cat3306.github.io/2022/03/go-slice/" data-title="go slice" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fcat3306.github.io%2f2022%2f03%2fgo-slice%2f&amp;text=go%20slice" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/golang/">Golang</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2022/03/go-cli/" class="prev" rel="prev" title="go cli"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>go cli</a>
+            <a href="/2022/04/go-http/" class="next" rel="next" title="go http">go http<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat13</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/twemoji/twemoji.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>go dlv - cat13の部屋</title><meta name="Description" content="部屋"><meta property="og:url" content="https://cat3306.github.io/2022/10/go-dlv/">
+  <meta property="og:site_name" content="cat13の部屋">
+  <meta property="og:title" content="go dlv">
+  <meta property="og:description" content="dlv dlv 是golang 的调试工具
+github
+简易教程
+简易例子
+func main() { slice := make([]int, 0) for i := 1; i &lt; 10; i&#43;&#43; { slice = append(slice, i) } } cd 代码根目录
+$ dlv deug Type &#39;help&#39; for list of commands. (dlv) (dlv) help The following commands are available: Running the program: call ------------------------ Resumes process, injecting a function call (EXPERIMENTAL!!!) continue (alias: c) --------- Run until breakpoint or program termination. next (alias: n) ------------- Step over to next source line. rebuild --------------------- Rebuild the target executable and restarts it. It does not work if the executable was not built by delve. restart (alias: r) ---------- Restart process. step (alias: s) ------------- Single step through program. step-instruction (alias: si) Single step a single cpu instruction. stepout (alias: so) --------- Step out of the current function. Manipulating breakpoints: break (alias: b) ------- Sets a breakpoint. breakpoints (alias: bp) Print out info for active breakpoints. clear ------------------ Deletes breakpoint. clearall --------------- Deletes multiple breakpoints. condition (alias: cond) Set breakpoint condition. on --------------------- Executes a command when a breakpoint is hit. toggle ----------------- Toggles on or off a breakpoint. trace (alias: t) ------- Set tracepoint. watch ------------------ Set watchpoint. Viewing program variables and memory: args ----------------- Print function arguments. display -------------- Print value of an expression every time the program stops. examinemem (alias: x) Examine raw memory at the given address. locals --------------- Print local variables. print (alias: p) ----- Evaluate an expression. regs ----------------- Print contents of CPU registers. set ------------------ Changes the value of a variable. vars ----------------- Print package variables. whatis --------------- Prints type of an expression. Listing and switching between threads and goroutines: goroutine (alias: gr) -- Shows or changes current goroutine goroutines (alias: grs) List program goroutines. thread (alias: tr) ----- Switch to the specified thread. threads ---------------- Print out info for every traced thread. Viewing the call stack and selecting frames: deferred --------- Executes command in the context of a deferred call. down ------------- Move the current frame down. frame ------------ Set the current frame, or execute command on a different frame. stack (alias: bt) Print stack trace. up --------------- Move the current frame up. Other commands: config --------------------- Changes configuration parameters. disassemble (alias: disass) Disassembler. dump ----------------------- Creates a core dump from the current process state edit (alias: ed) ----------- Open where you are in $DELVE_EDITOR or $EDITOR exit (alias: quit | q) ----- Exit the debugger. funcs ---------------------- Print list of functions. help (alias: h) ------------ Prints the help message. libraries ------------------ List loaded dynamic libraries list (alias: ls | l) ------- Show source code. source --------------------- Executes a file containing a list of delve commands sources -------------------- Print list of source files. transcript ----------------- Appends command output to a file. types ---------------------- Print list of types Type help followed by a command for full documentation. break 设置一个断点">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-10-12T15:24:21+08:00">
+    <meta property="article:modified_time" content="2025-04-01T11:43:34+08:00">
+    <meta property="article:tag" content="Golang">
+    <meta property="og:image" content="https://cat3306.github.io/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://cat3306.github.io/logo.png">
+  <meta name="twitter:title" content="go dlv">
+  <meta name="twitter:description" content="dlv dlv 是golang 的调试工具
+github
+简易教程
+简易例子
+func main() { slice := make([]int, 0) for i := 1; i &lt; 10; i&#43;&#43; { slice = append(slice, i) } } cd 代码根目录
+$ dlv deug Type &#39;help&#39; for list of commands. (dlv) (dlv) help The following commands are available: Running the program: call ------------------------ Resumes process, injecting a function call (EXPERIMENTAL!!!) continue (alias: c) --------- Run until breakpoint or program termination. next (alias: n) ------------- Step over to next source line. rebuild --------------------- Rebuild the target executable and restarts it. It does not work if the executable was not built by delve. restart (alias: r) ---------- Restart process. step (alias: s) ------------- Single step through program. step-instruction (alias: si) Single step a single cpu instruction. stepout (alias: so) --------- Step out of the current function. Manipulating breakpoints: break (alias: b) ------- Sets a breakpoint. breakpoints (alias: bp) Print out info for active breakpoints. clear ------------------ Deletes breakpoint. clearall --------------- Deletes multiple breakpoints. condition (alias: cond) Set breakpoint condition. on --------------------- Executes a command when a breakpoint is hit. toggle ----------------- Toggles on or off a breakpoint. trace (alias: t) ------- Set tracepoint. watch ------------------ Set watchpoint. Viewing program variables and memory: args ----------------- Print function arguments. display -------------- Print value of an expression every time the program stops. examinemem (alias: x) Examine raw memory at the given address. locals --------------- Print local variables. print (alias: p) ----- Evaluate an expression. regs ----------------- Print contents of CPU registers. set ------------------ Changes the value of a variable. vars ----------------- Print package variables. whatis --------------- Prints type of an expression. Listing and switching between threads and goroutines: goroutine (alias: gr) -- Shows or changes current goroutine goroutines (alias: grs) List program goroutines. thread (alias: tr) ----- Switch to the specified thread. threads ---------------- Print out info for every traced thread. Viewing the call stack and selecting frames: deferred --------- Executes command in the context of a deferred call. down ------------- Move the current frame down. frame ------------ Set the current frame, or execute command on a different frame. stack (alias: bt) Print stack trace. up --------------- Move the current frame up. Other commands: config --------------------- Changes configuration parameters. disassemble (alias: disass) Disassembler. dump ----------------------- Creates a core dump from the current process state edit (alias: ed) ----------- Open where you are in $DELVE_EDITOR or $EDITOR exit (alias: quit | q) ----- Exit the debugger. funcs ---------------------- Print list of functions. help (alias: h) ------------ Prints the help message. libraries ------------------ List loaded dynamic libraries list (alias: ls | l) ------- Show source code. source --------------------- Executes a file containing a list of delve commands sources -------------------- Print list of source files. transcript ----------------- Appends command output to a file. types ---------------------- Print list of types Type help followed by a command for full documentation. break 设置一个断点">
+<meta name="application-name" content="cat13の部屋">
+<meta name="apple-mobile-web-app-title" content="cat13の部屋">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://cat3306.github.io/2022/10/go-dlv/" /><link rel="prev" href="https://cat3306.github.io/2022/07/go-sync/" /><link rel="next" href="https://cat3306.github.io/2022/10/go-pkg/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "go dlv",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/cat3306.github.io\/2022\/10\/go-dlv\/"
+        },"genre": "posts","keywords": "golang","wordcount":  1427 ,
+        "url": "https:\/\/cat3306.github.io\/2022\/10\/go-dlv\/","datePublished": "2022-10-12T15:24:21+08:00","dateModified": "2025-04-01T11:43:34+08:00","license": "cat13の部屋","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "cat13"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="cat13の部屋"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="cat13の部屋"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">go dlv</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cat13</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-12">2022-10-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1427 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#break"><code>break</code></a></li>
+    <li><a href="#breakpoints"><code>breakpoints </code></a></li>
+    <li><a href="#vars"><code>vars</code></a></li>
+    <li><a href="#next"><code>next</code></a></li>
+    <li><a href="#locals"><code>locals</code></a></li>
+    <li><a href="#break--condition">break &amp;&amp; condition</a></li>
+    <li><a href="#print"><code>print </code></a></li>
+    <li><a href="#stack">stack</a></li>
+    <li><a href="#goroutine-or-goroutines">goroutine or goroutines</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#例子">例子</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="dlv">dlv</h1>
+<p><code>dlv</code> 是<code>golang</code> 的调试工具</p>
+<p><a href="https://github.com/go-delve/delve" target="_blank" rel="noopener noreffer ">github</a></p>
+<p><a href="https://chai2010.cn/advanced-go-programming-book/ch3-asm/ch3-09-debug.html" target="_blank" rel="noopener noreffer ">简易教程</a></p>
+<p>简易例子</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">slice</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><code>cd</code> 代码根目录</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ dlv deug
+</span></span><span class="line"><span class="cl">Type <span class="s1">&#39;help&#39;</span> <span class="k">for</span> list of commands.
+</span></span><span class="line"><span class="cl"><span class="o">(</span>dlv<span class="o">)</span> </span></span></code></pre></div></div>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="n">help</span>
+</span></span><span class="line"><span class="cl"><span class="n">The</span> <span class="n">following</span> <span class="n">commands</span> <span class="n">are</span> <span class="n">available</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Running</span> <span class="n">the</span> <span class="n">program</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">call</span> <span class="o">------------------------</span> <span class="n">Resumes</span> <span class="n">process</span><span class="p">,</span> <span class="n">injecting</span> <span class="n">a</span> <span class="n">function</span> <span class="n">call</span> <span class="p">(</span><span class="n">EXPERIMENTAL</span><span class="o">!!!</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">continue</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">c</span><span class="p">)</span> <span class="o">---------</span> <span class="n">Run</span> <span class="n">until</span> <span class="k">breakpoint</span> <span class="ow">or</span> <span class="n">program</span> <span class="n">termination</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">next</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">n</span><span class="p">)</span> <span class="o">-------------</span> <span class="n">Step</span> <span class="n">over</span> <span class="n">to</span> <span class="n">next</span> <span class="n">source</span> <span class="n">line</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rebuild</span> <span class="o">---------------------</span> <span class="n">Rebuild</span> <span class="n">the</span> <span class="n">target</span> <span class="n">executable</span> <span class="ow">and</span> <span class="n">restarts</span> <span class="n">it</span><span class="o">.</span> <span class="n">It</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">work</span> <span class="k">if</span> <span class="n">the</span> <span class="n">executable</span> <span class="n">was</span> <span class="ow">not</span> <span class="n">built</span> <span class="n">by</span> <span class="n">delve</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">restart</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">r</span><span class="p">)</span> <span class="o">----------</span> <span class="n">Restart</span> <span class="n">process</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">step</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">s</span><span class="p">)</span> <span class="o">-------------</span> <span class="n">Single</span> <span class="n">step</span> <span class="n">through</span> <span class="n">program</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">step</span><span class="o">-</span><span class="n">instruction</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">si</span><span class="p">)</span>  <span class="n">Single</span> <span class="n">step</span> <span class="n">a</span> <span class="n">single</span> <span class="n">cpu</span> <span class="n">instruction</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stepout</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">so</span><span class="p">)</span> <span class="o">---------</span> <span class="n">Step</span> <span class="n">out</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">function</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Manipulating</span> <span class="n">breakpoints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">b</span><span class="p">)</span> <span class="o">-------</span> <span class="n">Sets</span> <span class="n">a</span> <span class="k">breakpoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">breakpoints</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">bp</span><span class="p">)</span>  <span class="n">Print</span> <span class="n">out</span> <span class="n">info</span> <span class="k">for</span> <span class="n">active</span> <span class="n">breakpoints</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clear</span> <span class="o">------------------</span> <span class="n">Deletes</span> <span class="k">breakpoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clearall</span> <span class="o">---------------</span> <span class="n">Deletes</span> <span class="n">multiple</span> <span class="n">breakpoints</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">condition</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">cond</span><span class="p">)</span>  <span class="n">Set</span> <span class="k">breakpoint</span> <span class="n">condition</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">on</span> <span class="o">---------------------</span> <span class="n">Executes</span> <span class="n">a</span> <span class="n">command</span> <span class="n">when</span> <span class="n">a</span> <span class="k">breakpoint</span> <span class="n">is</span> <span class="n">hit</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">toggle</span> <span class="o">-----------------</span> <span class="n">Toggles</span> <span class="n">on</span> <span class="ow">or</span> <span class="n">off</span> <span class="n">a</span> <span class="k">breakpoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">trace</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">t</span><span class="p">)</span> <span class="o">-------</span> <span class="n">Set</span> <span class="n">tracepoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">watch</span> <span class="o">------------------</span> <span class="n">Set</span> <span class="n">watchpoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Viewing</span> <span class="n">program</span> <span class="n">variables</span> <span class="ow">and</span> <span class="n">memory</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span> <span class="o">-----------------</span> <span class="n">Print</span> <span class="n">function</span> <span class="n">arguments</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">display</span> <span class="o">--------------</span> <span class="n">Print</span> <span class="n">value</span> <span class="n">of</span> <span class="n">an</span> <span class="n">expression</span> <span class="n">every</span> <span class="n">time</span> <span class="n">the</span> <span class="n">program</span> <span class="n">stops</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">examinemem</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>  <span class="n">Examine</span> <span class="n">raw</span> <span class="n">memory</span> <span class="n">at</span> <span class="n">the</span> <span class="n">given</span> <span class="n">address</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">locals</span> <span class="o">---------------</span> <span class="n">Print</span> <span class="n">local</span> <span class="n">variables</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">p</span><span class="p">)</span> <span class="o">-----</span> <span class="n">Evaluate</span> <span class="n">an</span> <span class="n">expression</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">regs</span> <span class="o">-----------------</span> <span class="n">Print</span> <span class="n">contents</span> <span class="n">of</span> <span class="n">CPU</span> <span class="n">registers</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span> <span class="o">------------------</span> <span class="n">Changes</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">a</span> <span class="n">variable</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vars</span> <span class="o">-----------------</span> <span class="n">Print</span> <span class="n">package</span> <span class="n">variables</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">whatis</span> <span class="o">---------------</span> <span class="n">Prints</span> <span class="n">type</span> <span class="n">of</span> <span class="n">an</span> <span class="n">expression</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Listing</span> <span class="ow">and</span> <span class="n">switching</span> <span class="n">between</span> <span class="n">threads</span> <span class="ow">and</span> <span class="n">goroutines</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">goroutine</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">gr</span><span class="p">)</span> <span class="o">--</span> <span class="n">Shows</span> <span class="ow">or</span> <span class="n">changes</span> <span class="n">current</span> <span class="n">goroutine</span>
+</span></span><span class="line"><span class="cl">    <span class="n">goroutines</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">grs</span><span class="p">)</span>  <span class="n">List</span> <span class="n">program</span> <span class="n">goroutines</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">thread</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">tr</span><span class="p">)</span> <span class="o">-----</span> <span class="n">Switch</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">thread</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">threads</span> <span class="o">----------------</span> <span class="n">Print</span> <span class="n">out</span> <span class="n">info</span> <span class="k">for</span> <span class="n">every</span> <span class="n">traced</span> <span class="n">thread</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Viewing</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span> <span class="ow">and</span> <span class="n">selecting</span> <span class="n">frames</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">deferred</span> <span class="o">---------</span> <span class="n">Executes</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">context</span> <span class="n">of</span> <span class="n">a</span> <span class="n">deferred</span> <span class="n">call</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">down</span> <span class="o">-------------</span> <span class="n">Move</span> <span class="n">the</span> <span class="n">current</span> <span class="n">frame</span> <span class="n">down</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">frame</span> <span class="o">------------</span> <span class="n">Set</span> <span class="n">the</span> <span class="n">current</span> <span class="n">frame</span><span class="p">,</span> <span class="ow">or</span> <span class="n">execute</span> <span class="n">command</span> <span class="n">on</span> <span class="n">a</span> <span class="n">different</span> <span class="n">frame</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stack</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">bt</span><span class="p">)</span>  <span class="n">Print</span> <span class="n">stack</span> <span class="n">trace</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">up</span> <span class="o">---------------</span> <span class="n">Move</span> <span class="n">the</span> <span class="n">current</span> <span class="n">frame</span> <span class="n">up</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Other</span> <span class="n">commands</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">---------------------</span> <span class="n">Changes</span> <span class="n">configuration</span> <span class="n">parameters</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">disassemble</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">disass</span><span class="p">)</span>  <span class="n">Disassembler</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dump</span> <span class="o">-----------------------</span> <span class="n">Creates</span> <span class="n">a</span> <span class="n">core</span> <span class="n">dump</span> <span class="n">from</span> <span class="n">the</span> <span class="n">current</span> <span class="n">process</span> <span class="n">state</span>
+</span></span><span class="line"><span class="cl">    <span class="n">edit</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">ed</span><span class="p">)</span> <span class="o">-----------</span> <span class="n">Open</span> <span class="n">where</span> <span class="n">you</span> <span class="n">are</span> <span class="ow">in</span> <span class="o">$</span><span class="n">DELVE_EDITOR</span> <span class="ow">or</span> <span class="o">$</span><span class="n">EDITOR</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">quit</span> <span class="o">|</span> <span class="n">q</span><span class="p">)</span> <span class="o">-----</span> <span class="n">Exit</span> <span class="n">the</span> <span class="n">debugger</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">funcs</span> <span class="o">----------------------</span> <span class="n">Print</span> <span class="n">list</span> <span class="n">of</span> <span class="n">functions</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">help</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">h</span><span class="p">)</span> <span class="o">------------</span> <span class="n">Prints</span> <span class="n">the</span> <span class="n">help</span> <span class="n">message</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">libraries</span> <span class="o">------------------</span> <span class="n">List</span> <span class="n">loaded</span> <span class="n">dynamic</span> <span class="n">libraries</span>
+</span></span><span class="line"><span class="cl">    <span class="n">list</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">ls</span> <span class="o">|</span> <span class="n">l</span><span class="p">)</span> <span class="o">-------</span> <span class="n">Show</span> <span class="n">source</span> <span class="n">code</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">source</span> <span class="o">---------------------</span> <span class="n">Executes</span> <span class="n">a</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">delve</span> <span class="n">commands</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sources</span> <span class="o">--------------------</span> <span class="n">Print</span> <span class="n">list</span> <span class="n">of</span> <span class="n">source</span> <span class="n">files</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">transcript</span> <span class="o">-----------------</span> <span class="n">Appends</span> <span class="n">command</span> <span class="n">output</span> <span class="n">to</span> <span class="n">a</span> <span class="n">file</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">types</span> <span class="o">----------------------</span> <span class="n">Print</span> <span class="n">list</span> <span class="n">of</span> <span class="n">types</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Type</span> <span class="n">help</span> <span class="n">followed</span> <span class="n">by</span> <span class="n">a</span> <span class="n">command</span> <span class="k">for</span> <span class="n">full</span> <span class="n">documentation</span><span class="o">.</span></span></span></code></pre></div></div>
+<h2 id="break"><code>break</code></h2>
+<p>设置一个断点</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) break main.main
+</span></span><span class="line"><span class="cl">Breakpoint 1 set at 0x1058eea for main.main() ./main.go:3</span></span></code></pre></div></div>
+<h2 id="breakpoints"><code>breakpoints </code></h2>
+<p>查看设置的断点</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) breakpoints
+</span></span><span class="line"><span class="cl">Breakpoint runtime-fatal-throw (enabled) at 0x102dae0 for runtime.throw() /usr/local/go/src/runtime/panic.go:1188 (0)
+</span></span><span class="line"><span class="cl">Breakpoint unrecovered-panic (enabled) at 0x102de40 for runtime.fatalpanic() /usr/local/go/src/runtime/panic.go:1271 (0)
+</span></span><span class="line"><span class="cl">        print runtime.curg._panic.arg
+</span></span><span class="line"><span class="cl">Breakpoint 1 (enabled) at 0x1058eea for main.main() ./main.go:3 (0)</span></span></code></pre></div></div>
+<h2 id="vars"><code>vars</code></h2>
+<p>查看全部包级的变量。</p>
+<p>因为最终的目标程序可能含有大量的全局变量，我们可以通过一个正则参数选择想查看的全局变量：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="n">vars</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl"><span class="n">runtime</span><span class="o">.</span><span class="n">main_init_done</span> <span class="o">=</span> <span class="n">chan</span> <span class="ne">bool</span> <span class="n">nil</span>
+</span></span><span class="line"><span class="cl"><span class="n">runtime</span><span class="o">.</span><span class="n">mainStarted</span> <span class="o">=</span> <span class="bp">false</span></span></span></code></pre></div></div>
+<p><code>continue</code> 执行下一个断点</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">main</span><span class="o">.</span><span class="n">main</span><span class="p">()</span> <span class="o">./</span><span class="n">main</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">3</span> <span class="p">(</span><span class="n">hits</span> <span class="n">goroutine</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span><span class="mi">1</span> <span class="n">total</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x1058eea</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">1</span><span class="p">:</span> <span class="n">package</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">2</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span>   <span class="mi">3</span><span class="p">:</span> <span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">4</span><span class="p">:</span>         <span class="n">slice</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="ne">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">5</span><span class="p">:</span>         <span class="k">for</span> <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">6</span><span class="p">:</span>                 <span class="n">slice</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">slice</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">7</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">8</span><span class="p">:</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> </span></span></code></pre></div></div>
+<h2 id="next"><code>next</code></h2>
+<p>或者 <code>n</code>单步执行， <code>=&gt;</code>表示所运行的位置</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="n">n</span> 
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">main</span><span class="o">.</span><span class="n">main</span><span class="p">()</span> <span class="o">./</span><span class="n">main</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">5</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x1058f0d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">1</span><span class="p">:</span> <span class="n">package</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">2</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">     <span class="mi">3</span><span class="p">:</span> <span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">4</span><span class="p">:</span>         <span class="n">slice</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="ne">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span>   <span class="mi">5</span><span class="p">:</span>         <span class="k">for</span> <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">6</span><span class="p">:</span>                 <span class="n">slice</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">slice</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">7</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">8</span><span class="p">:</span> <span class="p">}</span></span></span></code></pre></div></div>
+<h2 id="locals"><code>locals</code></h2>
+<p>打印局部变量</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) locals
+</span></span><span class="line"><span class="cl">slice = []int len: 2, cap: 2, [...]
+</span></span><span class="line"><span class="cl">i = 3</span></span></code></pre></div></div>
+<h2 id="break--condition">break &amp;&amp; condition</h2>
+<p>可以使用 <code>break</code> 和 <code>condition</code>组合命令，在循环内部条件断点，例如下面这个操作</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">break</span> <span class="n">main</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="n">Breakpoint</span> <span class="mi">2</span> <span class="n">set</span> <span class="n">at</span> <span class="mh">0x1058f24</span> <span class="k">for</span> <span class="n">main</span><span class="o">.</span><span class="n">main</span><span class="p">()</span> <span class="o">./</span><span class="n">main</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="n">condition</span> <span class="mi">2</span> <span class="n">i</span><span class="o">==</span><span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">main</span><span class="o">.</span><span class="n">main</span><span class="p">()</span> <span class="o">./</span><span class="n">main</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">6</span> <span class="p">(</span><span class="n">hits</span> <span class="n">goroutine</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span><span class="mi">1</span> <span class="n">total</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x1058f24</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">1</span><span class="p">:</span> <span class="n">package</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">2</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">     <span class="mi">3</span><span class="p">:</span> <span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">4</span><span class="p">:</span>         <span class="n">slice</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="ne">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">5</span><span class="p">:</span>         <span class="k">for</span> <span class="n">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span>   <span class="mi">6</span><span class="p">:</span>                 <span class="n">slice</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">slice</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">7</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="mi">8</span><span class="p">:</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="n">locals</span>
+</span></span><span class="line"><span class="cl"><span class="n">slice</span> <span class="o">=</span> <span class="p">[]</span><span class="ne">int</span> <span class="n">len</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="n">cap</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> </span></span></code></pre></div></div>
+<p><code>break main.go:6</code>根据行数设置一个断点，并且在<code>i==7</code>时生效</p>
+<p><code>condition 2 i==7</code> 2的意思是设置断点的索引(第几个断点 根据&quot;Breakpoint 2 set at 0x1058f24 for main.main() ./main.go:6&quot; 可知是2)</p>
+<p>locals 一下显示 slice = []int len: 6, cap: 8, [&hellip;] i = 7</p>
+<h2 id="print"><code>print </code></h2>
+<p>打印局部变量</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) print slice
+</span></span><span class="line"><span class="cl">[]int len: 6, cap: 8, [1,2,3,4,5,6]</span></span></code></pre></div></div>
+<h2 id="stack">stack</h2>
+<p>查看当前执行函数的栈帧信息：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) stack
+</span></span><span class="line"><span class="cl">0  0x0000000001058f24 in main.main
+</span></span><span class="line"><span class="cl">   at ./main.go:6
+</span></span><span class="line"><span class="cl">1  0x00000000010300b3 in runtime.main
+</span></span><span class="line"><span class="cl">   at /usr/local/go/src/runtime/proc.go:255
+</span></span><span class="line"><span class="cl">2  0x0000000001056261 in runtime.goexit
+</span></span><span class="line"><span class="cl">   at /usr/local/go/src/runtime/asm_amd64.s:1581</span></span></code></pre></div></div>
+<h2 id="goroutine-or-goroutines">goroutine or goroutines</h2>
+<p>goroutine 信息</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) goroutine
+</span></span><span class="line"><span class="cl">Thread 4125012 at ./main.go:6
+</span></span><span class="line"><span class="cl">Goroutine 1:
+</span></span><span class="line"><span class="cl">        Runtime: ./main.go:6 main.main (0x1058f24)
+</span></span><span class="line"><span class="cl">        User: ./main.go:6 main.main (0x1058f24)
+</span></span><span class="line"><span class="cl">        Go: &lt;autogenerated&gt;:1 runtime.newproc (0x1058369)
+</span></span><span class="line"><span class="cl">        Start: /usr/local/go/src/runtime/proc.go:145 runtime.main (0x102fec0)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">* Goroutine 1 - User: ./main.go:6 main.main (0x1058f24) (thread 4125012)
+</span></span><span class="line"><span class="cl">  Goroutine 2 - User: /usr/local/go/src/runtime/proc.go:367 runtime.gopark (0x10304d2) [force gc (idle)]
+</span></span><span class="line"><span class="cl">  Goroutine 3 - User: /usr/local/go/src/runtime/proc.go:367 runtime.gopark (0x10304d2) [GC sweep wait]
+</span></span><span class="line"><span class="cl">  Goroutine 4 - User: /usr/local/go/src/runtime/proc.go:367 runtime.gopark (0x10304d2) [GC scavenge wait]
+</span></span><span class="line"><span class="cl">[4 goroutines]</span></span></code></pre></div></div>
+<h1 id="调试服务">调试服务</h1>
+<p>已知一个服务已经在运行，可以用<code>dlv attach pid</code>来调试 ，例如</p>
+<p><code>gameserver</code> 是一个<code>tcp</code>服务，监听<code>8840</code>端口</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">▶ ./gameserver -c conf/conf.json
+</span></span><span class="line"><span class="cl">2022-10-13 09:22:41.593 INFO engine/server.go:29 game Server is listening on:8840</span></span></code></pre></div></div>
+<p>查看<code>gameserver</code>的<code>pid</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ps -ef <span class="p">|</span> grep gameserver
+</span></span><span class="line"><span class="cl"><span class="m">501</span> <span class="m">49913</span> <span class="m">34703</span>   <span class="m">0</span>  9:22AM ttys012    0:00.03 ./gameserver -c conf/conf.json</span></span></code></pre></div></div>
+<p><code>pid</code> 是49913</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">▶ dlv attach <span class="m">49913</span>    
+</span></span><span class="line"><span class="cl">Type <span class="s1">&#39;help&#39;</span> <span class="k">for</span> list of commands.
+</span></span><span class="line"><span class="cl"><span class="o">(</span>dlv<span class="o">)</span></span></span></code></pre></div></div>
+<p>至此就可以愉快的调试网络服务了，以客户端发送一个鉴权包作为了例子</p>
+<h2 id="例子">例子</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) break OnTraffic
+</span></span><span class="line"><span class="cl">Command failed: Location &#34;OnTraffic&#34; ambiguous: github.com/cat3306/gameserver/engine.(*Server).OnTraffic, github.com/panjf2000/gnet/v2.(*BuiltinEventEngine).OnTraffic…
+</span></span><span class="line"><span class="cl">(dlv) break github.com/cat3306/gameserver/engine.(*Server).OnTraffic
+</span></span><span class="line"><span class="cl">Breakpoint 1 set at 0x1282d2f for github.com/cat3306/gameserver/engine.(*Server).OnTraffic() /Users/joker/code/go/src/github.com/cat3306/gameserver/engine/server.go:32</span></span></code></pre></div></div>
+<p><code>OnTraffic</code> 有网络数据时回调的函数，这时候运行客户端，并且发送一个鉴权的数据包，客户端阻塞住了</p>
+<p><code>dlv</code>这边执行<code>continue</code>，可以看到<code>=&gt;</code>指向<code>OnTraffic</code>,表示服务运行到这里了</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">engine</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">Server</span><span class="p">)</span><span class="o">.</span><span class="n">OnTraffic</span><span class="p">()</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">joker</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">engine</span><span class="o">/</span><span class="n">server</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">32</span> <span class="p">(</span><span class="n">hits</span> <span class="n">goroutine</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span><span class="mi">1</span> <span class="n">total</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x1282d2f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Warning</span><span class="p">:</span> <span class="n">debugging</span> <span class="n">optimized</span> <span class="n">function</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">27</span><span class="p">:</span> <span class="k">func</span> <span class="p">(</span><span class="n">s</span> <span class="o">*</span><span class="n">Server</span><span class="p">)</span> <span class="n">OnBoot</span><span class="p">(</span><span class="n">e</span> <span class="n">gnet</span><span class="o">.</span><span class="n">Engine</span><span class="p">)</span> <span class="p">(</span><span class="n">action</span> <span class="n">gnet</span><span class="o">.</span><span class="n">Action</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">28</span><span class="p">:</span>         <span class="n">s</span><span class="o">.</span><span class="n">eng</span> <span class="o">=</span> <span class="n">e</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">29</span><span class="p">:</span>         <span class="n">glog</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">Sugar</span><span class="p">()</span><span class="o">.</span><span class="n">Infof</span><span class="p">(</span><span class="s2">&#34;game Server is listening on:</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">GameConfig</span><span class="o">.</span><span class="n">Port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">30</span><span class="p">:</span>         <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">31</span><span class="p">:</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span>  <span class="mi">32</span><span class="p">:</span> <span class="k">func</span> <span class="p">(</span><span class="n">s</span> <span class="o">*</span><span class="n">Server</span><span class="p">)</span> <span class="n">OnTraffic</span><span class="p">(</span><span class="n">c</span> <span class="n">gnet</span><span class="o">.</span><span class="n">Conn</span><span class="p">)</span> <span class="n">gnet</span><span class="o">.</span><span class="n">Action</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">33</span><span class="p">:</span>         <span class="n">defer</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">34</span><span class="p">:</span>                 <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">recover</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">35</span><span class="p">:</span>                 <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">36</span><span class="p">:</span>                         <span class="n">glog</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">Sugar</span><span class="p">()</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s2">&#34;OnTraffic panic %v&#34;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">37</span><span class="p">:</span>                 <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> </span></span></code></pre></div></div>
+<p><code>netx</code> or <code>n</code>单步运行</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt; github.com/cat3306/gameserver/engine.(*Server).OnTraffic() /Users/joker/code/go/src/github.com/cat3306/gameserver/engine/server.go:40 (PC: 0x1282d9b)
+</span></span><span class="line"><span class="cl">Warning: debugging optimized function
+</span></span><span class="line"><span class="cl">    35:                 if err != nil {
+</span></span><span class="line"><span class="cl">    36:                         glog.Logger.Sugar().Errorf(&#34;OnTraffic panic %v&#34;, err)
+</span></span><span class="line"><span class="cl">    37:                 }
+</span></span><span class="line"><span class="cl">    38:         }()
+</span></span><span class="line"><span class="cl">    39:         s.eng.CountConnections()
+</span></span><span class="line"><span class="cl">    40:         context, err := protocol.Decode(c)
+</span></span><span class="line"><span class="cl"> =&gt; 41:         if err != nil {
+</span></span><span class="line"><span class="cl">    42:                 glog.Logger.Sugar().Warnf(&#34;OnTraffic err:%s&#34;, err.Error())
+</span></span><span class="line"><span class="cl">    43:                 return gnet.None
+</span></span><span class="line"><span class="cl">    44:         }
+</span></span><span class="line"><span class="cl">    45:         if context == nil {</span></span></code></pre></div></div>
+<p>打印<code>context</code></p>
+<p><code>print context</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="nb">print</span> <span class="n">context</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">protocol</span><span class="o">.</span><span class="n">Context</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Payload</span><span class="p">:</span> <span class="p">[]</span><span class="n">uint8</span> <span class="n">len</span><span class="p">:</span> <span class="mi">552</span><span class="p">,</span> <span class="n">cap</span><span class="p">:</span> <span class="mi">65526</span><span class="p">,</span> <span class="p">[</span><span class="mi">123</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">67</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">112</span><span class="p">,</span><span class="mi">104</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">114</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">116</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">58</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">79</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">68</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">69</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">109</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">83</span><span class="p">,</span><span class="mi">81</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">117</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">76</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">98</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">98</span><span class="p">,</span><span class="mi">103</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">119</span><span class="p">,</span><span class="mi">97</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">81</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">79</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">111</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">89</span><span class="p">,</span><span class="mi">49</span><span class="p">,</span><span class="mi">79</span><span class="p">,</span><span class="mi">121</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span><span class="mi">122</span><span class="p">,</span><span class="o">...+</span><span class="mi">488</span> <span class="n">more</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CodeType</span><span class="p">:</span> <span class="n">Json</span> <span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Proto</span><span class="p">:</span> <span class="mi">2105448169</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Conn</span><span class="p">:</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">panjf2000</span><span class="o">/</span><span class="n">gnet</span><span class="o">/</span><span class="n">v2</span><span class="o">.</span><span class="n">Conn</span><span class="p">(</span><span class="o">*</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">panjf2000</span><span class="o">/</span><span class="n">gnet</span><span class="o">/</span><span class="n">v2</span><span class="o">.</span><span class="n">conn</span><span class="p">)</span> <span class="o">*</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ctx</span><span class="p">:</span> <span class="n">interface</span> <span class="p">{}</span> <span class="n">nil</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">peer</span><span class="p">:</span> <span class="n">golang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">unix</span><span class="o">.</span><span class="n">Sockaddr</span><span class="p">(</span><span class="o">*</span><span class="n">golang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">unix</span><span class="o">.</span><span class="n">SockaddrInet6</span><span class="p">)</span> <span class="o">...</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">localAddr</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">Addr</span><span class="p">(</span><span class="o">*</span><span class="n">net</span><span class="o">.</span><span class="n">TCPAddr</span><span class="p">)</span> <span class="o">...</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">remoteAddr</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">Addr</span><span class="p">(</span><span class="o">*</span><span class="n">net</span><span class="o">.</span><span class="n">TCPAddr</span><span class="p">)</span> <span class="o">...</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">loop</span><span class="p">:</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="s2">&#34;github.com/panjf2000/gnet/v2.eventloop&#34;</span><span class="p">)(</span><span class="mh">0xc00015acf0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">outboundBuffer</span><span class="p">:</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="s2">&#34;github.com/panjf2000/gnet/v2/pkg/buffer/elastic.Buffer&#34;</span><span class="p">)(</span><span class="mh">0xc000242cd0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">pollAttachment</span><span class="p">:</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="s2">&#34;github.com/panjf2000/gnet/v2/internal/netpoll.PollAttachment&#34;</span><span class="p">)(</span><span class="mh">0xc000241d10</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">inboundBuffer</span><span class="p">:</span> <span class="p">(</span><span class="o">*</span><span class="s2">&#34;github.com/panjf2000/gnet/v2/pkg/buffer/elastic.RingBuffer&#34;</span><span class="p">)(</span><span class="mh">0xc0001b0418</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">buffer</span><span class="p">:</span> <span class="p">[]</span><span class="n">uint8</span> <span class="n">len</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cap</span><span class="p">:</span> <span class="mi">64974</span><span class="p">,</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">                <span class="n">fd</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">isDatagram</span><span class="p">:</span> <span class="bp">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">opened</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">id</span><span class="p">:</span> <span class="s2">&#34;TljczpztN&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">property</span><span class="p">:</span> <span class="n">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="n">string</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">                <span class="n">propertyLock</span><span class="p">:</span> <span class="p">(</span><span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">RWMutex</span><span class="p">)(</span><span class="mh">0xc0001b0460</span><span class="p">),},</span>
+</span></span><span class="line"><span class="cl">        <span class="n">connMgr</span><span class="p">:</span> <span class="o">*</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">protocol</span><span class="o">.</span><span class="n">ConnManager</span> <span class="n">nil</span><span class="p">,}</span></span></span></code></pre></div></div>
+<p><code>print</code>这个命令非常强大,可以打印具体的字段，比如</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) print context.Proto
+</span></span><span class="line"><span class="cl">2105448169
+</span></span><span class="line"><span class="cl">(dlv) print context.CodeType
+</span></span><span class="line"><span class="cl">Json (2)
+</span></span><span class="line"><span class="cl">(dlv) print context.Conn.id
+</span></span><span class="line"><span class="cl">&#34;TljczpztN&#34;
+</span></span><span class="line"><span class="cl">(dlv) print context.Conn.remoteAddr
+</span></span><span class="line"><span class="cl">net.Addr(*net.TCPAddr) *{
+</span></span><span class="line"><span class="cl">        IP: net.IP len: 16, cap: 16, [0,0,0,0,0,0,0,0,0,0,255,255,127,0,0,1],
+</span></span><span class="line"><span class="cl">        Port: 54783,
+</span></span><span class="line"><span class="cl">        Zone: &#34;&#34;,}
+</span></span><span class="line"><span class="cl">(dlv) </span></span></code></pre></div></div>
+<p>设置另一个断点，然后<code>continue</code>进入执行<code>handler</code>的函数</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">break</span> <span class="n">ExeHandler</span>
+</span></span><span class="line"><span class="cl"><span class="n">Breakpoint</span> <span class="mi">3</span> <span class="n">set</span> <span class="n">at</span> <span class="mh">0x12829f2</span> <span class="k">for</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">engine</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">HandlerManager</span><span class="p">)</span><span class="o">.</span><span class="n">ExeHandler</span><span class="p">()</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">joker</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">engine</span><span class="o">/</span><span class="n">handlermgr</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">190</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">engine</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">HandlerManager</span><span class="p">)</span><span class="o">.</span><span class="n">ExeHandler</span><span class="p">()</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">joker</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">engine</span><span class="o">/</span><span class="n">handlermgr</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">190</span> <span class="p">(</span><span class="n">hits</span> <span class="n">goroutine</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span><span class="mi">1</span> <span class="n">total</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x12829f2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Warning</span><span class="p">:</span> <span class="n">debugging</span> <span class="n">optimized</span> <span class="n">function</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">185</span><span class="p">:</span>                 <span class="n">f</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">186</span><span class="p">:</span>                 <span class="k">return</span> <span class="n">nil</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">187</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">188</span><span class="p">:</span>         <span class="k">return</span> <span class="n">HandlerNotFound</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">189</span><span class="p">:</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span> <span class="mi">190</span><span class="p">:</span> <span class="k">func</span> <span class="p">(</span><span class="n">h</span> <span class="o">*</span><span class="n">HandlerManager</span><span class="p">)</span> <span class="n">ExeHandler</span><span class="p">(</span><span class="n">auth</span> <span class="ne">bool</span><span class="p">,</span> <span class="n">ctx</span> <span class="o">*</span><span class="n">protocol</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">191</span><span class="p">:</span>         <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">exeSyncHandler</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">192</span><span class="p">:</span>         <span class="k">if</span> <span class="o">!</span><span class="n">errors</span><span class="o">.</span><span class="n">Is</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">HandlerNotFound</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">193</span><span class="p">:</span>                 <span class="k">return</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">194</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">195</span><span class="p">:</span>         <span class="n">err</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">exeAsyncHandler</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>中间过程和前面一样，直接跳到<code>ClientAuth</code> 函数，这是真正执行鉴权的逻辑</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">break</span> <span class="n">ClientAuth</span>
+</span></span><span class="line"><span class="cl"><span class="n">Breakpoint</span> <span class="mi">4</span> <span class="n">set</span> <span class="n">at</span> <span class="mh">0x127c652</span> <span class="k">for</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">router</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">ClientAuth</span><span class="p">)</span><span class="o">.</span><span class="n">ClientAuth</span><span class="p">()</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">joker</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">router</span><span class="o">/</span><span class="n">auth</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">37</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">router</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">ClientAuth</span><span class="p">)</span><span class="o">.</span><span class="n">ClientAuth</span><span class="p">()</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">joker</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">router</span><span class="o">/</span><span class="n">auth</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">37</span> <span class="p">(</span><span class="n">hits</span> <span class="n">goroutine</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span><span class="mi">1</span> <span class="n">total</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x127c652</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Warning</span><span class="p">:</span> <span class="n">debugging</span> <span class="n">optimized</span> <span class="n">function</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">32</span><span class="p">:</span> <span class="k">var</span> <span class="n">req</span> <span class="n">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">33</span><span class="p">:</span>         <span class="n">CipherText</span> <span class="p">[]</span><span class="n">byte</span> <span class="err">`</span><span class="n">json</span><span class="p">:</span><span class="s2">&#34;CipherText&#34;</span><span class="err">`</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">34</span><span class="p">:</span>         <span class="n">Text</span>       <span class="n">string</span> <span class="err">`</span><span class="n">json</span><span class="p">:</span><span class="s2">&#34;Text&#34;</span><span class="err">`</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">35</span><span class="p">:</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">36</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span>  <span class="mi">37</span><span class="p">:</span> <span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span><span class="n">ClientAuth</span><span class="p">)</span> <span class="n">ClientAuth</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">protocol</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">v</span> <span class="n">interface</span><span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">38</span><span class="p">:</span>         <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">req</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">39</span><span class="p">:</span>         <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">40</span><span class="p">:</span>                 <span class="n">glog</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">Sugar</span><span class="p">()</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s2">&#34;param err:</span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">41</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">42</span><span class="p">:</span>         <span class="o">//</span><span class="n">glog</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">Sugar</span><span class="p">()</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s2">&#34;req.CipherText:</span><span class="si">%s</span><span class="s2">,c.rawPrivateKey:</span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">CipherText</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">rawPrivateKey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> </span></span></code></pre></div></div>
+<p>一步步运行</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">router</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">ClientAuth</span><span class="p">)</span><span class="o">.</span><span class="n">ClientAuth</span><span class="p">()</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">joker</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cat3306</span><span class="o">/</span><span class="n">gameserver</span><span class="o">/</span><span class="n">router</span><span class="o">/</span><span class="n">auth</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">39</span> <span class="p">(</span><span class="n">PC</span><span class="p">:</span> <span class="mh">0x127c68f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Warning</span><span class="p">:</span> <span class="n">debugging</span> <span class="n">optimized</span> <span class="n">function</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">34</span><span class="p">:</span>         <span class="n">Text</span>       <span class="n">string</span> <span class="err">`</span><span class="n">json</span><span class="p">:</span><span class="s2">&#34;Text&#34;</span><span class="err">`</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">35</span><span class="p">:</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">36</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">    <span class="mi">37</span><span class="p">:</span> <span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span><span class="n">ClientAuth</span><span class="p">)</span> <span class="n">ClientAuth</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">protocol</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">v</span> <span class="n">interface</span><span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">38</span><span class="p">:</span>         <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">req</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">=&gt;</span>  <span class="mi">39</span><span class="p">:</span>         <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">40</span><span class="p">:</span>                 <span class="n">glog</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">Sugar</span><span class="p">()</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s2">&#34;param err:</span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">41</span><span class="p">:</span>         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">42</span><span class="p">:</span>         <span class="o">//</span><span class="n">glog</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">Sugar</span><span class="p">()</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s2">&#34;req.CipherText:</span><span class="si">%s</span><span class="s2">,c.rawPrivateKey:</span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">CipherText</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">rawPrivateKey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">43</span><span class="p">:</span>         <span class="n">text</span> <span class="p">:</span><span class="o">=</span> <span class="n">cryptoutil</span><span class="o">.</span><span class="n">RsaDecrypt</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">CipherText</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">rawPrivateKey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">44</span><span class="p">:</span>         <span class="k">if</span> <span class="n">string</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">!=</span> <span class="n">req</span><span class="o">.</span><span class="n">Text</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> </span></span></code></pre></div></div>
+<p><code>ctx.Bind(&amp;req)</code> 是将字节流映射到结构上，类似于<code>gin context.Bind()</code>，打印req，会发现客户端发来两个字段</p>
+<p>一个是被公钥加了密的密文二进制流<code>CipherText</code>，一个是明文<code>Text</code>其值为<code>life is short</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(dlv) print req
+</span></span><span class="line"><span class="cl">struct { CipherText []uint8 &#34;json:\&#34;CipherText\&#34;&#34;; Text string &#34;json:\&#34;Text\&#34;&#34; } {
+</span></span><span class="line"><span class="cl">        CipherText: []uint8 len: 384, cap: 384, [57,49,98,13,255,4,124,169,184,41,36,15,187,194,222,111,230,224,71,227,112,107,18,144,240,95,206,3,190,168,5,222,216,212,236,148,204,52,225,73,181,250,211,246,199,214,42,29,173,72,121,43,235,162,22,72,61,18,45,24,130,202,208,84,...+320 more],
+</span></span><span class="line"><span class="cl">        Text: &#34;life is short&#34;,}
+</span></span><span class="line"><span class="cl">(dlv) </span></span></code></pre></div></div>
+<p>鉴权的逻辑也很简单，服务器用自己的私钥去解客户端发过来的密文，解出来的明文和客户端发的明文一样，说明鉴权成功，如果不一样则鉴权失败</p>
+<p>鉴权成功后，会给<code>Conn</code> 写一个<code>auth</code> 的<code>property</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt; github.com/cat3306/gameserver/router.(*ClientAuth).ClientAuth() /Users/joker/code/go/src/github.com/cat3306/gameserver/router/auth.go:50 (PC: 0x127c8d0)
+</span></span><span class="line"><span class="cl">Warning: debugging optimized function
+</span></span><span class="line"><span class="cl">    45:                 glog.Logger.Sugar().Errorf(&#34;认证失败!&#34;)
+</span></span><span class="line"><span class="cl">    46:                 ctx.Send(JsonRspErr(&#34;auth failed&#34;))
+</span></span><span class="line"><span class="cl">    47:                 time.Sleep(time.Second)
+</span></span><span class="line"><span class="cl">    48:         } else {
+</span></span><span class="line"><span class="cl">    49:                 ctx.Conn.SetProperty(protocol.Auth, &#34;ok&#34;)
+</span></span><span class="line"><span class="cl">=&gt;  50:                 ctx.Send(JsonRspOK(&#34;auth ok&#34;))
+</span></span><span class="line"><span class="cl">    51:         }
+</span></span><span class="line"><span class="cl">    52: }
+</span></span><span class="line"><span class="cl">(dlv) print ctx.Conn.property
+</span></span><span class="line"><span class="cl">map[string]string [
+</span></span><span class="line"><span class="cl">        &#34;auth&#34;: &#34;ok&#34;, 
+</span></span><span class="line"><span class="cl">]
+</span></span><span class="line"><span class="cl">(dlv) </span></span></code></pre></div></div>
+<p>至此，一个鉴权的全部过程都详细<code>debug</code>了</p>
+<p>不得不说<code>dlv</code>这个调试工具非常强大</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-04-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/10/go-dlv/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://cat3306.github.io/2022/10/go-dlv/" data-title="go dlv" data-hashtags="golang"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://cat3306.github.io/2022/10/go-dlv/" data-title="go dlv"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://cat3306.github.io/2022/10/go-dlv/" data-hashtag="golang"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://cat3306.github.io/2022/10/go-dlv/" data-title="go dlv"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://cat3306.github.io/2022/10/go-dlv/" data-title="go dlv"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://cat3306.github.io/2022/10/go-dlv/" data-title="go dlv"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://cat3306.github.io/2022/10/go-dlv/" data-title="go dlv" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fcat3306.github.io%2f2022%2f10%2fgo-dlv%2f&amp;text=go%20dlv" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/golang/">Golang</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2022/07/go-sync/" class="prev" rel="prev" title="go sync"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>go sync</a>
+            <a href="/2022/10/go-pkg/" class="next" rel="next" title="go pkg">go pkg<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">cat13</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/twemoji/twemoji.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js"></script></body>
+</html>

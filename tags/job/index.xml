@@ -1,0 +1,65 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Job - Tag - cat13の部屋</title>
+        <link>https://cat3306.github.io/tags/job/</link>
+        <description>Job - Tag - cat13の部屋</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>cat016515@gmail.com (cat13)</managingEditor>
+            <webMaster>cat016515@gmail.com (cat13)</webMaster><copyright>cat13の部屋</copyright><lastBuildDate>Tue, 02 Dec 2025 10:34:40 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/job/" rel="self" type="application/rss+xml" /><item>
+    <title>一个诡谲的线上问题</title>
+    <link>https://cat3306.github.io/2025/12/job-0/</link>
+    <pubDate>Tue, 02 Dec 2025 10:34:40 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2025/12/job-0/</guid>
+    <description><![CDATA[<h2 id="1">1</h2>
+<p>一个线上问题从去年一直困扰到了今年，直到上个星期才接近真相。事情是什么呢，我和客户端约定了一个接口名为心跳接口。当时设计的时候，是希望通过心跳接口，可以做一些通知的逻辑(经典的短连接当成长连接用)，并且在返回参数中有个<code>interval</code> 字段可以实时调整心跳的间隔，如果服务器的负载很高可以把<code>interval</code> 调高一点来降低负载，就是这么一个机制出现很奇怪的现象。</p>
+<h2 id="2">2</h2>
+<p>随着业务的增长和用户的增多，服务器明显有点吃不消，出现了第一次事故，负责跑<code>Ingress nginx</code>的机器挂了1个，一共有3个节点。但是这两个节点不足以支撑当晚的流量，造成了连锁反应导致全站都挂了，因为网关挂掉了。流量全打在<code>clb</code>上没往下走了。后来复盘这个问题，我觉得心跳<code>10s</code>太重了，要调整间隔，之前预留的<code>interval</code> 字段就可以用起来了</p>
+<h2 id="3">3</h2>
+<p>去年的时候，当我把<code>interval</code> 改成 <code>15s</code>后，部署上线，诡谲的事情发生了，<code>Ingress nginx</code>的节点CPU的利用率以肉眼的速度迅速飙升，好家伙，把心跳间隔提高CPU不降反而上升了，这不对吧。我觉得是客户度逻辑问题，让客户端看看，客户端看了表示没啥问题。但是这个现象解释不通，最后也没有确切的解释，就没下文了</p>
+<h2 id="4">4</h2>
+<p>今年，又出现这个问题，又是一次线上事故，原因和去年一样，<code>Ingress nginx</code> 节点挂了，然后雪崩波及全站。不得不说<code>Ingress nginx</code> 节点的配置有点垃圾，4c4g，最要命的是，这个节点池的节点没办法单独升配置。也就是说抗不住了，直接横向扩节点。由之前的3个基点升到现在的5个，分析下来我认为还是心跳接口的问题，<code>10s</code>一次，如果十万人同时在线，就这一个接口qps就1万了。而且今年年初的时候我写长连接服务，可以做到实时消息通知，心跳接口是可以废掉了，但是心跳还绑定了其他的业务还动不了。于是我有想起了<code>interval</code> 这个字段，于是我改成了30s 上线了。在上线后的当天晚上，收到了报警，好家伙5个<code>Ingress nginx</code> 节点的cpu全打满了，再不干涉服务器又要大面积瘫痪了。我想到了什么把心跳间隔从30s改成10s，cpu的利用率立马降低了。真是奇怪。</p>
+<h2 id="5">5</h2>
+<p>最后没办法我吧客户端的代码看了一遍，没看出问题，但是我怀疑里面有递归调用。我这边<code>interval</code>不论改成什么参数。都会导致cpu升高，最后抓包才发现端倪，原来我一改时间间隔，客户端每次心跳调用都需要三次tcp握手和tls握手。在线上就是，每个人都在重连。人一多，那就很消耗CPU。
+最后定位到客户端有一处<code>idleTimeout</code>写死了10s</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-dart">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">late</span> <span class="kd">final</span> <span class="n">_dio</span> <span class="o">=</span> <span class="n">Dio</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">..</span><span class="n">options</span> <span class="o">=</span> <span class="n">BaseOptions</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">baseUrl:</span> <span class="n">_global</span><span class="p">.</span><span class="n">release</span> <span class="o">?</span> <span class="n">ApiConfig</span><span class="p">.</span><span class="n">domain</span> <span class="o">:</span> <span class="n">ApiConfig</span><span class="p">.</span><span class="n">domainDev</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">responseType:</span> <span class="n">ResponseType</span><span class="p">.</span><span class="n">bytes</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">connectTimeout:</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">10</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">receiveTimeout:</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">10</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">sendTimeout:</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">10</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">..</span><span class="n">interceptors</span><span class="p">.</span><span class="n">addAll</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">      <span class="n">BizInterceptor</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">SignInterceptor</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">LogInterceptor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">requestBody:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">responseBody:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="p">..</span><span class="n">httpClientAdapter</span> <span class="o">=</span> <span class="n">Http2Adapter</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ConnectionManager</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">idleTimeout:</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">10</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">onClientCreate:</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">config</span><span class="p">.</span><span class="n">onBadCertificate</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span></span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">account</span><span class="p">.</span><span class="nx">PcHeartbeatResponse</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Timestamp</span><span class="p">:</span>    <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Unix</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">PauseState</span><span class="p">:</span>   <span class="nb">int64</span><span class="p">(</span><span class="nx">pauseState</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Notification</span><span class="p">:</span> <span class="nx">not</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Interval</span><span class="p">:</span>     <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">},</span> <span class="kc">nil</span></span></span></code></pre></div></div>
+<p>好吧原本想通过这个参数控制客户端的间隔，却被反向限制了。</p>]]></description>
+</item>
+</channel>
+</rss>

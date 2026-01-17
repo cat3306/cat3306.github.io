@@ -1,0 +1,555 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Golang - Tag - cat13の部屋</title>
+        <link>https://cat3306.github.io/tags/golang/</link>
+        <description>Golang - Tag - cat13の部屋</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>cat016515@gmail.com (cat13)</managingEditor>
+            <webMaster>cat016515@gmail.com (cat13)</webMaster><copyright>cat13の部屋</copyright><lastBuildDate>Tue, 15 Nov 2022 14:58:38 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/golang/" rel="self" type="application/rss+xml" /><item>
+    <title>go pprof</title>
+    <link>https://cat3306.github.io/2022/11/pprof/</link>
+    <pubDate>Tue, 15 Nov 2022 14:58:38 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/11/pprof/</guid>
+    <description><![CDATA[<h3 id="测试代码">测试代码</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;net/http&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">_</span> <span class="s">&#34;net/http/pprof&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;runtime&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">runtime</span><span class="p">.</span><span class="nf">NumCPU</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;0.0.0.0:6060&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">fib</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<h3 id="go-tool-pprof">go tool pprof</h3>
+<p>火焰图</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go tool pprof -http :8080 profile</span></span></code></pre></div></div>
+<h3 id="go-test">go test</h3>
+<p>采集内存</p>]]></description>
+</item>
+<item>
+    <title>go Select</title>
+    <link>https://cat3306.github.io/2022/10/select/</link>
+    <pubDate>Sat, 29 Oct 2022 15:10:28 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/10/select/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>go pkg</title>
+    <link>https://cat3306.github.io/2022/10/go-pkg/</link>
+    <pubDate>Thu, 27 Oct 2022 14:32:00 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/10/go-pkg/</guid>
+    <description><![CDATA[<h1 id="golang-框架和库">golang 框架和库</h1>
+<h2 id="web-框架">web 框架</h2>
+<p><a href="https://github.com/gin-gonic/gin" target="_blank" rel="noopener noreffer ">gin</a></p>
+<h2 id="orm">orm</h2>
+<p><a href="https://gorm.io/" target="_blank" rel="noopener noreffer ">gorm</a></p>
+<h2 id="显示进度条">显示进度条</h2>
+<p><a href="https://github.com/schollz/progressbar" target="_blank" rel="noopener noreffer ">progressbar</a></p>
+<h2 id="下载文件">下载文件</h2>
+<p><a href="https://github.com/cavaliergopher/grab" target="_blank" rel="noopener noreffer ">grab</a></p>
+<h2 id="日志">日志</h2>
+<p><a href="https://github.com/uber-go/zap" target="_blank" rel="noopener noreffer ">zap</a></p>
+<h2 id="rpc">RPC</h2>
+<p><a href="https://github.com/grpc/grpc-go" target="_blank" rel="noopener noreffer ">gRPC</a></p>
+<p><a href="https://github.com/smallnest/rpcx" target="_blank" rel="noopener noreffer ">rpcx</a></p>
+<h2 id="爬虫">爬虫</h2>
+<p><a href="https://github.com/gocolly/colly" target="_blank" rel="noopener noreffer ">colly</a></p>
+<h2 id="工具函数库">工具函数库</h2>
+<p><a href="https://github.com/duke-git/lancet" target="_blank" rel="noopener noreffer ">lancet</a></p>
+<h2 id="分布式存储">分布式存储</h2>
+<p><a href="https://github.com/minio/minio" target="_blank" rel="noopener noreffer ">minio</a></p>
+<h2 id="redis-cli">redis cli</h2>
+<h2 id="终端ui">终端UI</h2>
+<p>非常漂亮的终端ui</p>
+<p><a href="https://github.com/rivo/tview" target="_blank" rel="noopener noreffer ">tview</a></p>]]></description>
+</item>
+<item>
+    <title>go dlv</title>
+    <link>https://cat3306.github.io/2022/10/go-dlv/</link>
+    <pubDate>Wed, 12 Oct 2022 15:24:21 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/10/go-dlv/</guid>
+    <description><![CDATA[<h1 id="dlv">dlv</h1>
+<p><code>dlv</code> 是<code>golang</code> 的调试工具</p>
+<p><a href="https://github.com/go-delve/delve" target="_blank" rel="noopener noreffer ">github</a></p>
+<p><a href="https://chai2010.cn/advanced-go-programming-book/ch3-asm/ch3-09-debug.html" target="_blank" rel="noopener noreffer ">简易教程</a></p>
+<p>简易例子</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">slice</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><code>cd</code> 代码根目录</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ dlv deug
+</span></span><span class="line"><span class="cl">Type <span class="s1">&#39;help&#39;</span> <span class="k">for</span> list of commands.
+</span></span><span class="line"><span class="cl"><span class="o">(</span>dlv<span class="o">)</span> </span></span></code></pre></div></div>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">(</span><span class="n">dlv</span><span class="p">)</span> <span class="n">help</span>
+</span></span><span class="line"><span class="cl"><span class="n">The</span> <span class="n">following</span> <span class="n">commands</span> <span class="n">are</span> <span class="n">available</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Running</span> <span class="n">the</span> <span class="n">program</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">call</span> <span class="o">------------------------</span> <span class="n">Resumes</span> <span class="n">process</span><span class="p">,</span> <span class="n">injecting</span> <span class="n">a</span> <span class="n">function</span> <span class="n">call</span> <span class="p">(</span><span class="n">EXPERIMENTAL</span><span class="o">!!!</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">continue</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">c</span><span class="p">)</span> <span class="o">---------</span> <span class="n">Run</span> <span class="n">until</span> <span class="k">breakpoint</span> <span class="ow">or</span> <span class="n">program</span> <span class="n">termination</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">next</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">n</span><span class="p">)</span> <span class="o">-------------</span> <span class="n">Step</span> <span class="n">over</span> <span class="n">to</span> <span class="n">next</span> <span class="n">source</span> <span class="n">line</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rebuild</span> <span class="o">---------------------</span> <span class="n">Rebuild</span> <span class="n">the</span> <span class="n">target</span> <span class="n">executable</span> <span class="ow">and</span> <span class="n">restarts</span> <span class="n">it</span><span class="o">.</span> <span class="n">It</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">work</span> <span class="k">if</span> <span class="n">the</span> <span class="n">executable</span> <span class="n">was</span> <span class="ow">not</span> <span class="n">built</span> <span class="n">by</span> <span class="n">delve</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">restart</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">r</span><span class="p">)</span> <span class="o">----------</span> <span class="n">Restart</span> <span class="n">process</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">step</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">s</span><span class="p">)</span> <span class="o">-------------</span> <span class="n">Single</span> <span class="n">step</span> <span class="n">through</span> <span class="n">program</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">step</span><span class="o">-</span><span class="n">instruction</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">si</span><span class="p">)</span>  <span class="n">Single</span> <span class="n">step</span> <span class="n">a</span> <span class="n">single</span> <span class="n">cpu</span> <span class="n">instruction</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stepout</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">so</span><span class="p">)</span> <span class="o">---------</span> <span class="n">Step</span> <span class="n">out</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">function</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Manipulating</span> <span class="n">breakpoints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">b</span><span class="p">)</span> <span class="o">-------</span> <span class="n">Sets</span> <span class="n">a</span> <span class="k">breakpoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">breakpoints</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">bp</span><span class="p">)</span>  <span class="n">Print</span> <span class="n">out</span> <span class="n">info</span> <span class="k">for</span> <span class="n">active</span> <span class="n">breakpoints</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clear</span> <span class="o">------------------</span> <span class="n">Deletes</span> <span class="k">breakpoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clearall</span> <span class="o">---------------</span> <span class="n">Deletes</span> <span class="n">multiple</span> <span class="n">breakpoints</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">condition</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">cond</span><span class="p">)</span>  <span class="n">Set</span> <span class="k">breakpoint</span> <span class="n">condition</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">on</span> <span class="o">---------------------</span> <span class="n">Executes</span> <span class="n">a</span> <span class="n">command</span> <span class="n">when</span> <span class="n">a</span> <span class="k">breakpoint</span> <span class="n">is</span> <span class="n">hit</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">toggle</span> <span class="o">-----------------</span> <span class="n">Toggles</span> <span class="n">on</span> <span class="ow">or</span> <span class="n">off</span> <span class="n">a</span> <span class="k">breakpoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">trace</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">t</span><span class="p">)</span> <span class="o">-------</span> <span class="n">Set</span> <span class="n">tracepoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">watch</span> <span class="o">------------------</span> <span class="n">Set</span> <span class="n">watchpoint</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Viewing</span> <span class="n">program</span> <span class="n">variables</span> <span class="ow">and</span> <span class="n">memory</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span> <span class="o">-----------------</span> <span class="n">Print</span> <span class="n">function</span> <span class="n">arguments</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">display</span> <span class="o">--------------</span> <span class="n">Print</span> <span class="n">value</span> <span class="n">of</span> <span class="n">an</span> <span class="n">expression</span> <span class="n">every</span> <span class="n">time</span> <span class="n">the</span> <span class="n">program</span> <span class="n">stops</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">examinemem</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>  <span class="n">Examine</span> <span class="n">raw</span> <span class="n">memory</span> <span class="n">at</span> <span class="n">the</span> <span class="n">given</span> <span class="n">address</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">locals</span> <span class="o">---------------</span> <span class="n">Print</span> <span class="n">local</span> <span class="n">variables</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">p</span><span class="p">)</span> <span class="o">-----</span> <span class="n">Evaluate</span> <span class="n">an</span> <span class="n">expression</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">regs</span> <span class="o">-----------------</span> <span class="n">Print</span> <span class="n">contents</span> <span class="n">of</span> <span class="n">CPU</span> <span class="n">registers</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span> <span class="o">------------------</span> <span class="n">Changes</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">a</span> <span class="n">variable</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vars</span> <span class="o">-----------------</span> <span class="n">Print</span> <span class="n">package</span> <span class="n">variables</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">whatis</span> <span class="o">---------------</span> <span class="n">Prints</span> <span class="n">type</span> <span class="n">of</span> <span class="n">an</span> <span class="n">expression</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Listing</span> <span class="ow">and</span> <span class="n">switching</span> <span class="n">between</span> <span class="n">threads</span> <span class="ow">and</span> <span class="n">goroutines</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">goroutine</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">gr</span><span class="p">)</span> <span class="o">--</span> <span class="n">Shows</span> <span class="ow">or</span> <span class="n">changes</span> <span class="n">current</span> <span class="n">goroutine</span>
+</span></span><span class="line"><span class="cl">    <span class="n">goroutines</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">grs</span><span class="p">)</span>  <span class="n">List</span> <span class="n">program</span> <span class="n">goroutines</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">thread</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">tr</span><span class="p">)</span> <span class="o">-----</span> <span class="n">Switch</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">thread</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">threads</span> <span class="o">----------------</span> <span class="n">Print</span> <span class="n">out</span> <span class="n">info</span> <span class="k">for</span> <span class="n">every</span> <span class="n">traced</span> <span class="n">thread</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Viewing</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span> <span class="ow">and</span> <span class="n">selecting</span> <span class="n">frames</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">deferred</span> <span class="o">---------</span> <span class="n">Executes</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">context</span> <span class="n">of</span> <span class="n">a</span> <span class="n">deferred</span> <span class="n">call</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">down</span> <span class="o">-------------</span> <span class="n">Move</span> <span class="n">the</span> <span class="n">current</span> <span class="n">frame</span> <span class="n">down</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">frame</span> <span class="o">------------</span> <span class="n">Set</span> <span class="n">the</span> <span class="n">current</span> <span class="n">frame</span><span class="p">,</span> <span class="ow">or</span> <span class="n">execute</span> <span class="n">command</span> <span class="n">on</span> <span class="n">a</span> <span class="n">different</span> <span class="n">frame</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stack</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">bt</span><span class="p">)</span>  <span class="n">Print</span> <span class="n">stack</span> <span class="n">trace</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">up</span> <span class="o">---------------</span> <span class="n">Move</span> <span class="n">the</span> <span class="n">current</span> <span class="n">frame</span> <span class="n">up</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Other</span> <span class="n">commands</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">---------------------</span> <span class="n">Changes</span> <span class="n">configuration</span> <span class="n">parameters</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">disassemble</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">disass</span><span class="p">)</span>  <span class="n">Disassembler</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dump</span> <span class="o">-----------------------</span> <span class="n">Creates</span> <span class="n">a</span> <span class="n">core</span> <span class="n">dump</span> <span class="n">from</span> <span class="n">the</span> <span class="n">current</span> <span class="n">process</span> <span class="n">state</span>
+</span></span><span class="line"><span class="cl">    <span class="n">edit</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">ed</span><span class="p">)</span> <span class="o">-----------</span> <span class="n">Open</span> <span class="n">where</span> <span class="n">you</span> <span class="n">are</span> <span class="ow">in</span> <span class="o">$</span><span class="n">DELVE_EDITOR</span> <span class="ow">or</span> <span class="o">$</span><span class="n">EDITOR</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">quit</span> <span class="o">|</span> <span class="n">q</span><span class="p">)</span> <span class="o">-----</span> <span class="n">Exit</span> <span class="n">the</span> <span class="n">debugger</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">funcs</span> <span class="o">----------------------</span> <span class="n">Print</span> <span class="n">list</span> <span class="n">of</span> <span class="n">functions</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">help</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">h</span><span class="p">)</span> <span class="o">------------</span> <span class="n">Prints</span> <span class="n">the</span> <span class="n">help</span> <span class="n">message</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">libraries</span> <span class="o">------------------</span> <span class="n">List</span> <span class="n">loaded</span> <span class="n">dynamic</span> <span class="n">libraries</span>
+</span></span><span class="line"><span class="cl">    <span class="n">list</span> <span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="n">ls</span> <span class="o">|</span> <span class="n">l</span><span class="p">)</span> <span class="o">-------</span> <span class="n">Show</span> <span class="n">source</span> <span class="n">code</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">source</span> <span class="o">---------------------</span> <span class="n">Executes</span> <span class="n">a</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">delve</span> <span class="n">commands</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sources</span> <span class="o">--------------------</span> <span class="n">Print</span> <span class="n">list</span> <span class="n">of</span> <span class="n">source</span> <span class="n">files</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">transcript</span> <span class="o">-----------------</span> <span class="n">Appends</span> <span class="n">command</span> <span class="n">output</span> <span class="n">to</span> <span class="n">a</span> <span class="n">file</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">types</span> <span class="o">----------------------</span> <span class="n">Print</span> <span class="n">list</span> <span class="n">of</span> <span class="n">types</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Type</span> <span class="n">help</span> <span class="n">followed</span> <span class="n">by</span> <span class="n">a</span> <span class="n">command</span> <span class="k">for</span> <span class="n">full</span> <span class="n">documentation</span><span class="o">.</span></span></span></code></pre></div></div>
+<h2 id="break"><code>break</code></h2>
+<p>设置一个断点</p>]]></description>
+</item>
+<item>
+    <title>go sync</title>
+    <link>https://cat3306.github.io/2022/07/go-sync/</link>
+    <pubDate>Fri, 29 Jul 2022 11:28:50 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/07/go-sync/</guid>
+    <description><![CDATA[<h1 id="为什么要同步">为什么要同步</h1>
+<p>操作系统中进程拥有自己的虚拟内存空间，彼此访问不了对方的内存区域，这是操作系统层面上的内存安全。但是由于线程是操作系统的调度单位，多个线程共享进程的内存空间，并发的访问(读写)同一块内存会出现一些诡异的问题。同步访问内存是多线程编程不可逾越的操作。对<code>golang</code>稍微熟悉一点就会知道常用的<code>map</code>并发并不安全，如果出现多个<code>goroutine</code>同时读写，程序会发生崩溃。</p>
+<h1 id="互斥锁">互斥锁</h1>
+<p>锁的基本思想是：同一个时刻只有一个线程处于一块代码段，这块代码段称为临界区，刚开始的时候<code>thread0</code>进入临界区前会检查一个变量<code>state</code>是否为<code>0</code>，如果是<code>0</code>代表可以进入临界区，并且将<code>state</code>置为1，处理完逻辑后，离开临界区把<code>state</code>置为0。当然对于<code>state</code>操作是原子性的，否则这是个无穷无尽的并发问题。具体思想如下<i class="far fa-hand-point-down fa-fw" aria-hidden="true"></i></p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;sync/atomic&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">state</span>        <span class="kt">int32</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">CriticalZone</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">WriteCount</span>   <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ReadCount</span>    <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">LockState</span>   <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">UnLockState</span> <span class="p">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Lock</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">state</span><span class="p">,</span> <span class="nx">UnLockState</span><span class="p">,</span> <span class="nx">LockState</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">UnLock</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">state</span><span class="p">,</span> <span class="nx">LockState</span><span class="p">,</span> <span class="nx">UnLockState</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">write</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">WriteCount</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">CriticalZone</span><span class="p">[</span><span class="nx">WriteCount</span><span class="p">]</span> <span class="p">=</span> <span class="nx">WriteCount</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">UnLock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">read</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">ReadCount</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">s</span> <span class="o">:=</span> <span class="nx">CriticalZone</span><span class="p">[</span><span class="nx">ReadCount</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="o">*</span><span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">UnLock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">CriticalZone</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="nf">write</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="nf">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>实现了非常简单的互斥锁，如果把<code>Lock</code> 和<code>UnLock</code>的部分去掉，则会<code>panic</code></p>]]></description>
+</item>
+<item>
+    <title>go 异步抢占调度</title>
+    <link>https://cat3306.github.io/2022/07/goroutine-preemption/</link>
+    <pubDate>Mon, 25 Jul 2022 14:20:31 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/07/goroutine-preemption/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>go map</title>
+    <link>https://cat3306.github.io/2022/06/go-map/</link>
+    <pubDate>Sat, 25 Jun 2022 14:05:06 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/06/go-map/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>golang channel原理</title>
+    <link>https://cat3306.github.io/2022/06/go-channel/</link>
+    <pubDate>Fri, 24 Jun 2022 11:38:47 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/06/go-channel/</guid>
+    <description><![CDATA[<p><code>channel</code>被设计用来<code>goroutine</code>之间通讯的。<code>go</code>在共享内存的设计理念是：不要通过共享内存的方式进行通信，而是应该通过通信的方式共享内存。</p>
+<h1 id="数据结构与原理">数据结构与原理</h1>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">hchan</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">qcount</span>   <span class="kt">uint</span>           <span class="c1">// total data in the queue</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">dataqsiz</span> <span class="kt">uint</span>           <span class="c1">// size of the circular queue</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">buf</span>      <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// points to an array of dataqsiz elements</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">elemsize</span> <span class="kt">uint16</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">closed</span>   <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">elemtype</span> <span class="o">*</span><span class="nx">_type</span> <span class="c1">// element type</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sendx</span>    <span class="kt">uint</span>   <span class="c1">// send index</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">recvx</span>    <span class="kt">uint</span>   <span class="c1">// receive index</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">recvq</span>    <span class="nx">waitq</span>  <span class="c1">// list of recv waiters</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sendq</span>    <span class="nx">waitq</span>  <span class="c1">// list of send waiters</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// lock protects all fields in hchan, as well as several</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// fields in sudogs blocked on this channel.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Do not change another G&#39;s status while holding this lock</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// (in particular, do not ready a G), as this can deadlock</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// with stack shrinking.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">lock</span> <span class="nx">mutex</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">字段</th>
+          <th style="text-align: center">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">buf</td>
+          <td style="text-align: center">指向缓存区的指针</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">qcount</td>
+          <td style="text-align: center">缓存区已有的元素个数</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">dataqsize</td>
+          <td style="text-align: center">缓存区数组容量</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">elemsize</td>
+          <td style="text-align: center">元素大小</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">elemtype</td>
+          <td style="text-align: center">元素类型</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">sendx</td>
+          <td style="text-align: center">ch&lt;-x ,goroutine发送数据到缓存区，填充数据的下标，写操作</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">recvx</td>
+          <td style="text-align: center">x:=&lt;-ch,goroutine向channel读数据的下标，读操作</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">recvq</td>
+          <td style="text-align: center">消费者阻塞队列</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">sendq</td>
+          <td style="text-align: center">生产者阻塞队列</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">lock</td>
+          <td style="text-align: center">锁，用于维持缓存区数据的完整性</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">closed</td>
+          <td style="text-align: center">c.closed != 0 表示channel已关闭</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong><code>channel</code>分为有缓存和无缓存两种</strong>。对于有缓存来说，需要缓存区来存储数据，缓存区是一个环形数组，sendx，recvx下标超过或等于数组长度会被置成0。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// /usr/local/go/src/runtime/chan.go </span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">chanrecv</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">hchan</span><span class="p">,</span> <span class="nx">ep</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">block</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">selected</span><span class="p">,</span> <span class="nx">received</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  		<span class="o">...</span><span class="p">..</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">recvx</span> <span class="o">==</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dataqsiz</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			 <span class="nx">c</span><span class="p">.</span><span class="nx">recvx</span> <span class="p">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">  		<span class="o">...</span><span class="p">..</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<h2 id="有缓存channel">有缓存channel</h2>
+<figure class="center">
+</figure>
+<p>当有<code>goroutine</code>向<code>channel</code>发送数据时</p>
+<figure class="center">
+</figure>
+<p>如果这时候再向<code>channel</code>发送一个数据，<code>recvx</code>=<code>sendx</code>表示为缓存区为空或者已满</p>
+<p>而判断<code>channel</code>的缓存区是否已满，源码是这样判断的</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// /usr/local/go/src/runtime/chan.go </span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">full</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">hchan</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// c.dataqsiz is immutable (never written after the channel is created)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// so it is safe to read at any time during channel operation.</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dataqsiz</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// Assumes that a pointer read is relaxed-atomic.</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">recvq</span><span class="p">.</span><span class="nx">first</span> <span class="o">==</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Assumes that a uint read is relaxed-atomic.</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">qcount</span> <span class="o">==</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dataqsiz</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>至于缓存区满了之后需不需要阻塞是由<code>block</code>参数决定的</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// /usr/local/go/src/runtime/chan.go </span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">chansend</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">hchan</span><span class="p">,</span> <span class="nx">ep</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">block</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">callerpc</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="o">...</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">!</span><span class="nx">block</span> <span class="o">&amp;&amp;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">closed</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nf">full</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">...</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>怎么样才能让<code>channel</code>无阻塞呢，需要<code>select</code>语句中<code>default</code>关键字</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">i</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;no block&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>所谓的阻塞，是阻塞当前<code>goroutine</code>,不管是从<code>channel</code>中取数据，还是从<code>channel</code>发送数据，都有可能阻塞。所以<code>channel</code>的数据结构里面有两个等待队列：<code>recvq</code>,<code>sendq</code>。用来记录阻塞的<code>goroutine</code>。等待队列是<code>sudog</code>类型的双向列表，<code>sudog</code>记录了哪个<code>goroutine</code>在等待，等待哪个<code>channel</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// /usr/local/go/src/runtime/chan.go </span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">waitq</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">first</span> <span class="o">*</span><span class="nx">sudog</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">last</span>  <span class="o">*</span><span class="nx">sudog</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">sudog</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">g</span> <span class="o">*</span><span class="nx">g</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">next</span> <span class="o">*</span><span class="nx">sudog</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">prev</span> <span class="o">*</span><span class="nx">sudog</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">elem</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">acquiretime</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">releasetime</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ticket</span>      <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">isSelect</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">success</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">parent</span>   <span class="o">*</span><span class="nx">sudog</span> <span class="c1">// semaRoot binary tree</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">waitlink</span> <span class="o">*</span><span class="nx">sudog</span> <span class="c1">// g.waiting list or semaRoot</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">waittail</span> <span class="o">*</span><span class="nx">sudog</span> <span class="c1">// semaRoot</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span>        <span class="o">*</span><span class="nx">hchan</span> <span class="c1">// channel</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>当满足条件时，要立刻唤醒等待的<code>goroutine</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">字段</th>
+          <th style="text-align: center">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">g</td>
+          <td style="text-align: center">等待的goroutine</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">elem</td>
+          <td style="text-align: center">元素的地址</td>
+      </tr>
+  </tbody>
+</table>
+<p>当有<code>goroutine</code>读走一个数据的时候：v:=&lt;-ch</p>
+<figure class="center">
+</figure>
+<h2 id="无缓冲channel">无缓冲channel</h2>
+<p>这些字段都是零值</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">字段</th>
+          <th style="text-align: center">值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">buf</td>
+          <td style="text-align: center">nil</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">qcount</td>
+          <td style="text-align: center">0</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">dataqsize</td>
+          <td style="text-align: center">0</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">sendx</td>
+          <td style="text-align: center">0</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">recvx</td>
+          <td style="text-align: center">0</td>
+      </tr>
+  </tbody>
+</table>
+<p>工作的只有<code>recvq</code>,<code>sendq</code>，当有<code>goroutine</code>发送数据时，会直接把数据指针赋值给<code>recvq</code>的第一个元素，如果<code>recvq</code>为空，阻塞当前<code>goroutine</code>，并加入到<code>sendq</code>；当有<code>goroutine</code>接收数据时，会直接从<code>sendq</code>中取出队首元素的数据</p>
+<figure><a class="lightgallery" href="/images/golang/5.png" title="11" data-thumbnail="/images/golang/5.png" data-sub-html="<h2>图片描述</h2>">
+        
+    </a><figcaption class="image-caption">图片描述</figcaption>
+    </figure>
+<h2 id="无数据channel">无数据channel</h2>
+<p>有时候遇到的场景是，<code>goroutine</code>之间的通讯不涉及数据，但是需要有触发时机。这个时候，<code>channel</code>可以定义无数据的<code>channel</code> ：ch:=make(chan struct{},5)，此时<code>buf</code>字段是<code>nil</code>，其他的字段正常</p>]]></description>
+</item>
+<item>
+    <title>go defer</title>
+    <link>https://cat3306.github.io/2022/06/go-defer/</link>
+    <pubDate>Wed, 22 Jun 2022 20:59:10 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/06/go-defer/</guid>
+    <description><![CDATA[<h1 id="defer">defer</h1>]]></description>
+</item>
+<item>
+    <title>go http</title>
+    <link>https://cat3306.github.io/2022/04/go-http/</link>
+    <pubDate>Wed, 20 Apr 2022 14:25:07 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/2022/04/go-http/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

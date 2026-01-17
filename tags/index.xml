@@ -1,0 +1,64 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - cat13の部屋</title>
+        <link>https://cat3306.github.io/tags/</link>
+        <description>Tags - Tag - cat13の部屋</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>cat016515@gmail.com (cat13)</managingEditor>
+            <webMaster>cat016515@gmail.com (cat13)</webMaster><copyright>cat13の部屋</copyright><lastBuildDate>Tue, 02 Dec 2025 10:34:40 &#43;0800</lastBuildDate><atom:link href="https://cat3306.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Job</title>
+    <link>https://cat3306.github.io/tags/job/</link>
+    <pubDate>Tue, 02 Dec 2025 10:34:40 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/tags/job/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Redis</title>
+    <link>https://cat3306.github.io/tags/redis/</link>
+    <pubDate>Thu, 13 Nov 2025 15:27:35 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/tags/redis/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>K8s</title>
+    <link>https://cat3306.github.io/tags/k8s/</link>
+    <pubDate>Thu, 13 Nov 2025 15:11:12 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/tags/k8s/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Grpc</title>
+    <link>https://cat3306.github.io/tags/grpc/</link>
+    <pubDate>Sat, 08 Nov 2025 16:45:36 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/tags/grpc/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Mysql</title>
+    <link>https://cat3306.github.io/tags/mysql/</link>
+    <pubDate>Fri, 27 Jun 2025 16:28:24 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/tags/mysql/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Linux</title>
+    <link>https://cat3306.github.io/tags/linux/</link>
+    <pubDate>Sat, 19 Apr 2025 18:10:38 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/tags/linux/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Golang</title>
+    <link>https://cat3306.github.io/tags/golang/</link>
+    <pubDate>Tue, 15 Nov 2022 14:58:38 &#43;0800</pubDate>
+    <author>cat13</author>
+    <guid>https://cat3306.github.io/tags/golang/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>
